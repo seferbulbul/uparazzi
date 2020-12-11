@@ -29,6 +29,7 @@ namespace UpArazzi2.Controllers
                     }
                     return Session["User"] as danisman;
 
+
                 }
 
                 return null;
