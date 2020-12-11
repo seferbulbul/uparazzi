@@ -34,6 +34,7 @@ namespace UpArazzi2.Models
         public virtual DbSet<filtre> filtres { get; set; }
         public virtual DbSet<fotograf> fotografs { get; set; }
         public virtual DbSet<haber> habers { get; set; }
+        public virtual DbSet<history> histories { get; set; }
         public virtual DbSet<islem> islems { get; set; }
         public virtual DbSet<kurumsal> kurumsals { get; set; }
         public virtual DbSet<mail> mails { get; set; }
@@ -46,6 +47,5 @@ namespace UpArazzi2.Models
         public virtual DbSet<slider> sliders { get; set; }
         public virtual DbSet<sozluk> sozluks { get; set; }
         public virtual DbSet<town> towns { get; set; }
-        public virtual DbSet<history> histories { get; set; }
     }
 }

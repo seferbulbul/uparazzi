@@ -21,8 +21,8 @@ namespace UpArazzi2.Models
             this.danisman1 = new HashSet<danisman>();
             this.filtres = new HashSet<filtre>();
             this.portfoys = new HashSet<portfoy>();
-            this.services = new HashSet<service>();
             this.histories = new HashSet<history>();
+            this.services = new HashSet<service>();
         }
     
         public int Id { get; set; }
@@ -69,8 +69,8 @@ namespace UpArazzi2.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<portfoy> portfoys { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<service> services { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<history> histories { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<service> services { get; set; }
     }
 }

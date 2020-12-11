@@ -647,6 +647,7 @@
           <EntitySet Name="filtres" EntityType="uparazzidbModel.filtre" />
           <EntitySet Name="fotografs" EntityType="uparazzidbModel.fotograf" />
           <EntitySet Name="habers" EntityType="uparazzidbModel.haber" />
+          <EntitySet Name="histories" EntityType="uparazzidbModel.history" />
           <EntitySet Name="islems" EntityType="uparazzidbModel.islem" />
           <EntitySet Name="kurumsals" EntityType="uparazzidbModel.kurumsal" />
           <EntitySet Name="mails" EntityType="uparazzidbModel.mail" />
@@ -687,6 +688,10 @@
             <End Role="danisman" EntitySet="danismen" />
             <End Role="portfoy" EntitySet="portfoys" />
           </AssociationSet>
+          <AssociationSet Name="history_ibfk_1" Association="uparazzidbModel.history_ibfk_1">
+            <End Role="danisman" EntitySet="danismen" />
+            <End Role="history" EntitySet="histories" />
+          </AssociationSet>
           <AssociationSet Name="service_ibfk_2" Association="uparazzidbModel.service_ibfk_2">
             <End Role="danisman" EntitySet="danismen" />
             <End Role="service" EntitySet="services" />
@@ -722,11 +727,6 @@
           <AssociationSet Name="portfoyozellik_ibfk_1" Association="uparazzidbModel.portfoyozellik_ibfk_1">
             <End Role="portfoy" EntitySet="portfoys" />
             <End Role="portfoyozellik" EntitySet="portfoyozelliks" />
-          </AssociationSet>
-          <EntitySet Name="histories" EntityType="uparazzidbModel.history" />
-          <AssociationSet Name="history_ibfk_1" Association="uparazzidbModel.history_ibfk_1">
-            <End Role="danisman" EntitySet="danismen" />
-            <End Role="history" EntitySet="histories" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="ajanda">
@@ -814,8 +814,8 @@
           <NavigationProperty Name="danisman2" Relationship="uparazzidbModel.danisman_ibfk_1" FromRole="danisman1" ToRole="danisman" />
           <NavigationProperty Name="filtres" Relationship="uparazzidbModel.filtre_ibfk_1" FromRole="danisman" ToRole="filtre" />
           <NavigationProperty Name="portfoys" Relationship="uparazzidbModel.FK_Portfoy_Danisman" FromRole="danisman" ToRole="portfoy" />
-          <NavigationProperty Name="services" Relationship="uparazzidbModel.service_ibfk_2" FromRole="danisman" ToRole="service" />
           <NavigationProperty Name="histories" Relationship="uparazzidbModel.history_ibfk_1" FromRole="danisman" ToRole="history" />
+          <NavigationProperty Name="services" Relationship="uparazzidbModel.service_ibfk_2" FromRole="danisman" ToRole="service" />
         </EntityType>
         <EntityType Name="district">
           <Key>
@@ -878,6 +878,17 @@
           <Property Name="Title" Type="String" MaxLength="145" FixedLength="false" Unicode="false" />
           <Property Name="Text" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
           <Property Name="NewsOrder" Type="Int32" />
+        </EntityType>
+        <EntityType Name="history">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DanismanId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" />
+          <Property Name="Action" Type="String" MaxLength="445" FixedLength="false" Unicode="false" />
+          <Property Name="forAdmin" Type="Boolean" />
+          <NavigationProperty Name="danisman" Relationship="uparazzidbModel.history_ibfk_1" FromRole="history" ToRole="danisman" />
         </EntityType>
         <EntityType Name="islem">
           <Key>
@@ -1168,6 +1179,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="history_ibfk_1">
+          <End Type="uparazzidbModel.danisman" Role="danisman" Multiplicity="0..1" />
+          <End Type="uparazzidbModel.history" Role="history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="danisman">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="history">
+              <PropertyRef Name="DanismanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="service_ibfk_2">
           <End Type="uparazzidbModel.danisman" Role="danisman" Multiplicity="0..1" />
           <End Type="uparazzidbModel.service" Role="service" Multiplicity="*" />
@@ -1273,29 +1296,6 @@
             </Principal>
             <Dependent Role="portfoyozellik">
               <PropertyRef Name="PortfoyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="history">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="DanismanId" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" />
-          <Property Name="Action" Type="String" MaxLength="445" FixedLength="false" Unicode="false" />
-          <Property Name="forAdmin" Type="Boolean" />
-          <NavigationProperty Name="danisman" Relationship="uparazzidbModel.history_ibfk_1" FromRole="history" ToRole="danisman" />
-        </EntityType>
-        <Association Name="history_ibfk_1">
-          <End Type="uparazzidbModel.danisman" Role="danisman" Multiplicity="0..1" />
-          <End Type="uparazzidbModel.history" Role="history" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="danisman">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="history">
-              <PropertyRef Name="DanismanId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1443,6 +1443,17 @@
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="histories">
+            <EntityTypeMapping TypeName="uparazzidbModel.history">
+              <MappingFragment StoreEntitySet="history">
+                <ScalarProperty Name="forAdmin" ColumnName="forAdmin" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="DanismanId" ColumnName="DanismanId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1645,17 +1656,6 @@
                 <ScalarProperty Name="TownName" ColumnName="TownName" />
                 <ScalarProperty Name="CityID" ColumnName="CityID" />
                 <ScalarProperty Name="TownID" ColumnName="TownID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="histories">
-            <EntityTypeMapping TypeName="uparazzidbModel.history">
-              <MappingFragment StoreEntitySet="history">
-                <ScalarProperty Name="forAdmin" ColumnName="forAdmin" />
-                <ScalarProperty Name="Action" ColumnName="Action" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="DanismanId" ColumnName="DanismanId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

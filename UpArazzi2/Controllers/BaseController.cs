@@ -21,15 +21,14 @@ namespace UpArazzi2.Controllers
             {
                 if (Session["User"] != null)
                 {
+                    danisman da = Session["User"] as danisman;
                     DateTime d = DateTime.Now;
-                    bool h = db.histories.Any(x => x.DanismanId == CurrentUser.Id && x.CreatedDate.Value.Year == d.Year && x.CreatedDate.Value.Month == d.Month && x.CreatedDate.Value.Day == d.Day && x.Action.Contains("sisteme giriş yapmıştır"));
+                    bool h = db.histories.Any(x => x.DanismanId == da.Id && x.CreatedDate.Value.Year == d.Year && x.CreatedDate.Value.Month == d.Month && x.CreatedDate.Value.Day == d.Day && x.Action.Contains("sisteme giriş yapmıştır"));
                     if (!h)
                     {
-                        LogEkle($"{CurrentUser.Ad}, sisteme giriş yapmıştır.", true);
+                        LogEkle($"{da.Ad}, sisteme giriş yapmıştır.", true);
                     }
-                    return Session["User"] as danisman;
-
-
+                    return da;
                 }
 
                 return null;
@@ -38,8 +37,9 @@ namespace UpArazzi2.Controllers
 
         public void LogEkle(string action, bool admin)
         {
+            danisman d = Session["User"] as danisman;
             history h = new history();
-            h.DanismanId = CurrentUser.Id;
+            h.DanismanId = d.Id;
             h.CreatedDate = DateTime.Now;
             h.Action = action;
             h.forAdmin = admin;

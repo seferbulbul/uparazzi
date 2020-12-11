@@ -32,7 +32,7 @@
     <meta property="twitter: title" content="@ViewBag.Title">
     <meta property="twitter: description" content="@ViewBag.Description">
     <link rel="canonical" href="@ViewBag.Url">
-   
+
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
 
@@ -65,17 +65,19 @@
         fbq('init', '336801861029978');
         fbq('track', 'PageView');
     </script>
-    @*<script language="javascript">
-            document.onmousedown = disableclick;
-            status = "Right Click Disabled";
-            Function disableclick(event)
-            {
-                if (event.button == 2) {
-                    alert(status);
-                    return false;
-                }
-            }
-        </script>*@
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+        (function () {
+            var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/5fd3618bdf060f156a8c15a7/default';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 </head>

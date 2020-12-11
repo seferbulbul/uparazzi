@@ -5,27 +5,28 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="2aecc525874745f7985e91f58a15ae41" Name="Diagram1" ZoomLevel="84">
-        <EntityTypeShape EntityType="uparazzidbModel.ajanda" Width="1.5" PointX="3" PointY="34.75" />
-        <EntityTypeShape EntityType="uparazzidbModel.blog" Width="1.5" PointX="6" PointY="8.5" />
-        <EntityTypeShape EntityType="uparazzidbModel.city" Width="1.5" PointX="0.75" PointY="8.625" />
-        <EntityTypeShape EntityType="uparazzidbModel.danisman" Width="1.5" PointX="0.75" PointY="12.625" />
-        <EntityTypeShape EntityType="uparazzidbModel.district" Width="1.5" PointX="1.5" PointY="22.875" />
+        <EntityTypeShape EntityType="uparazzidbModel.ajanda" Width="1.5" PointX="3" PointY="37.875" />
+        <EntityTypeShape EntityType="uparazzidbModel.blog" Width="1.5" PointX="9" PointY="13.125" />
+        <EntityTypeShape EntityType="uparazzidbModel.city" Width="1.5" PointX="0.75" PointY="10.25" />
+        <EntityTypeShape EntityType="uparazzidbModel.danisman" Width="1.5" PointX="0.75" PointY="14.125" />
+        <EntityTypeShape EntityType="uparazzidbModel.district" Width="1.5" PointX="1.5" PointY="24.5" />
         <EntityTypeShape EntityType="uparazzidbModel.errortable" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="uparazzidbModel.filtre" Width="1.5" PointX="3" PointY="9.875" />
-        <EntityTypeShape EntityType="uparazzidbModel.fotograf" Width="1.5" PointX="8.25" PointY="14.625" />
+        <EntityTypeShape EntityType="uparazzidbModel.filtre" Width="1.5" PointX="3" PointY="11.5" />
+        <EntityTypeShape EntityType="uparazzidbModel.fotograf" Width="1.5" PointX="11.25" PointY="14.25" />
         <EntityTypeShape EntityType="uparazzidbModel.haber" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="uparazzidbModel.islem" Width="1.5" PointX="8.25" PointY="18.125" />
+        <EntityTypeShape EntityType="uparazzidbModel.history" Width="1.5" PointX="3" PointY="35" />
+        <EntityTypeShape EntityType="uparazzidbModel.islem" Width="1.5" PointX="8.25" PointY="16.625" />
         <EntityTypeShape EntityType="uparazzidbModel.kurumsal" Width="1.5" PointX="0.75" PointY="3.75" />
         <EntityTypeShape EntityType="uparazzidbModel.mail" Width="1.5" PointX="2.75" PointY="3.75" />
         <EntityTypeShape EntityType="uparazzidbModel.mm" Width="1.5" PointX="4.75" PointY="0.75" />
-        <EntityTypeShape EntityType="uparazzidbModel.neighborhood" Width="1.5" PointX="3.75" PointY="22.625" />
-        <EntityTypeShape EntityType="uparazzidbModel.ozellik" Width="1.5" PointX="9" PointY="11.875" />
-        <EntityTypeShape EntityType="uparazzidbModel.portfoy" Width="1.5" PointX="6" PointY="12.75" />
-        <EntityTypeShape EntityType="uparazzidbModel.portfoyozellik" Width="1.5" PointX="11.25" PointY="15.875" />
-        <EntityTypeShape EntityType="uparazzidbModel.service" Width="1.5" PointX="3" PointY="14.625" />
+        <EntityTypeShape EntityType="uparazzidbModel.neighborhood" Width="1.5" PointX="3.75" PointY="24.25" />
+        <EntityTypeShape EntityType="uparazzidbModel.ozellik" Width="1.5" PointX="9" PointY="9.5" />
+        <EntityTypeShape EntityType="uparazzidbModel.portfoy" Width="1.5" PointX="6" PointY="14.375" />
+        <EntityTypeShape EntityType="uparazzidbModel.portfoyozellik" Width="1.5" PointX="11.25" PointY="17.5" />
+        <EntityTypeShape EntityType="uparazzidbModel.service" Width="1.5" PointX="3" PointY="16.25" />
         <EntityTypeShape EntityType="uparazzidbModel.slider" Width="1.5" PointX="4.75" PointY="3.75" />
         <EntityTypeShape EntityType="uparazzidbModel.sozluk" Width="1.5" PointX="6.75" PointY="0.75" />
-        <EntityTypeShape EntityType="uparazzidbModel.town" Width="1.5" PointX="1.5" PointY="25.875" />
+        <EntityTypeShape EntityType="uparazzidbModel.town" Width="1.5" PointX="1.5" PointY="27.5" />
         <AssociationConnector Association="uparazzidbModel.ajanda_ibfk_1" />
         <AssociationConnector Association="uparazzidbModel.fotograf_ibfk_1" />
         <AssociationConnector Association="uparazzidbModel.filtre_ibfk_2" />
@@ -33,6 +34,7 @@
         <AssociationConnector Association="uparazzidbModel.danisman_ibfk_1" />
         <AssociationConnector Association="uparazzidbModel.filtre_ibfk_1" />
         <AssociationConnector Association="uparazzidbModel.FK_Portfoy_Danisman" />
+        <AssociationConnector Association="uparazzidbModel.history_ibfk_1" />
         <AssociationConnector Association="uparazzidbModel.service_ibfk_2" />
         <AssociationConnector Association="uparazzidbModel.FK_District_TownID" />
         <AssociationConnector Association="uparazzidbModel.FK_Neighborhood_DistrictID" />
@@ -42,8 +44,6 @@
         <AssociationConnector Association="uparazzidbModel.service_ibfk_3" />
         <AssociationConnector Association="uparazzidbModel.portfoyozellik_ibfk_2" />
         <AssociationConnector Association="uparazzidbModel.portfoyozellik_ibfk_1" />
-        <EntityTypeShape EntityType="uparazzidbModel.history" Width="1.5" PointX="3" PointY="28.875" />
-        <AssociationConnector Association="uparazzidbModel.history_ibfk_1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
