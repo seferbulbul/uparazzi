@@ -1,0 +1,458 @@
+﻿@model portfoy
+@{
+    ViewBag.Title = "PortfoyEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<script>
+
+  
+
+    $(function () {
+
+        if ($('input.YetkiSozlesme').prop('checked') && $("#image")[0].files.length > 8) {
+            $(".PortfoyKaydet").attr("disabled", false);
+
+        } else {
+            $(".PortfoyKaydet").attr("disabled", true);
+        };
+        $('input.YetkiSozlesme').click(function () {
+            if ($('input.YetkiSozlesme').prop('checked') && $("#image")[0].files.length > 8) {
+                $(".PortfoyKaydet").attr("disabled", false);
+
+            } else {
+                $(".PortfoyKaydet").attr("disabled", true);
+            }
+        })
+
+    })
+
+    $(function () {
+        $("#image").on("change", function () {
+            if ($("#image")[0].files.length < 9) {
+                alert("En az 9 Resim Dosyası Seçmelisiniz");
+                $(".PortfoyKaydet").attr("disabled", true);
+            } else if ($("#image")[0].files.length > 8 && $('input.YetkiSozlesme').prop('checked')) {
+                $(".PortfoyKaydet").attr("disabled", false);
+            }
+        });
+
+        $(".iller").change(function () {
+            var id = $(this).val();        
+            $.ajax({
+                type: "get",
+                data: { IlKeyId: id, Ekle:true },
+                url: "/Home/Ilceler",
+                success: function (data) {
+                    $(".ilceler").html(data);
+                }
+            })
+        })
+
+        $(".ilceler").change(function () {        
+            var id = $(this).val();        
+            $.ajax({
+                type: "get",
+                data: { IlceKeyId: id},
+                url: "/Home/Mahalle",
+                success: function (data) {
+                    $(".Mahalle").html(data);
+                }
+            })
+        })
+    });
+
+</script>
+<div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Portföy Ekle </h5>
+        </div>
+        <!-- Breadcrumb -->
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">PORTFÖY BİLGİLERİ</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+             
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+
+                        <form method="post" action="/Danisman/PortfoyEkle" enctype="multipart/form-data">
+
+                            <p style="color:red;font-weight:bold;font-size:large">@ViewBag.Mesaj</p>
+                          
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        <label for="itemN-15">BAŞLIK</label>
+                                        @Html.TextBoxFor(x => x.Baslik, new { @class = "form-control", required = "required", pattern = "^((?!kelepir)(?!kelepır)(?!kelepr)(?!klepir)(?!ölü)(?!olu)(?!ölu)(?!olü).)*$", title = "Kelepir, Ölü Gibi Kelimeler Kullanmayınız.." })
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-16">YETKİ BELGESİ</label>
+                                        <input type="file" required class="form-control" name="Resim" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label>YETKİ SÜRESİ</label>
+                                        <select required name="yetkisuresi" class="form-control">
+                                            <option value="">Seçim Yapınız</option>
+                                            @for (int i = 3; i < 25; i += 3)
+                                            {
+                                                <option value="@i">@i Ay </option>
+                                            }
+
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>İLAN TİPİ</label>
+                                        <select required name="Satilik" class="form-control">
+
+                                            <option value="true">Satılık</option>
+                                            <option value="false">Kiralık</option>
+
+
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label>NİTELİK</label>
+                                        <select required name="IlanTipi" class="form-control">
+                                            <option value="">Seçim Yapınız</option>
+                                            <option value="Arsa">Arsa</option>
+                                            <option value="Tarla">Tarla</option>
+                                            <option value="Hobi Bahçesi">Hobi Bahçesi</option>
+                                            <option value="Çiftlik">Çiftlik</option>
+                                            <option value="Villa">Villa</option>
+                                            <option value="Köy Evi">Köy Evi</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-18">İL</label>
+                                        <select required class="form-control iller">
+                                            <option value="">İl Seçiniz</option>
+                                            @{ Html.RenderAction("Iller", "Home", new { Ekle = true }); }
+                                        </select>
+                                        <!-- end of block .form-property__control-->
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-19">İLÇE</label>
+
+                                        <select required class="form-control ilceler">
+                                            <option value="">İlçe Seçiniz</option>
+                                            @{ Html.RenderAction("Ilceler", "Home"); }
+                                        </select>
+
+
+
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-20">MAHALLE / KÖY</label>
+                                        <div class="Mahalle">
+                                            @{ Html.RenderAction("Mahalle", "Home"); }
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-24">İLAN TARİHİ</label>
+                                        @Html.TextBoxFor(x => x.IlanTarihi, new { @class = "form-control", required = "required", type = "Date" })
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-21">M²</label>
+                                        @Html.TextBoxFor(x => x.M2, new { @class = "form-control", required = "required", pattern = "[1-9]{1}[0-9]{1,}" })
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-23">PORTFÖY FİYATI</label>
+                                        @Html.TextBoxFor(x => x.Fiyat, new { @class = "form-control", required = "required", pattern = "[1-9]{1}[0-9]{3,}" })
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-25">TAKAS DURUMU</label>
+                                        <select id="in-15" name="TakasMi" class="form-control">
+                                            <option value="">Seçim Yapınız</option>
+                                            <option value="true">Evet</option>
+                                            <option value="false">Hayır</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-24">Tapu Durumu</label>
+                                        @Html.TextBoxFor(x => x.TapuDurumu, new { @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-25">KAT KARŞILIĞI</label>
+                                        <select id="in-15" name="KatKarsiligi" data-placeholder="Seçiniz" class="form-control">
+                                            <option value="">Seçim Yapınız</option>
+                                            <option value="true">Evet</option>
+                                            <option value="false">Hayır</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-25">KREDİYE UYGUNLUK</label>
+                                        <select id="in-15" name="KrediyeUygunluk" data-placeholder="Seçiniz" class="form-control">
+                                            <option value="">Seçim Yapınız</option>
+                                            <option value="true">Evet</option>
+                                            <option value="false">Hayır</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-24">ADA NO</label>
+                                        @Html.TextBoxFor(x => x.AdaNo, new { @class = "form-control", required = "required", pattern = "[0-9]{1,}" })
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-24">PAFTA NO</label>
+                                        @Html.TextBoxFor(x => x.PaftaTo, new { @class = "form-control", pattern = "[0-9]{1,}" })
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-24">PARSEL NO</label>
+                                        @Html.TextBoxFor(x => x.ParselNo, new { @class = "form-control", required = "required", pattern = "[0-9]{1,}" })
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-25">KADASTRAL YOL</label>
+                                        <select id="in-15" name="KadastralYol" data-placeholder="Seçiniz" class="form-control">
+                                            <option value="">Seçim Yapınız</option>
+                                            <option value="true">Evet</option>
+                                            <option value="false">Hayır</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-24">KAKS (EMSAL)</label>
+                                        @Html.TextBoxFor(x => x.Emsal, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-24">İMAR DURUMU</label>
+                                        @Html.TextBoxFor(x => x.Imar, new { @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-24">GABARİ</label>
+                                        @Html.TextBoxFor(x => x.Gabari, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-16">VİDEO</label>
+                                        <input type="file" class="form-control" name="fileupload" />
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <label for="itemN-25">AÇIKLAMA</label>
+                                        @Html.TextAreaFor(x => x.Aciklama, new { @class = "form-control", required = "required", id = "editor" })
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        <div id="map_div" style="width:100%;height:350px;"></div>
+                                        <input type="text" id="txt" value="" hidden />
+
+                                    </div>
+                                </div>
+                                <div class="col-xs-12" style="padding-top:20px">
+                                    <div class="form-group">
+                                        <label for="itemN-25">* Aşağıdaki Değerler için Portföyün Google Maps 'deki yerini bulun oraya bir nokta koyun ve Koordinat Al butonuna tıklayınız.</label>
+                                        <div class="form-group">
+                                            <div class="col-md-4">
+                                                <a class="btn btn-success" onclick="kordinatal()" style="width:100%">Haritadan Koordinat Al</a>
+                                            </div>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(x => x.Latitude, new { @class = "form-control col-sm-6", placeholder = "Latitude ", required = "required", id = "latitude", pattern = "\\d+(\\.\\d{1,})?" })
+                                            </div>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(x => x.Longtitude, new { @class = "form-control col-sm-6", placeholder = "Longtitude ", required = "required", id = "longtitude", pattern = "\\d+(\\.\\d{1,})?" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="col-xs-12 col-sm-12" style="padding-top:20px">
+                                    <h6>  <i class="fa fa-search"></i> Özellik Seçiniz</h6>
+                                    @foreach (var item in ViewBag.Ozellik)
+                                    {
+                                        <div class="col-md-3">
+                                            <div class="checkbox checkbox-success checkbox-circle">
+                                                <input id="@item.Id" name="ozelliks" type="checkbox" value="@item.Id">
+                                                <label for="@item.Id"> @item.Ad </label>
+                                            </div>
+                                        </div>
+
+                                    }
+                                </div>
+                                <div class="col-xs-12 col-sm-12" style="padding-top:20px">
+                                    <h6>  <i class="fa fa-phone-square"></i> Altyapı Özelliklerini Seçiniz</h6>
+
+                                    @foreach (var item in ViewBag.Ozellik2)
+                                    {
+                                        <div class="col-md-3">
+                                            <div class="checkbox checkbox-success checkbox-circle">
+                                                <input id="@item.Id" name="ozelliks" type="checkbox" value="@item.Id">
+                                                <label for="@item.Id"> @item.Ad </label>
+                                            </div>
+                                        </div>
+                                    }
+
+
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="form-group">
+                                        <h3>* Resim Dosyalarını Ekleyin</h3>
+
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-md-4 ">
+                                    <div class="form-group">
+
+                                        <input type="file" class="form-control ResimSayisi" id="image" multiple name="Resimler" required />
+                                    </div>
+
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-group">
+
+                                        <label> * En az 9 Adet Resim Eklemek Zorundasınız..</label>
+                                    </div>
+
+                                </div>
+
+
+
+                                <!-- end of block .listing__thumb-->
+                                <!-- end of block .listing__info-->
+
+
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="form-group">
+                                        <input type="checkbox" class="YetkiSozlesme" /> Portföyümün Yetki Sözleşmeli Olduğunu Taahhüt Ederim.
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+
+                                        <button class="btn btn-danger btn-rounded btn-block btn-anim PortfoyKaydet"><i class="fa fa-save"></i><span class="btn-text">Kaydet</span></button>
+
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    var map;
+    var marker;
+    window.onload = function mapyukle() {
+
+        var mapMerkezi = new google.maps.LatLng(39.995614, 27.571875);//bu konum kayserinin konumu. siz isterseniz başka yer yapabilrisinz.
+        var mapOptions = {
+            zoom: 7,
+            center: mapMerkezi
+        };
+        //map-canvas isimli html nesnemiz mapOptions özellikleri ile map oluyor.
+        map = new google.maps.Map(document.getElementById('map_div')
+            , mapOptions);
+        //markeri yani işaretimizi haritanın ortasına konumlandırdı. Taşınabilir yaptık.
+        marker = new google.maps.Marker({
+            position: map.getCenter(),
+            map: map,
+            draggable: true
+        });
+
+        //simdi de haritaya tıklandığında markeri o noktaya alcak kodumuz
+        google.maps.event.addListener(map, 'click', function (e) {
+            marker.position = e.latLng;
+        });
+
+
+    }
+    function kordinatal() {
+        var txt = document.getElementById('txt');
+        txt.value = txt.value = marker.position;
+        var latitude = txt.value.split(",")[0];
+        var lat = latitude.split("(")[1];
+        $("#latitude").val(lat);
+        var longtitude = txt.value.split(",")[1];
+        var long = longtitude.split(")")[0].replace(" ", "");
+        $("#longtitude").val(long);
+
+
+    }
+</script>
+<script src="~/ckeditor/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('editor');
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUPAdoOOy1nVtzhjrBUxPDuWGajbHu7RM" defer="defer"></script>

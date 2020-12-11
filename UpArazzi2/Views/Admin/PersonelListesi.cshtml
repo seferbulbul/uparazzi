@@ -1,0 +1,89 @@
+﻿@model List<danisman>
+@{
+    ViewBag.Title = "PersonelListesi";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script>
+    $(document).on("click", ".DanismanSil", function () {
+        var id = $(this).attr("data-id");
+        swal({
+            title: "",
+            text: "İşlemi Onaylıyor Musunuz !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e69a2a",
+            confirmButtonText: "Evet",
+            cancelButtonText: "Hayır",
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                type: "get",
+                url: "/Home/DanismanSil",
+                data: { id: id },
+                success: function () {
+                    $("#" + id).remove();
+                    swal("Başarılı", "", "success");
+                }
+            })
+        });
+        return false;
+    })
+</script>
+<div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h5 class="txt-dark">PERSONEL LİSTESİ</h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <a class="btn btn-danger btn-block btn-outline btn-anim" href="/Admin/PersonelEkle"><i class="fa fa-plus"></i><span class="btn-text">PERSONEL EKLE</span></a>
+                        <div class="table-wrap">
+                            <div class="">
+                                <table id="myTable1" class="table table-hover display  pb-30">
+                                    <thead>
+                                        <tr>
+                                            <th>Resim</th>
+                                            <th>Adı Soyadı</th>
+                                            <th>Mail Adresi</th>
+                                            <th>Telefon</th>
+                                            <th>Görevi</th>
+                                            <th>Düzenle</th>
+                                            <th>Sil</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (danisman item in Model)
+                                        {
+                                            <tr id="@item.Id">
+                                                <td><img src="@(item.PhotoPath!=null ? item.PhotoPath : "/Theme/images/fotoYok.png")" style="height:100px;min-width:200px;object-fit:contain" /> </td>
+                                                <td> @item.Ad</td>
+                                                <td><a href="mailto:@item.Email"> @item.Email</a></td>
+                                                <td><a href="tel:@item.Telefon"> @item.Telefon</a></td>
+
+                                                <td> @item.Gorevi</td>
+                                               
+                                                <td> <button title="Düzenle" onclick="location.href='/Admin/PersonelDuzenle/@item.Id'" class="btn btn-warning btn-icon-anim btn-circle"><i class="fa fa-edit"></i></button></td>
+                                                <td> <button title="Sil" data-id="@item.Id" class="btn btn-danger btn-icon-anim btn-circle DanismanSil"><i class="fa fa-trash"></i></button></td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+
+</div>
+

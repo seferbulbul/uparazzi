@@ -1,0 +1,131 @@
+﻿@model List<sozluk>
+@{
+    ViewBag.Title = "EmlakTerimleri";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@{danisman u = Session["User"] as danisman; }
+<div class="container-fluid">
+
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">UpSözlük</h5>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12" style="float:right">
+
+            <form action="/Home/EmlakTerimleri" method="get" id="the-basics">
+               
+                    <input type="text" class="typeahead form-control TerimAra" placeholder="Arama.." name="search" value="@ViewBag.Search" />
+              
+            </form>
+
+        </div>
+
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+
+        @if (u.Tasarim == true)
+        {
+            <div class="mt-20 mb-20 ml-15 mr-15">
+                <a class="btn btn-danger btn-block btn-outline btn-anim" data-toggle="modal" data-target="#terimekle"><i class="fa fa-plus"></i><span class="btn-text">Yeni Terim Ekle</span></a>
+
+                <p style="color:red;font-weight:bold">@ViewBag.Mesaj</p>
+            </div>
+        }
+
+        @foreach (sozluk item in Model)
+        {
+            <div class=" col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class=" panel panel-default card-view">
+                    <div class=" panel-heading">
+                        <div class=" pull-left">
+                            <h6 class=" panel-title txt-dark">@item.Title</h6>
+                        </div>
+                        <div class=" clearfix"></div>
+                    </div>
+                    <div class=" panel-wrapper collapse in">
+                        <div class=" panel-body">
+                            <p>
+                                @item.Detail
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+</div>
+
+<script src="/AdminTheme/vendors/bower_components/typeahead.js/dist/typeahead.bundle.min.js"></script>
+
+<script>
+    $(function () {
+        "use strict";
+
+        /*Basic*/
+
+        var substringMatcher = function (strs) {
+            return function findMatches(q, cb) {
+                var matches, substringRegex;
+
+                // an array that will be populated with substring matches
+                matches = [];
+
+                // regex used to determine if a string contains the substring `q`
+                var substrRegex = new RegExp(q, 'i');
+
+                // iterate through the pool of strings and for any string that
+                // contains the substring `q`, add it to the `matches` array
+                $.each(strs, function (i, str) {
+                    if (substrRegex.test(str)) {
+                        matches.push(str);
+                    }
+                });
+
+                cb(matches);
+            };
+        };
+
+        var states = [];
+
+        $('.panel-title').each(function (i, elem) {
+            states.push($(elem).text());
+        });
+
+        $('#the-basics .typeahead').typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1,
+
+
+        },
+            {
+                name: 'states',
+                source: substringMatcher(states)
+            });
+
+        //$('input.typeahead').on('typeahead:selected', function (event, selection) {
+        //    alert(selection.value);
+        //});
+
+        $("input.TerimAra").keyup(function () {
+            var kelime = $(this).val();
+            if (event.keyCode == 13) {
+                location.href = "/Home/EmlakTerimleri/?search=" + kelime;
+            }
+
+        })
+
+
+
+
+
+
+    });
+</script>

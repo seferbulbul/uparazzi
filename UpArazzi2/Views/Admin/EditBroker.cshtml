@@ -1,0 +1,153 @@
+﻿@model danisman
+@{
+    ViewBag.Title = "EditBroker";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Broker Düzenle </h5>
+        </div>
+        <!-- Breadcrumb -->
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">BROKER BİLGİLERİ</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <h6 style="color:red">@ViewBag.Mesaj</h6>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <form action="/Admin/EditBroker" method="post" enctype="multipart/form-data">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label> Adı Soyadı</label>
+                                        @Html.TextBoxFor(x => x.Ad, new { @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label> Mail Adresi</label>
+                                        @Html.TextBoxFor(x => x.Email, new { type = "email", @class = "form-control", placeholder = "...@uparazzi.com.tr", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label> Gsm Numarası</label>
+                                        @Html.TextBoxFor(x => x.Telefon, new { @class = "form-control", placeholder = "535xxxxxxx", required = "required", pattern = "[0-9]{10,11}", title = "Örnek : 535xxxxxxx veya 0535xxxxxxx" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label> İşletme Adı</label>
+                                        @Html.TextBoxFor(x => x.CompanyName, new { @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label> Vergi Dairesi</label>
+                                        @Html.TextBoxFor(x => x.VergiDairesi, new { @class = "form-control", placeholder = "..... Vergi Dairesi", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label> Vergi Dairesi Telefon Numarası</label>
+                                        @Html.TextBoxFor(x => x.VergiPhone, new { @class = "form-control", placeholder = "2163xxxxxx", required = "required", pattern = "[0-9]{10,11}", title = "Örnek : 535xxxxxxx veya 0535xxxxxxx" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label> Doğum Tarihi</label>
+                                        @Html.TextBoxFor(x => x.BirthDay, new { @class = "form-control", type = "date", required = "required", Value = Model.BirthDay.Value.ToString("yyyy-MM-dd") })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label> Bölgesi</label>
+                                        @Html.TextBoxFor(x => x.Bolge, new { @class = "form-control", placeholder = "Örn : Çanakkale Bölgesi", required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label> Bayi Adı</label>
+                                        @Html.TextBoxFor(x => x.UparazziName, new { @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Yeni MYK Belgesi</label>
+                                        <input type="file" name="myk" class="form-control" />
+                                        @if (Model.Yeterlilik!=null && Model.Yeterlilik.Contains(".pdf"))
+                                        {
+                                            <a href="@Model.Yeterlilik" target="_blank" style="font-size:large;font-weight:bold;color:blue"> Mevcut Belgeyi Görüntüle</a>
+                                        }
+                                        else if(Model.Yeterlilik!=null)
+                                        {
+                                            <a target="_blank" href="@Model.Yeterlilik"> <img src="@Model.Yeterlilik" style="height:100px" /></a>
+                                        }
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Yeni Broker Profil Resmi</label>
+                                        <input type="file" name="profil" class="form-control" />
+                                        <a target="_blank" href="@Model.PhotoPath"><img src="@Model.PhotoPath" style="height:100px" /></a>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Yeni Ofis Görseli</label>
+                                        <input type="file" name="logo" class="form-control" />
+                                        <a target="_blank" href="@Model.BrokerLogo"><img src="@Model.BrokerLogo" style="height:100px" /></a>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label> Ofis İletişim Bilgileri</label>
+                                        @Html.TextAreaFor(x => x.OfficeContact, new { rows = "3", @class = "form-control", placeholder = "Adres, Telefon Numarası vs..", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label> Özgeçmişi</label>
+                                        @Html.TextAreaFor(x => x.Ozgecmis, new { rows = "3", @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+                                @Html.HiddenFor(x => x.Id)
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button class="btn btn-danger btn-rounded btn-block btn-anim"><i class="fa fa-send"></i><span class="btn-text">KAYDET</span></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+
+

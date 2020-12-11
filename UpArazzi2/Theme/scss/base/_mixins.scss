@@ -1,0 +1,166 @@
+@mixin v-align($va-height: 100%, $va-direction: middle, $va-pseudo: after) {
+	white-space: nowrap;
+
+	&:#{$va-pseudo} {
+		content: '';
+		display: inline-block;
+		vertical-align: $va-direction;
+		width: 0;
+		min-height: $va-height;
+	}
+
+	> .align {
+		white-space: normal;
+		display: inline-block;
+		vertical-align: $va-direction;
+		max-width: 99%;
+	}
+}
+
+@mixin size($width, $height: $width) {
+	width: $width;
+	height: $height; 
+}
+
+@mixin triangle($size, $color, $direction) {
+	$width: nth($size, 1);
+	$height: nth($size, length($size));
+	$foreground-color: nth($color, 1);
+	$background-color: if(length($color) == 2, nth($color, 2), transparent);
+	height: 0;
+	width: 0;
+
+	@if ($direction == up) or ($direction == down) or ($direction == right) or ($direction == left) {
+		$width: $width / 2;
+		$height: if(length($size) > 1, $height, $height/2);
+
+		@if $direction == up {
+			border-bottom: $height solid $foreground-color;
+			border-left: $width solid $background-color;
+			border-right: $width solid $background-color;
+		} @else if $direction == right {
+			border-bottom: $width solid $background-color;
+			border-left: $height solid $foreground-color;
+			border-top: $width solid $background-color;
+		} @else if $direction == down {
+			border-left: $width solid $background-color;
+			border-right: $width solid $background-color;
+			border-top: $height solid $foreground-color;
+		} @else if $direction == left {
+			border-bottom: $width solid $background-color;
+			border-right: $height solid $foreground-color;
+			border-top: $width solid $background-color;
+		}
+	} @else if ($direction == up-right) or ($direction == up-left) {
+		border-top: $height solid $foreground-color;
+
+		@if $direction == up-right {
+			border-left:  $width solid $background-color;
+		} @else if $direction == up-left {
+			border-right: $width solid $background-color;
+		}
+	} @else if ($direction == down-right) or ($direction == down-left) {
+		border-bottom: $height solid $foreground-color;
+
+		@if $direction == down-right {
+			border-left:  $width solid $background-color;
+		} @else if $direction == down-left {
+			border-right: $width solid $background-color;
+		}
+	} @else if ($direction == inset-up) {
+		border-color: $background-color $background-color $foreground-color;
+		border-style: solid;
+		border-width: $height $width;
+	} @else if ($direction == inset-down) {
+		border-color: $foreground-color $background-color $background-color;
+		border-style: solid;
+		border-width: $height $width;
+	} @else if ($direction == inset-right) {
+		border-color: $background-color $background-color $background-color $foreground-color;
+		border-style: solid;
+		border-width: $width $height;
+	} @else if ($direction == inset-left) {
+		border-color: $background-color $foreground-color $background-color $background-color;
+		border-style: solid;
+		border-width: $width $height;
+	}
+}
+
+// pseudo
+@mixin pseudo($pseudo, $top, $right, $bottom, $left){
+	&:#{$pseudo} {
+		position: absolute;
+		content: "";
+		top:$top;
+		bottom:$bottom;
+		left:$left;
+		right:$right;
+	}
+}
+
+// vertical 
+@mixin vertical($display, $vertical) {
+	display: $display;
+	vertical-align:$vertical;
+}
+
+// mixin for nowrap
+@mixin nowrap ($display: block){
+	text-overflow: ellipsis;
+	overflow: hidden;
+	display: $display;
+	white-space: nowrap;
+}
+
+// custom font mixin
+@mixin fontface ($fontfamily, $filename, $weight: normal, $style: normal) {
+	font-family: $fontfamily;
+	src: url('fonts/#{$filename}.eot');
+	src: url('fonts/#{$filename}.eot?#iefix') format('embedded-opentype'),
+	url('fonts/#{$filename}.woff') format('woff'),
+	url('fonts/#{$filename}.woff') format('woff2'),
+	url('fonts/#{$filename}.ttf') format('truetype'),
+	url('fonts/#{$filename}.svg#{$filename}') format('svg');
+	font-weight: $weight;
+	font-style: $style;
+}
+
+// hide text
+@mixin hide-text {
+	overflow: hidden;
+	text-indent: -9999px;
+}
+
+// btn-plus
+@mixin btn-plus($plus-size, $line-width, $plus-color){
+	display: inline-block;
+	width: $plus-size;
+	height: $plus-size;
+	@include hide-text();
+
+	&:before,
+	&:after{
+		position: absolute;
+		content: "";
+		top:50%;
+		left: 5%;
+		right: 5%;
+		height: $line-width;
+		background: $plus-color;
+		transform: translateY(-50%);
+		@extend %transition;
+	}
+
+	&:after{
+		transform: translateY(-50%) rotate(90deg);
+	}
+}
+
+@mixin placeholder {
+	&::-webkit-input-placeholder {@content}
+	&::-moz-placeholder {opacity: 1; @content}
+	&:-moz-placeholder {@content}
+	&:-ms-input-placeholder {@content}
+	&.placeholder {@content}
+}
+

@@ -1,0 +1,230 @@
+﻿@model List<MailVM>
+@{
+    ViewBag.Title = "Email";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+    <script>
+        $(document).ready(function () {
+            $(".MailGonder").click(function () {
+                var body = $("#body").val();
+                var to = $("#to").val();
+                var cc = $("#cc").val();
+                var subject = $("#subject").val();
+                if (to.trim() == "") {
+                    swal("Kime Hanesi Boş Bırakılamaz", "", "warning");
+                }
+                else {
+                    $.ajax({
+                        type: "get",
+                        url: "/Home/MailGonder",
+                        data: { body: body, to: to, cc: cc,subject:subject },
+                        success: function () {
+                            $("#close").click();
+                            swal("", "Mailiniz Başarıyla Gönderilmiştir", "success");
+                        }
+                    })
+                }
+
+            })
+        })
+    </script>
+
+
+<div class="container-fluid">
+    <!-- Title -->
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default card-view pa-0">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body pa-0">
+                        <div class="mail-box">
+                            <div class="row">
+                                
+
+                                <aside class="col-lg-12 col-md-12 pl-0">
+                              
+                                        <a href="#myModal" data-toggle="modal" title="Compose" class="btn btn-danger btn-block">
+                                            <i class="fa fa-envelope"></i> Mail Yaz
+                                        </a>
+                                        <!-- Modal -->
+                                        <div aria-hidden="true" role="dialog" tabindex="-1" id="myModal" class="modal fade" style="display: none;">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button aria-hidden="true" data-dismiss="modal" class="close" id="close" type="button">×</button>
+                                                        <h4 class="modal-title">Mail Gönder</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div role="form" class="form-horizontal">
+                                                            <div class="form-group">
+                                                                <label class="col-lg-2 control-label">Kime</label>
+                                                                <div class="col-lg-10">
+                                                                    <input type="text" placeholder="" id="to" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-lg-2 control-label">Bilgi</label>
+                                                                <div class="col-lg-10">
+                                                                    <input type="text" placeholder="" id="cc" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-lg-2 control-label">Konu</label>
+                                                                <div class="col-lg-10">
+                                                                    <input type="text" placeholder="" id="subject" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-lg-2 control-label">Mesajınız</label>
+                                                                <div class="col-lg-10">
+                                                                    <textarea class="textarea_editor form-control" id="body" rows="15" placeholder="Mesaj Yaz"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <div class="col-lg-offset-2 col-lg-10">
+                                                                    <div class="fileupload btn btn-info btn-anim mr-10">
+                                                                        <i class="fa fa-paperclip"></i><span class="btn-text">attachments</span>
+                                                                        <input type="file" class="upload">
+                                                                    </div>
+
+                                                                    <button class="btn btn-success MailGonder" type="submit">Gönder</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- /.modal-content -->
+                                            </div>
+                                            <!-- /.modal-dialog -->
+                                        </div>
+                                        <!-- /.modal -->
+                               
+                                    <div class="panel panel-refresh pa-0">
+                                        <div class="refresh-container">
+                                            <div class="la-anim-1"></div>
+                                        </div>
+                                        <div class="panel-heading pt-20 pb-20 pl-15 pr-15">
+                                            <div class="pull-left">
+                                                <h6 class="panel-title txt-dark">Gelen Kutusu</h6>
+                                            </div>
+                                            <div class="pull-right">
+                                                <form role="search" class="inbox-search inline-block pull-left mr-15">
+                                                    <div class="input-group">
+                                                        <input name="example-input1-group2" class="form-control" placeholder="Search" type="text">
+                                                        <span class="input-group-btn">
+                                                            <button type="button" class="btn  btn-default" data-target="#search_form" data-toggle="collapse" aria-label="Close" aria-expanded="true"><i class="zmdi zmdi-search"></i></button>
+                                                        </span>
+                                                    </div>
+                                                </form>
+                                                <a href="#" class="pull-left inline-block refresh">
+                                                    <i class="zmdi zmdi-replay"></i>
+                                                </a>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <div class="panel-wrapper collapse in">
+                                            <div class="panel-body inbox-body pa-0">
+                                                <div class="mail-option pl-15 pr-15">
+                                                    <div class="chk-all">
+                                                        <div class="checkbox checkbox-default inline-block">
+                                                            <input type="checkbox" id="checkbox051" />
+                                                            <label for="checkbox051"></label>
+                                                        </div>
+                                                        <div class="btn-group">
+                                                            <a data-toggle="dropdown" href="#" class="btn  all" aria-expanded="false">
+                                                                All
+                                                                <i class="fa fa-angle-down "></i>
+                                                            </a>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a href="#"> None</a></li>
+                                                                <li><a href="#"> Read</a></li>
+                                                                <li><a href="#"> Unread</a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="btn-group">
+                                                            <a data-toggle="dropdown" href="#" class="btn  blue">
+                                                                Move to
+                                                                <i class="fa fa-angle-down "></i>
+                                                            </a>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a href="#">Personal</a></li>
+                                                                <li><a href="#">Social</a></li>
+                                                                <li class="divider"></li>
+                                                                <li><a href="#">Promotional</a></li>
+                                                                <li class="divider"></li>
+                                                                <li><a href="#">Updates</a></li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="btn-group">
+                                                            <a data-toggle="dropdown" href="#" class="btn  blue" aria-expanded="false">
+                                                                More
+                                                                <i class="fa fa-angle-down "></i>
+                                                            </a>
+                                                            <ul class="dropdown-menu">
+                                                                <li><a href="#"><i class="fa fa-pencil"></i> Mark as Read</a></li>
+                                                                <li><a href="#"><i class="fa fa-ban"></i> Spam</a></li>
+                                                                <li class="divider"></li>
+                                                                <li><a href="#"><i class="fa fa-trash-o"></i> Delete</a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                    <ul class="unstyled inbox-pagination">
+                                                        <li>
+                                                            <a class="pl-15 pr-15" href="#"><i class="fa fa-angle-left  pagination-left"></i></a>
+                                                        </li>
+                                                        <li><span>@Model.Count Mail</span></li>
+
+                                                        <li>
+                                                            <a  class="pl-15 pr-15"  href="#"><i class="fa fa-angle-right pagination-right"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="table-responsive mb-0">
+                                                    <table class="table table-inbox table-hover mb-0">
+                                                        <tbody>
+
+                                                            @foreach (var item in Model)
+                                                            {
+
+                                                                <tr class="unread" onclick="location.href='/Home/MailDetay/?date=@item.Date'">
+
+                                                                    <td class="inbox-small-cells">
+                                                                        <div class="checkbox checkbox-default inline-block">
+                                                                            <input type="checkbox" id="checkbox012" />
+                                                                            <label for="checkbox012"></label>
+                                                                        </div>
+                                                                        <i class="zmdi zmdi-star inline-block font-16"></i>
+                                                                    </td>
+                                                                    <td class="view-message  dont-show">@item.from<span class="label label-warning pull-right">new</span></td>
+                                                                    <td class="view-message ">@item.Subject</td>
+                                                                    @*<td style="font-weight:unset">@item.Body</td>*@
+                                                                    <td class="view-message  text-right">
+                                                                        <i class="zmdi zmdi-attachment inline-block mr-15 font-16"></i>
+                                                                        <span class="time-chat-history inline-block">@item.Date</span>
+                                                                    </td>
+
+                                                                </tr>
+
+                                                            }
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </aside>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+

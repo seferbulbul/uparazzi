@@ -1,0 +1,398 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <!-- set the encoding of your site -->
+    <meta charset="utf-8">
+
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="@ViewBag.Description">
+    <meta name="robots" content="index, follow">
+    <meta name="copyright" content="(c) 2020">
+    <meta name="owner" content="SnippetSoftware Web Tasarımı & Web Yazılımı">
+    <meta name="author" content="SnippetSoftware">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="publisher" content="VS 2020">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="@ViewBag.Url">
+    <meta property="og:title" content="@ViewBag.Title">
+    <meta property="og:description" content="@ViewBag.Description">
+    <meta property="og:image" content="@ViewBag.Photo">
+    <meta property="og:site_name" content="">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="uparazzi.com.tr">
+    <meta name="twitter:creator" content="SnippetSoftware">
+    <meta name="twitter:title" content="@ViewBag.Title">
+    <meta name="twitter:description" content="@ViewBag.Description">
+    <meta name="twitter:image" content="@ViewBag.Photo">
+    <meta property="twitter: title" content="@ViewBag.Title">
+    <meta property="twitter: description" content="@ViewBag.Description">
+    <link rel="canonical" href="@ViewBag.Url">
+   
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+
+
+    @Styles.Render("~/bundles/Css")
+
+    <link rel="icon" href="~/Theme/images/favicon.webp" type="image/x-icon">
+    @*<script src="/Theme/js/jquery.js"></script>*@
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161199656-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-161199656-1');
+    </script>
+    <script>
+        !function (f, b, e, v, n, t, s) {
+            if (f.fbq) return; n = f.fbq = function () {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+            n.queue = []; t = b.createElement(e); t.async = !0;
+            t.src = v; s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '336801861029978');
+        fbq('track', 'PageView');
+    </script>
+    @*<script language="javascript">
+            document.onmousedown = disableclick;
+            status = "Right Click Disabled";
+            Function disableclick(event)
+            {
+                if (event.button == 2) {
+                    alert(status);
+                    return false;
+                }
+            }
+        </script>*@
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+</head>
+<body @*oncontextmenu="return false"*@>
+    <noscript>
+        <img height="1" width="1" style="display:none"
+             src="https://www.facebook.com/tr?id=336801861029978&ev=PageView&noscript=1" />
+    </noscript>
+    <div id="pageWrapper">
+        <div class="pageMenuPushWrap pageMenuPushWrap1">
+            <div class="bgBaseWrap">
+                <header id="pageHeader" class="bgWhite offsetBottom">
+                    <!-- pageHeaderWrap -->
+                    <div class="pageHeaderWrap">
+                        <!-- headerTopBar -->
+                        <div class="bgLightDark headerTopBar textLightDark">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-xs-8 col-sm-6">
+                                        <time datetime="2011-01-12" class="TopBarTime">Arsa ve Arazi Yatırım Uzmanlığı</time>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-6 text-right">
+                                        <!-- topBarPanelList -->
+                                        <ul class="list-unstyled topBarPanelList">
+                                            <li class="hidden-xs">
+                                                <!-- topBarPanelListSocial -->
+                                                <ul class="list-unstyled socialNetworks topBarPanelListSocial">
+                                                    <li><a title="Youtube" rel="nofollow" href="https://www.youtube.com/channel/UCNNTPQH6NnOLDqNyQaxulrA/videos"><i class="fab fa-youtube"></i></a></li>
+                                                    <li><a title="Facebook" rel="nofollow" href="https://www.facebook.com/UpArazzi/"><i class="fab fa-facebook-f"></i></a></li>
+                                                    <li><a title="Instagram" rel="nofollow" href="https://www.instagram.com/uparazzi/"><i class="fab fa-instagram"></i></a></li>
+                                                    <li><a title="Twitter" rel="nofollow" href="https://twitter.com/UpArazzi"><i class="fab fa-twitter"></i></a></li>
+                                                    <li><a title="Linkedin" rel="nofollow" href="https://www.linkedin.com/company/uparazzi/"><i class="fab fa-linkedin"></i></a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container" style="width:90%">
+                            <!-- headerHolder -->
+                            <div class="headerHolder">
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-3">
+                                        <!-- logo -->
+                                        <div class="logo"><a title="UpArazzi" href="/"><img src="/Theme/images/logo.png" alt="UpArazzi"></a></div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-9 d-flex">
+                                        <!-- headerContactList -->
+                                        <ul class="list-unstyled headerContactList">
+                                            <li>
+
+                                            </li>
+                                            <li class="hidden-xs">
+                                                @*<span class="icn icnJumping text-info noShrink"><i class="fi flaticon-pin-1"></i></span>*@
+                                                <div class="descr">
+                                                    <a href="/Home/Ilanlar"><strong class="logo"><img src="/Theme/images/hayal.png" alt="UpArazzi" /> </strong></a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <!-- headerSearchForm -->
+                                        <form action="#" class="headerSearchForm">
+                                            </i></a>
+                                            <!-- headerSearchFormcollapse -->
+                                            <div class="collapse searchFormcollapse bgWhite" id="headerSearchFormcollapse" aria-expanded="false" role="form">
+                                                <div class="form-group form-group-lg">
+                                                    <label for="s" class="labelIcn"><i class="fi flaticon-search"></i></label>
+                                                    <input type="search" id="s" class="form-control elemenBlock" placeholder="Arama...">
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- pageNav -->
+                            <nav id="pageNav" class="navbar navbar-default pageNav1">
+                                <!-- Brand and toggle get grouped for better mobile display -->
+                                <div class="navbar-header hidden-sm hidden-md hidden-lg">
+                                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                        <span class="sr-only">Toggle navigation</span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                        <span class="icon-bar"></span>
+                                    </button>
+                                </div>
+                                <!-- navbar collapse -->
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                    <div class="navigation-wrapper">
+                                        <strong class="h elemenBlock h4 textWhite text-center hidden-sm hidden-md hidden-lg menuTitle fontNeuron" id="menu-title">Menu</strong>
+                                        <!-- pageMainNav -->
+                                        <ul class="nav navbar-nav pageMainNav pageMainNav1">
+                                            <li>
+                                                <a title="Anasayfa" href="/" class="dropdown-toggle">Anasayfa</a>
+
+                                            </li>
+                                            <!-- remove dropdownFull class when its just regular dropdown -->
+                                            <li>
+                                                <a title="Kurumsal" href="/Home/Hakkimizda" class="dropdown-toggle">Kurumsal</a>
+
+                                            </li>
+                                            @*<li>
+                                                    <a title="İlanlar" href="/Home/Ilanlar" class="dropdown-toggle">İlanlar</a>
+
+                                                </li>*@
+                                            <li>
+                                                <a title="Bayiler" href="/Home/Bayiler" class="dropdown-toggle">Bayiler</a>
+
+                                            </li>
+                                            <li>
+                                                <a title="Blog" href="/Home/Blog" class="dropdown-toggle">Blog</a>
+
+                                            </li>
+                                            <li>
+                                                <a title="SSS" href="/SikcaSorulanSorular" class="dropdown-toggle">SSS</a>
+
+                                            </li>
+                                            <li>
+                                                <a title="İletişim" href="/Home/Iletisim">İletişim</a>
+                                            </li>
+
+
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- userOptions -->
+                                <div class="userOptions">
+
+                                    <!-- UserLinksList -->
+                                    <ul class="list-unstyled UserLinksList">
+                                        @if (Session["User"] == null)
+                                        {
+                                            <li>
+                                                <a title="Giriş Yap" href="#popup1" class="lightbox">
+                                                    <i class="fi flaticon-social icn"></i>
+                                                    <strong class="text fwNormal hidden-xs hidden-sm">Giriş Yap </strong>
+                                                </a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li>
+                                                <a href="/Home/YonetimPaneli">
+                                                    <i class="fi flaticon-social icn"></i>
+                                                    <strong class="text fwNormal hidden-xs hidden-sm">Yönetim Paneli </strong>
+                                                </a>
+                                            </li>
+                                        }
+
+
+
+                                    </ul>
+                                    <!-- headerModalOpener -->
+                                    <a title="WhatsApp" rel="nofollow" href="https://api.whatsapp.com/send?phone=905304712779&text=Şirketinizden bilgi almak istiyorum. Benimle iletişime geçer misiniz?" class="headerModalOpener text-uppercase fontNeuron fwBold"><i class="fab fa-whatsapp"></i>WhatsApp Hattı</a>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </header>
+                @RenderBody()
+
+                <script>
+                    $(function () {
+                        $(".Bulten").click(function () {
+                            var mail = $("#email").val();
+                            if (!$("input#kvkk").prop('checked')) {
+                                alert("Lütfen Onay Metnini İşaretleyiniz.");
+                            }
+                            else if (mail == "") {
+                                alert("Lütfen Mail Adresinizi Yazınız");
+                            } else if (mail.length < 10) {
+                                alert("Lütfen Geçerli Bir Mail Adresi Yazınız");
+                            }
+                            else {
+                                $.ajax({
+                                    type: "get",
+                                    data: { mail: mail, type: "Haber ve Bülten Almak İstiyorum." },
+                                    url: "/Home/KazanmakIcin",
+                                    success: function () {
+                                        alert("Teşekkürler Kaydınız Alınmıştır.");
+                                        $("#email").val("");
+                                    }
+                                })
+
+                            }
+                        })
+                    })
+                </script>
+                <style>
+                    #hovernone a:hover {
+                        color: red;
+                    }
+                </style>
+
+                <form action="#" class="bgWhite signupFormAside">
+                    <div class="container signupFormAsideHolder">
+                        <span class="icnAbsolute elemenBlock fi flaticon-message"></span>
+                        <div class="col-xs-12 col-md-offset-2 col-md-6" id="hovernone">
+                            <h3 class="fontNeuron textSecondary">Aylık Arsa-Arazi Yatırım Bültenine Kaydolun!</h3>
+                            <p>
+                                <input type="checkbox" id="kvkk" />
+                                uparazzi'den haber ve bülten almak istiyorum,<br /> bu amaçla <a href="/Home/KullanimGizlilik" target="_blank"> "KVKK Kapsamında Aydınlatma Metni ve Onay Formu"</a>nu okudum ve kabul ediyorum.
+
+                            </p>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                            <div class="form-group">
+                                <input type="email" id="email" class="form-control elemenBlock" placeholder="E Posta Adresiniz">
+                                <button type="button" class="buttonReset fi flaticon-navigation Bulten"></button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="pageFooterBlock">
+                <!-- pageAside -->
+                <aside class="pageAside textWhite">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-5 col">
+                                <h2 class="fontNeuron fwSemi text-uppercase">Çalışma Saatlerİ</h2>
+                                <p>
+                                    Hafta içi 09:00-19:00 <br />Cumartesi 09:00-16:00 
+                                 
+                                </p>
+                                <address>
+                                    <dl>
+                                        <dt><i class="fi flaticon-navigation"></i></dt>
+                                        <dd>
+                                            <a title="Google Harita" rel="nofollow" href="https://www.google.com/maps/place/Uparazzi/40.9164744,29.188411,18z/data=!4m5!3m4!1s0x14cac52a67f697b5:0xde5f7ad773f63a07!8m2!3d40.9168028!4d29.1883305">
+                                                Soğanlık Yeni Mah. AC Moment İstanbul Residence <br />
+                                                B/Blok No:87 - Kartal İstanbul, Türkiye
+                                            </a>
+
+                                        </dd>
+                                        <dt><i class="fi flaticon-24-hours"></i></dt>
+                                        <dd><a title="Telefon" href="tel:08502272779">0850 227 27 79</a></dd>
+                                        <dt><i class="fi flaticon-mail"></i></dt>
+                                        <dd><a title="Mail" href="mailto:info@uparazzi.com.tr">info@uparazzi.com.tr</a></dd>
+                                    </dl>
+                                </address>
+                            </div>
+                            <!-- ftNav -->
+                            <nav class="col-xs-12 ftNav col-sm-4 col">
+                                <h2 class="fontNeuron fwSemi text-uppercase">Hızlı Erişim</h2>
+                                <div class="ftNavListsHolder">
+                                    <ul class="list-unstyled">
+
+                                        <li>
+                                            <a title="Marka Anayasası" href="/Home/Anayasa">Marka Anayasası</a>
+                                        </li>
+                                        <li><a title="Hakkımızda" href="/Home/Hakkimizda">Hakkımızda</a></li>
+                                        <li><a title="Kullanım Şartları ve Gizlilik Politikamız" href="/Home/KullanimGizlilik">Kullanım Şartları ve Gizlilik Politikamız</a></li>
+                                        <li><a title="İletişim" href="/Home/Iletisim">İletişim</a></li>
+                                        <li><a title="Blog" href="/Home/Blog">Blog</a></li>
+                                        <li><a title="SSS" href="/SikcaSorulanSorular">SSS</a></li>
+                                    </ul>
+                                    @*<ul class="list-unstyled">
+                                            <li><a href="#">Sıkça Sorulan Sorular</a></li>
+                                            <li><a href="#">Bizden Haberler</a></li>
+                                            <li><a href="#">Bayilerimiz</a></li>
+                                            <li><a href="#">Harita</a></li>
+                                        </ul>*@
+                                </div>
+                            </nav>
+
+                            @{ Html.RenderAction("Doviz", "Home");}
+                        </div>
+                    </div>
+                </aside>
+                <!-- pageFooter -->
+                <footer id="pageFooter">
+                    <div class="container pageFooterHolder">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-push-6 col-sm-6">
+                                <!-- pageFooterSocial -->
+                                <ul class="socialNetworks list-unstyled pageFooterSocial">
+                                    <li><a title="Facebook" rel="nofollow" href="https://www.facebook.com/UpArazzi/"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li><a title="Twitter" rel="nofollow" href="https://twitter.com/UpArazzi"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a title="Instagram" rel="nofollow" href="https://www.instagram.com/uparazzi/"><i class="fab fa-instagram"></i></a></li>
+                                    <li><a title="Youtube" rel="nofollow" href="https://www.youtube.com/channel/UCNNTPQH6NnOLDqNyQaxulrA"><i class="fab fa-youtube"></i></a></li>
+                                    <li><a title="Linkedin" rel="nofollow" href="https://www.linkedin.com/company/uparazzi/"><i class="fab fa-linkedin"></i></a></li>
+                                    <li><a title="WhatsApp" rel="nofollow" href="https://api.whatsapp.com/send?phone=905304712779&text=Şirketinizden bilgi almak istiyorum. Benimle iletişime geçer misiniz?"><i class="fab fa-whatsapp"></i></a></li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-12 col-sm-pull-6 col-sm-6">
+                                <p>2018 uparazzi- Tüm Hakları Saklıdır.</p>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+                <!-- btnScrollToTop -->
+                <a title="Yukarı Dön" href="#pageWrapper" class="btnScrollToTop smooth textWhite">Yukarı Dön <i class="fi flaticon-arrows btnScrollIcn"></i></a>
+                <span class="bgCover elemenBlock" style="background-image: url(/Theme/images/footer.jpg);"></span>
+            </div>
+
+        </div>
+
+        @{ Html.RenderPartial("_Login");}
+
+        @if (ViewBag.Title != "KullanimGizlilik")
+        {
+            Html.RenderAction("Kabul", "Home");
+        }
+
+
+
+    </div>
+    @Scripts.Render("~/bundles/Scripts")
+
+
+
+
+</body>
+</html>
+

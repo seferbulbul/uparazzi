@@ -1,0 +1,129 @@
+﻿@model danisman
+@{
+    ViewBag.Title = "DanismanEkle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <section id="content" class="container pEqual">
+        <div class="addProperty">
+            <h1 class="fontNeuron">YENİ DANIŞMAN EKLE</h1>
+            <ol class="navSteps">
+
+                <li>
+                    <a href="#">
+                        <span class="text">TEMEL BİLGİLER</span>
+                    </a>
+                </li>
+               
+            </ol>
+            <div class="formContent">
+                <form method="post" action="/Bayi/DanismanEkle " enctype="multipart/form-data">
+                    <header class="contentHead">
+                        <h2 class="fontNeuron">@ViewBag.Mesaj</h2>
+                    </header>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="itemN-15">Adı Soyadı</label>
+                                @Html.TextBoxFor(x => x.Ad, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="itemN-15">Bayi</label>
+                                @Html.DropDownListFor(x => x.BayiId, new SelectList(ViewBag.Bayi, "Id", "Ad"), "Bayi Seçiniz", new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="itemN-15">Mail Adresi</label>
+                                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="itemN-15">Telefon Numarası</label>
+                                @Html.TextBoxFor(x => x.Telefon, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="itemN-15">Parola</label>
+                                @Html.PasswordFor(x => x.Password, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="itemN-15">Parola Tekrar</label>
+                                <input type="password" name="pwd" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="itemN-15">Bölge</label>
+                                @Html.TextBoxFor(x => x.Bolge, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="itemN-15">Görev Tanımı</label>
+                                @Html.TextBoxFor(x => x.Gorevi, new { @class = "form-control", required = "required" })
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="form-group">
+                                <label for="itemN-16">Uzman Resmi</label>
+                                <input type="file" required class="form-control" name="Resim" />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="form-group">
+                                <label for="itemN-16">Adli Sicil Kaydı</label>
+                                <input type="file" required class="form-control" name="Sicil" />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="form-group">
+                                <label for="itemN-16">Kimlik Fotokopisi</label>
+                                <input type="file" required class="form-control" name="Kimlik" />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="form-group">
+                                <label for="itemN-16">Gayrimenkul Danışmanlık Sözleşmesi</label>
+                                <input type="file" required class="form-control" name="DanismanSozlesme" />
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="form-group">
+                                <label for="itemN-16">Mesleki Yeterlilik Belgesi ( * 90 İş Günü İçerisinde belgeyi yüklemeyi taahhüt ederim)</label>
+                                <input type="file" class="form-control" name="Yeterlilik" />
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                                <label for="itemN-25">Özgeçmiş</label>
+                                @Html.TextAreaFor(x => x.Ozgecmis, new { @class = "form-control", maxlength = "600", required = "required" })
+
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12">
+                            <div class="form-group">
+                              
+                                <input type="checkbox" required /><a href="/Home/KullanimGizlilik"> Kullanım Şartları ve Gizlilik Politikası</a>'nı Okudum. Kabul Ediyorum.
+
+                            </div>
+                        </div>
+
+                        <div class="btnArea">
+                            <button class="btn btnDark">Kaydet <i class="fi flaticon-arrows"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>

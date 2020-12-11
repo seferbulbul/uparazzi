@@ -1,0 +1,216 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<portfoy>
+
+
+@{
+    ViewBag.Title = "uparazzi | Arsa & Arazi Yatırım Uzmanlığı";
+    ViewBag.Description = "uparazzi | Arsa & Arazi Yatırım Danışmanlığı";
+    ViewBag.Url = "https://www.uparazzi.com.tr/home/ilanlar";
+    ViewBag.Photo = "https://www.uparazzi.com.tr/Theme/images/logo.png";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    var mobile = 6;
+    if (innerWidth < 800) {
+        mobile = 5;
+    }
+
+            var markers = @Html.Raw(ViewBag.Markers);
+            window.onload = function () {
+                var mapOptions = {
+                    center: new google.maps.LatLng(39.1470545,33.9848245),
+                    zoom: this.mobile,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var infoWindow = new google.maps.InfoWindow();
+                var map = new google.maps.Map(document.getElementById("map_div"), mapOptions);
+                for (i = 0; i < markers.length; i++) {
+                    var data = markers[i]
+                    var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+                    var marker = new google.maps.Marker({
+                        position: myLatlng,
+                        map: map,
+                        title: data.title
+                    });
+                    (function (marker, data) {
+                        google.maps.event.addListener(marker, "click", function (e) {
+                            infoWindow.setContent(data.description);
+                            infoWindow.open(map, marker);
+                        });
+                    })(marker, data);
+                }
+            }
+</script>
+
+<section class="mapBannerBlock">
+    <div class="map-area">
+        <div style="padding-top:55px" id="map-container">
+            <div id="map_div">&nbsp;</div>
+        </div>
+    </div>
+    <div class="container holder">
+        <div class="align">
+            <!-- findFormBlock -->
+            <form action="/Home/Ilanlar" class="findFormBlock findFormBlock3 bgWhite">
+                <div class="row align-center d-flex">
+                    <div class="col-xs-12 col-sm-5 col-md-3">
+                        <div class="form-group">
+                            <select data-placeholder="İl Seçiniz" name="ilKey" class="form-control iller">
+                                <option value="">İl Seçiniz</option>
+                                @{ Html.RenderAction("Iller");}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-2">
+                        <div class="form-group">
+                            <select data-placeholder="İlçe Seçiniz" name="ilceKey" class="form-control ilceler">                              
+                                @{ Html.RenderAction("Ilceler");}
+                            </select>
+                          
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-2">
+                        <div class="form-group">
+                            <select data-placeholder="Nitelik Seçiniz" name="ilanTipi" class="form-control">
+                                <option value="">Nitelik Seçiniz</option>
+                                <option value="">Hepsi</option>                              
+                                <option @(ViewBag.Nitelik=="Arsa" ? "selected" :"") value="Arsa">Arsa</option>
+                                <option @(ViewBag.Nitelik=="Tarla" ? "selected" :"") value="Tarla">Tarla</option>
+                                <option @(ViewBag.Nitelik=="Hobi Bahçesi" ? "selected" :"") value="Hobi Bahçesi">Hobi Bahçesi</option>
+                                <option @(ViewBag.Nitelik=="Bungalow,Çiftlik Evi,Villa,Köy Evi" ? "selected" :"") value="Bungalow,Çiftlik Evi,Villa,Köy Evi">Bungalow / Çiftlik Evi / Villa / Köy Evi</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-2">
+                        <div class="form-group">
+                            <select name="Siralama" class="form-control">
+                                <option  value="">Akıllı Sıralama</option>
+                                <option @(ViewBag.Siralama=="Artan" ? "selected" :"") value="Artan">Fiyata Göre Artan<i class="fa fa-user"></i></option>
+                                <option @(ViewBag.Siralama == "Azalan" ? "selected" : "") value="Azalan">Fiyata Göre Azalan</option>
+                                <option @(ViewBag.Siralama == "mArtan" ? "selected" : "") value="mArtan">Metrekareye Göre Artan</option>
+                                <option @(ViewBag.Siralama == "mAzalan" ? "selected" : "") value="mAzalan">Metrekareye Göre Azalan</option>
+                                <option @(ViewBag.Siralama == "tarihYeni" ? "selected" : "") value="tarihYeni">Tarihe Göre En Yeni</option>
+                                <option @(ViewBag.Siralama == "tarihEski" ? "selected" : "") value="tarihEski">Tarihe Göre En Eski</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-3">
+                        <div class="btnsWrap">
+
+                            <button type="submit" class="btn btnDark  text-uppercase fontNeuron hidden-xs">ARA</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- orderRow -->
+
+            </form>
+        </div>
+    </div>
+    <!-- mapActionsList -->
+    </ul>
+    <!-- btnFullScreen -->
+
+</section>
+<!-- twoColumns -->
+<section class="twoColumns container">
+    <!-- contentFiltersHeadingWrap -->
+    <div class="contentFiltersHeadingWrap row">
+        <div class="col-xs-12">
+            <!-- breadcrumb -->
+            <div class="breadcrumb breadcrumb1">
+                <div class="latestPostsBlock">
+                    <!-- rowHead -->
+                    <div class="row rowHead">
+                        <div class="col-xs-12 col-sm-5">
+                            <h1 class="fontNeuron blockH text-uppercase"><span class="bdrBottom">FIRSAT</span> <span class="textSecondary">İLANLAR</span></h1>
+                        </div>
+                    </div>
+                    <!-- isoContentHolder -->
+                    <div class="isoContentHolder">
+                        <div class="row">
+                            @foreach (portfoy item in Model)
+                            {
+                                <a href="@Url.Action("Portfoy","Home",new { PortfoyAdi =Helper.FriendlyURLTitle(item.Baslik), id=item.Id })">
+                                    <div class="col-xs-12 col-sm-6 col-md-3 col isoCol sale">
+                                        <!-- postColumn -->
+                                        <article class="postColumn hasOver bgWhite">
+                                            <div class="aligncenter">
+                                                <!-- postColumnImageSlider -->
+                                                <div class="slick-carousel slickSlider postColumnImageSlider">
+                                                    <div>
+                                                        <center>
+                                                            <div class="imgHolder">
+                                                                <img src="@(item.fotografs.Count>0? item.fotografs.OrderBy(x=>x.PhotoOrder).First().Path:"/Theme/images/fotoYok.jpg")" style="height:260px;width:100%;object-fit:contain" alt="image description">
+                                                            </div>
+                                                        </center>
+                                                    </div>
+                                                </div>
+                                                <!-- postHoverLinskList -->
+                                                <ul class="list-unstyled postHoverLinskList">
+
+                                                    <li class="hasOver">
+                                                        <a><i class="fi flaticon-share"></i></a>
+                                                        <!-- postColumnSocial -->
+                                                        <ul class="list-unstyled socialNetworks postColumnSocial">
+                                                            <li><a href="https://api.whatsapp.com/send?text=https://uparazzi.com.tr/@Helper.FriendlyURLTitle(item.Baslik)-@item.Id"><i class="fab fa-whatsapp"></i></a></li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                                <!-- linkToFavourite -->
+                                                @{ string adres = "https://www.google.com/maps/place/" + item.Latitude + "," + item.Longtitude;}
+                                                <a href="@adres" target="_blank" class="linkToFavourite roundedCircle bg-primary textWhite icnHeartBeatAnim"><i class="fi flaticon-pin-1"></i></a>
+                                            </div>
+                                            <h2 class="fontNeuron text-capitalize" style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden"><a href="@Url.Action("Portfoy","Home",new { PortfoyAdi =Helper.FriendlyURLTitle(item.Baslik), id=item.Id })">@item.Baslik</a></h2>
+                                            <address>
+                                                <span class="icn"><i class="fi flaticon-pin-1"></i></span>
+                                                <p style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden">@item.neighborhood.district.town.city.CityName / @item.neighborhood.district.town.TownName / @item.neighborhood.NeighborhoodName </p>
+                                            </address>
+                                            <span class="btn btnSmall btn-success text-capitalize"> @(item.Satilik == true ? "Satılık" : "Kiralık")</span>
+                                            <h3 class="fontNeuron fwSemi"><span class="textSecondary">@item.Fiyat.Value.ToString("c2").Replace("$", "").Replace(".00", "") ₺ </span>@*<span class="textUnit fwNormal"> / @item.IlanTipi</span>*@</h3>
+                                            <!-- postColumnFoot -->
+                                            <footer class="postColumnFoot">
+                                                <ul class="list-unstyled">
+                                                    <li>
+                                                        <strong class="fwNormal elemenBlock text-primary">m2</strong>
+                                                        <strong class="fwNormal elemenBlock">@item.M2</strong>
+                                                    </li>
+                                                    <li>
+                                                        <strong class="fwNormal elemenBlock text-primary">m2 Fiyat</strong>
+                                                        <strong class="fwNormal elemenBlock">@((item.Fiyat / item.M2).Value.ToString("c2").Replace("$", "").Replace(".00", "")) ₺ / m2</strong>
+                                                    </li>
+                                                    <li>
+                                                        <strong class="fwNormal elemenBlock text-primary">Nitelik</strong>
+                                                        <strong class="fwNormal elemenBlock">@item.IlanTipi</strong>
+                                                    </li>
+
+                                                </ul>
+                                            </footer>
+                                        </article>
+                                    </div>
+                                </a>
+                            }
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="latestPostsBlock container">
+                    <!-- rowHead -->
+
+                    <nav class="navigation pagination pagination1 fontNeuron" role="navigation">
+                        <div class="nav-links">
+                            @Html.PagedListPager(Model, page => Url.Action("Ilanlar", new { page, Siralama=ViewBag.Siralama, ilanTipi = ViewBag.Nitelik , ilkey=ViewBag.ilkey, ilcekey=ViewBag.IlcekeyId}), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.OnlyShowFivePagesAtATime, new AjaxOptions() { InsertionMode = InsertionMode.Replace, HttpMethod = "get", UpdateTargetId = "Ilanlar" }))
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- pageFooterBlock -->
+</section>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUPAdoOOy1nVtzhjrBUxPDuWGajbHu7RM" defer="defer"></script>

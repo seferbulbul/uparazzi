@@ -1,0 +1,198 @@
+ /*
+Theme Name: LemanHouse - Real Estate HTML Template
+Author: Markhor Themes
+Author URI: https://themeforest.net/user/htmlbeans
+Version: 1
+Description: Base theme for HTML5
+Text Domain: base
+Tags: one-column, two-columns, three-columns
+Theme URI: http://www.htmlbeans.com/html/lemanHouse/
+*/
+
+
+
+/* ---------------------------------------------------------
+
+1. Embedded fonts styles
+2. General reset
+3. Common site styles
+4. btn-lighter
+5. logoCentered
+6. flexSameHeight
+7. #content.pCombine
+8. #content.pEqual
+9. buttonL
+10. buttonXL
+11. faqsMain
+12. block404
+13. mapFull
+14. contactFormPage
+15. contactInfoPage
+16. profileSidebar
+17. accountData
+18. propertiesList
+19. addProperty
+20. sectionMembership
+21. btnSecondary styles
+22. btnPlus styles
+23. btnPrimaryOutline styles
+24. btnDark styles
+25. customFormInputReset styles
+26. customLabelCheck styles
+27. pageWrapper styles
+28. pageMenuPushWrap styles
+29. bgBaseWrap styles
+30. pageHeader styles
+31. pageHeaderWrap styles
+32. headerTopBar styles
+33. topBarPanelList styles
+34. topBarPanelListDropdown styles
+35. socialNetworks styles
+36. headerContactList styles
+37. headerHolder styles
+38. logo styles
+39. headerSearchForm styles
+40. headerSearchOpener styles
+41. searchFormcollapse styles
+42. pageNav styles
+43. pageMainNav styles
+44. pageMainNavDropdown styles
+45. navigation wrapper styles
+46. pageMainNavDropdownFull styles
+47. userOptions styles
+48. UserLinksList styles
+49. headerModalOpener styles
+50. introSlider styles
+51. introSlider styles
+52. ntroSlideCaption styles
+53. slick dots styles
+54. findFormBlock styles
+55. latestPostsBlock styles
+56. postsFiltersList styles
+57. rowHead styles
+58. blockH styles
+59. postColumn styles
+60. postHoverLinskList styles
+61. postColumnImageSlider styles
+62. mostPostsBlock styles
+63. visualPostColumn styles
+64. aboutBlock styles
+65. servicesFetaureBlock styles
+66. servicesFetauresList styles
+67. ourAgentBlock styles
+68. profileColumn styles
+69. profileColumnSocial styles
+70. profilesSlider styles
+71. testimonilasBlock styles
+72. testimonialColumn styles
+73. testimonialSlider styles
+74. newsPostColumn styles
+75. readMore styles
+76. newsCarousel styles
+77. newsNstoriesBlock styles
+78. sponsorsBlock styles
+79. logoColumn styles
+80. signupFormAside styles
+81. pageFooterBlock styles
+82. pageAside styles
+83. ftNavListsHolder styles
+84. postsWidgetList styles
+85. pageFooter styles
+86. pageFooterSocial styles
+87. btnScrollToTop styles
+88. otherFeaturesCollapse styles
+89. isoContentHolder styles
+90. introBanner styles
+91. bannerImageSlideshow styles
+92. headerAbsoluteHolder styles
+93. icnInput styles
+94. breadcrumb styles
+95. contentFiltersHeadingWrap styles
+96. viewFilterLinks styles
+97. sortGroup styles
+98. pagination styles
+99. widget styles
+100. widgetPadding styles
+101. widgetCalcForm styles
+102. widgetCalcForm styles
+103. widgetRecentPostsList styles
+104. content styles
+105. twoColumns styles
+106. postColumn styles
+107. postHoverLinskList styles
+108. postColumnImageSlider styles
+109. mostPostsBlock styles
+110. visualPostColumn styles
+111. aboutBlock styles
+112. servicesFetaureBlock styles
+113. servicesFetauresList styles
+114. ourAgentBlock styles
+
+---------------------------------------------------------*/
+
+// devices viewport width starts at:
+$breakpoints: (
+	'xs-phone': 480px,
+	'phone': 576px,
+	'tablet': 768px,
+	'desktop': 992px,
+	'desktop2': 1024px,
+	'widescreen': 1200px,
+	'widescreen2': 1350px,
+	'widescreen3': 1920px
+);
+ 
+// keywords
+$media-expressions: (
+    'screen': 'screen',
+	'print': 'print',
+	'handheld': 'handheld',
+	'landscape': '(orientation: landscape)',
+	'portrait': '(orientation: portrait)',
+	'retina2x': '(-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi)',
+	'retina3x': '(-webkit-min-device-pixel-ratio: 2.5), (min-resolution: 240dpi)'
+);
+
+// ligatured operators ≥ ≤
+
+@import 'vendors/include-media';
+
+@import "bootstrap-custom";
+@import "vendors/bootstrap/variables";
+@import "vendors/bootstrap/mixins";
+
+/* ---------------------------------------------------------
+	 1. Embedded fonts styles
+	 ---------------------------------------------------------*/
+
+@import "vendors/fontawesone/fa-regular";
+@import "vendors/fontawesone/fa-solid";
+@import "vendors/fontawesone/fa-brands";
+@import "vendors/fontawesone/fontawesome";
+@import "vendors/flat-icons";
+
+@import 'base/mixins';
+
+@font-face { @include fontface(Neuron, Neuron-Regular, 400, normal); }
+@font-face { @include fontface(Neuron, Neuron-DemiBold, 600, normal); }
+@font-face { @include fontface(Neuron, Neuron-Bold, 700, normal); }
+
+@import 'base/helpers';
+
+/* ---------------------------------------------------------
+	 2. General reset
+	 ---------------------------------------------------------*/
+
+@import "base/wp-reset";
+@import "vendors/choosen-custom-select";
+@import "vendors/slick";
+
+@import "base/custom-utility-classes";
+
+
+/* ---------------------------------------------------------
+	 3. Common site styles
+	 ---------------------------------------------------------*/
+@import "base/anims";
+@import "all";
+@import "add"; 

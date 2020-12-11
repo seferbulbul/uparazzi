@@ -1,0 +1,238 @@
+﻿@model HesabimVM
+@{
+    ViewBag.Title = "Hesabim";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid pt-25">
+
+    <!-- Row -->
+    <div class="row">
+        <div class="col-lg-3 col-xs-12">
+            <div class="panel panel-default card-view  pa-0">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body  pa-0">
+                        <div class="profile-box">
+                            <div class="profile-cover-pic">
+
+                                <div class="profile-image-overlay"></div>
+                            </div>
+                            <div class="profile-info text-center">
+                                <div class="profile-img-wrap">
+                                    <img class="inline-block mb-10" src="@(Model.Danisman.PhotoPath !=null ?  Model.Danisman.PhotoPath : "/Theme/images/user.png")" alt="user" />
+
+                                </div>
+                                <h5 class="block mt-10 mb-5 weight-500 capitalize-font txt-danger">@Model.Danisman.Ad</h5>
+                                <h6 class="block capitalize-font pb-20">@Model.Danisman.Gorevi</h6>
+                            </div>
+                            <div class="social-info">
+                                <div class="row">
+                                    <div class="col-xs-6 text-center">
+                                        <span class="counts block head-font"><span class="counter-anim">@Model.Danisman.portfoys.Count(x => x.Satilik == true && !x.islems.Any(y=>y.IsDeleted==false && y.YonetimOnay==true) && x.IsDeleted == false)</span></span>
+                                        <span class="counts-text block">Satılık</span>
+                                    </div>
+                                    <div class="col-xs-6 text-center">
+                                        <span class="counts block head-font"><span class="counter-anim">@Model.Danisman.portfoys.Count(x => x.Satilik == false &&!x.islems.Any(y=>y.IsDeleted==false && y.YonetimOnay==true) && x.IsDeleted == false)</span></span>
+                                        <span class="counts-text block">Kiralık</span>
+                                    </div>
+                                    <div class="col-xs-6 text-center">
+                                        <span class="counts block head-font"><span class="counter-anim">@Model.Danisman.portfoys.Count(x=>x.islems.Any(y=>y.IsDeleted==false && y.YonetimOnay==true) && x.Satilik==true)</span></span>
+                                        <span class="counts-text block">Bitmiş İşlem (Satılık)</span>
+                                    </div>
+                                    <div class="col-xs-6 text-center">
+                                        <span class="counts block head-font"><span class="counter-anim">@Model.Danisman.portfoys.Count(x => x.islems.Any(y => y.IsDeleted == false && y.YonetimOnay == true) && x.Satilik == false)</span></span>
+                                        <span class="counts-text block">Bitmiş İşlem (Kiralık)</span>
+                                    </div>
+                                   
+                                </div>
+                                <button class="btn btn-default btn-block btn-outline btn-anim mt-30" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i><span class="btn-text">Profilimi Güncelle</span></button>
+                                <br />
+                                <p style="color:red;font-weight:bold"> @ViewBag.Mesaj</p>
+                                <div id="myModal" class="modal fade in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                                <h5 class="modal-title" id="myModalLabel">Profilimi Güncelle</h5>
+
+                                            </div>
+                                            <div class="modal-body">
+                                                <!-- Row -->
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <div class="">
+                                                            <div class="panel-wrapper collapse in">
+                                                                <div class="panel-body pa-0">
+                                                                    <div class="col-sm-12 col-xs-12">
+                                                                        <div class="form-wrap">
+                                                                            <form action="/Home/Hesabim" method="post" enctype="multipart/form-data">
+                                                                                <div class="form-body overflow-hide">
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10" for="exampleInputuname_1">İsim Soyisim</label>
+                                                                                        <div class="input-group">
+                                                                                            <div class="input-group-addon"><i class="icon-user"></i></div>
+
+                                                                                            @Html.TextBoxFor(x => x.Danisman.Ad, new { @class = "form-control" })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10" for="exampleInputContact_1">Görevi</label>
+                                                                                        <div class="input-group">
+                                                                                            <div class="input-group-addon"><i class="icon-pencil"></i></div>
+                                                                                            @Html.TextBoxFor(x => x.Danisman.Gorevi, new { @class = "form-control" })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10" for="exampleInputContact_1">Telefon</label>
+                                                                                        <div class="input-group">
+                                                                                            <div class="input-group-addon"><i class="icon-phone"></i></div>
+                                                                                            @Html.TextBoxFor(x => x.Danisman.Telefon, new { @class = "form-control", type = "number" })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10" for="exampleInputpwd_1">Password</label>
+                                                                                        <div class="input-group">
+                                                                                            <div class="input-group-addon"><i class="icon-lock"></i></div>
+                                                                                            <input name="pwd" type="password" class="form-control" id="exampleInputpwd_1" placeholder="Yeni Şifre Giriniz" value="">
+                                                                                            <input name="pwd1" type="password" class="form-control" id="exampleInputpwd_1" placeholder="Yeni Şifre Giriniz (Tekrar)" value="">
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10">Özgeçmiş</label>
+                                                                                        <div>
+
+                                                                                            @Html.TextAreaFor(x => x.Danisman.Ozgecmis, new { @class = "textarea_editor form-control", rows = "10" })
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="form-group">
+                                                                                        <label class="control-label mb-10">Profil Fotoğrafını Değiştir</label>
+                                                                                        <div>
+
+                                                                                            <input type="file" name="Resim" />
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                <div class="form-actions mt-10">
+                                                                                    <button type="submit" class="btn btn-success mr-10 mb-30">Güncelle</button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- /.modal-content -->
+                                    </div>
+                                    <!-- /.modal-dialog -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-xs-12">
+            <div class="panel panel-default card-view pa-0">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body pb-0">
+                        <div class="tab-struct custom-tab-1">
+                            <ul role="tablist" class="nav nav-tabs nav-tabs-responsive" id="myTabs_8">
+                               
+                                <li role="presentation" class="active"><a data-toggle="tab" id="settings_tab_8" role="tab" href="#settings_8" aria-expanded="false"><span>Profilim</span></a></li>
+                                
+                            </ul>
+                            <div class="tab-content" id="myTabContent_8">
+               
+                                <div id="settings_8" class="tab-pane fade active in" role="tabpanel">
+                                    <!-- Row -->
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="">
+                                                <div class="panel-wrapper collapse in">
+                                                    <div class="panel-body pa-0">
+                                                        <div class="col-sm-12 col-xs-12">
+                                                            <div class="form-wrap">
+                                                                <form action="/Home/Hesabim" method="post" enctype="multipart/form-data">
+                                                                    <div class="form-body overflow-hide">
+                                                                        <div class="form-group">
+                                                                            <label class="control-label mb-10" for="exampleInputuname_1">İsim Soyisim</label>
+                                                                            <div class="input-group">
+                                                                                <div class="input-group-addon"><i class="icon-user"></i></div>
+
+                                                                                @Html.TextBoxFor(x => x.Danisman.Ad, new { @class = "form-control" })
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="control-label mb-10" for="exampleInputContact_1">Görevi</label>
+                                                                            <div class="input-group">
+                                                                                <div class="input-group-addon"><i class="icon-pencil"></i></div>
+                                                                                @Html.TextBoxFor(x => x.Danisman.Gorevi, new { @class = "form-control" })
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="control-label mb-10" for="exampleInputContact_1">Telefon</label>
+                                                                            <div class="input-group">
+                                                                                <div class="input-group-addon"><i class="icon-phone"></i></div>
+                                                                                @Html.TextBoxFor(x => x.Danisman.Telefon, new { @class = "form-control", type = "number" })
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="control-label mb-10" for="exampleInputpwd_1">Password</label>
+                                                                            <div class="input-group">
+                                                                                <div class="input-group-addon"><i class="icon-lock"></i></div>
+                                                                                <input name="pwd" type="password" class="form-control" id="exampleInputpwd_1" placeholder="Yeni Şifre Giriniz" value="">
+                                                                                <input name="pwd1" type="password" class="form-control" id="exampleInputpwd_1" placeholder="Yeni Şifre Giriniz (Tekrar)" value="">
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="control-label mb-10">Özgeçmiş</label>
+                                                                            <div>
+
+                                                                                @Html.TextAreaFor(x => x.Danisman.Ozgecmis, new { @class = "textarea_editor form-control", rows = "10" })
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <label class="control-label mb-10">Profil Fotoğrafını Değiştir</label>
+                                                                            <div>
+
+                                                                                <input type="file" name="Resim" />
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <div class="form-actions mt-10">
+                                                                        <button type="submit" class="btn btn-success mr-10 mb-30">Güncelle</button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <!-- /Row -->
+    <!-- Row -->
+    
+    <!-- /Row -->
+
+</div>
+<!-- Footer -->

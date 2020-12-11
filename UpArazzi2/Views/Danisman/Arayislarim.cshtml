@@ -1,0 +1,137 @@
+﻿@model ArayisVM
+@{
+    ViewBag.Title = "Arayislarim";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script>
+    $(document).on("click", ".Sil", function () {
+        var id = $(this).attr("id");
+        swal({
+            title: "",
+            text: "İşlemi Onaylıyor Musunuz !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e69a2a",
+            confirmButtonText: "Evet",
+            cancelButtonText: "Hayır",
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                type: "get",
+                url: "/Danisman/ArayisSil",
+                data: { id: id },
+                success: function () {
+                    $("#" + id).parent().parent().remove();
+                    swal("Tamamlandı", "", "success");
+                }
+            })
+
+        });
+        return false;
+    })
+</script>
+<div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">ARAYIŞLARIM</h5>
+        </div>
+        <!-- Breadcrumb -->
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view pa-0">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body pa-0">
+                        <div class="">
+
+                            <div class="mt-20 mb-20 ml-15 mr-15">
+                                <a class="btn btn-danger btn-block btn-outline btn-anim" data-toggle="modal" data-target="#arayisekle"><i class="fa fa-search"></i><span class="btn-text">Yeni Arayış Ekle</span></a>
+                               
+                            </div>
+
+
+                            <div class="table-wrap">
+                                <div class="">
+                                    <table id="myTable1" class="table table-hover display  pb-30">
+                                        <thead>
+                                            <tr>
+                                                <th> # </th>
+                                                <th>Arayış Başlığı</th>
+                                                <th>Oluşturma Tarihi</th>
+                                                <th>Eşleşen Portföy Sayısı</th>                                               
+                                                <th>Arayış Detayı</th>
+                                                <th>Sil</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{ int i = 1;}
+                                            @foreach (filtre item in Model.Filtres)
+                                            {
+                                                List<portfoy> p = Model.Portfoys;
+                                                if (item.UnitPriceMin != null)
+                                                {
+                                                    p = p.Where(x => x.Fiyat >= item.UnitPriceMin).ToList();
+                                                }
+                                                if (item.UnitPriceMax != null)
+                                                {
+                                                    p = p.Where(x => x.Fiyat <= item.UnitPriceMax).ToList();
+                                                }
+                                                if (item.m2Min != null)
+                                                {
+                                                    p = p.Where(x => x.M2 >= item.m2Min).ToList();
+                                                }
+                                                if (item.m2Max != null)
+                                                {
+                                                    p = p.Where(x => x.M2 <= item.m2Max).ToList();
+                                                }
+                                                if (item.IlId != null)
+                                                {
+                                                    p = p.Where(x => x.neighborhood.district.town.CityID == item.IlId).ToList();
+                                                }
+                                                if (item.Nitelik != "")
+                                                {
+                                                    p = p.Where(x => x.IlanTipi == item.Nitelik).ToList();
+                                                }
+                                                if (item.Satilik != null)
+                                                {
+                                                    p = p.Where(x => x.Satilik == item.Satilik).ToList();
+                                                }
+                                                <tr>
+                                                    <td>@(i++)</td>
+                                                    <td>@item.Title</td>
+                                                    <td> @item.CreatedDate.Value.ToString("dd.MM.yyyy")</td>
+                                                    <td><a href="/Danisman/ArayisPortfoylerim/@item.Id" style="color:blue;font-weight:bold">@p.Count() Adet Portföy bulunmuştur.</a> </td>
+                                                   
+                                                    <td>
+                                                        @(item.IlId.HasValue ? "Bölge : " + item.city.CityName : "")<br />
+                                                        @(item.m2Min.HasValue ? "Min  : " + item.m2Min + " m2" : "")<br />
+                                                        @(item.m2Max.HasValue ? "Max : " + item.m2Max + " m2" : "")<br />
+                                                        @(item.UnitPriceMin.HasValue ? "Min  : " + item.UnitPriceMin.Value.ToString("C2").Replace("$", "") + " ₺" : "")<br />
+                                                        @(item.UnitPriceMax.HasValue ? "Max : " + item.UnitPriceMax.Value.ToString("C2").Replace("$", "") + " ₺" : "")<br />
+                                                        @(item.Nitelik !="" ? "Nitelik : " + item.Nitelik : "")<br />
+                                                        @(item.Satilik.HasValue ? "Durumu : " + (item.Satilik ==true ? "Satılık" : "Kiralık") : "")
+                                                    </td>
+                                                    <td>  <button title="Sil" class="btn btn-info btn-icon-anim btn-circle Sil" id="@item.Id"><i class="icon-trash"></i></button> </td>
+
+                                                </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+
+</div>
+

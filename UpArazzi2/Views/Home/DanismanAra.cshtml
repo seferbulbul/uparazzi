@@ -1,0 +1,70 @@
+﻿@model List<danisman>
+@{
+    ViewBag.Title = "DanismanAra";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script>
+    $(document).on("click", ".MailGonder", function () {
+        var id = $(this).attr("data-id");
+        $("#GonderilecekKisi").html(id);
+    })
+</script>
+<div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h5 class="txt-dark">ARAMA SONUÇLARI</h5>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="table-wrap">
+                            <div class="">
+                                <table id="myTable1" class="table table-hover display  pb-30">
+                                    <thead>
+                                        <tr>
+                                            <th>Resim</th>
+                                            <th>Adı Soyadı</th>
+                                            <th>Mail Adresi</th>
+                                            <th>Telefon</th>
+                                            <th>Görevi</th>
+                                            <th>Broker</th>
+                                            <th>Bölge</th>
+                                            <th>Mail Gönder</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (danisman item in Model)
+                                        {
+                                            <tr id="@item.Id">
+                                                <td><img src="@(item.PhotoPath!=null ? item.PhotoPath : "/Theme/images/fotoYok.png")" style="height:100px;min-width:200px;object-fit:contain" /> </td>
+                                                <td> @item.Ad</td>
+                                                <td><a href="mailto:@item.Email"> @item.Email</a></td>
+                                                <td><a href="tel:@item.Telefon"> @item.Telefon</a></td>
+                                              
+                                                <td> @item.Gorevi</td>
+                                                <td>  @(item.BrokerId != null ? item.danisman2.Ad : "")</td>
+                                                <td> @item.Bolge</td>
+                                                <td> <button title="Mail Gönder" data-id="@item.Ad" class="btn btn-warning btn-icon-anim btn-circle MailGonder" data-toggle="modal" data-target="#MailGonder"><i class="fa fa-envelope"></i></button></td>
+
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+
+</div>

@@ -1,0 +1,37 @@
+﻿@model List<danisman>
+
+
+    <section class="bgWhite ourAgentBlock">
+        <div class="container">
+            <h1 class="fontNeuron blockH text-uppercase"><span class="bdrBottom">UZMAN EKİBİMİZ</span></h1>
+            <div class="row">
+                <!-- profilesSlider -->
+                <div class="four-slider slickSlider profilesSlider">
+                    @foreach (danisman item in Model)
+                    {
+                        <div>
+                            <div class="col-xs-12" >
+                                <!-- profileColumn -->
+                                <article class="profileColumn hasOver" style="box-shadow: 5px 10px 18px #888888">
+                                    <div class="aligncenter">
+                                        <a title="@item.Ad" href="@Url.Action("Danisman","Home",new { DanismanAdi =Helper.FriendlyURLTitle(item.Ad), id=item.Id })">
+                                            <center>
+                                                <img src="@item.PhotoPath" style="height:263px;width:100%;object-fit:contain" alt="@item.Ad">
+                                            </center>
+                                        </a>
+                                    </div>
+                                    <div class="textWrap">
+                                        <h2 class="fontNeuron text-capitalize"><a title="@item.Ad" href="@Url.Action("Danisman","Home",new { DanismanAdi =Helper.FriendlyURLTitle(item.Ad), id=item.Id })">@item.Ad</a></h2>
+                                        <h3 class="fwNormal text-capitalize">@item.Gorevi</h3>
+                                       
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </section>

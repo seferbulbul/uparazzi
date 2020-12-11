@@ -1,0 +1,277 @@
+﻿@model List<portfoy>
+@{
+    ViewBag.Title = "TumIlanlar";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script>
+
+    $(document).on("click", ".PortfoySil", function () {
+        var id = $(this).attr("data-id");
+        swal({
+            title: "",
+            text: "İşlemi Onaylıyor Musunuz !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e69a2a",
+            confirmButtonText: "Evet",
+            cancelButtonText: "Hayır",
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                type: "get",
+                url: "/Home/PortfoySil",
+                data: { id: id },
+                success: function () {
+                    $("#" + id).remove();
+                    swal("Başarılı", "", "success");
+                }
+            })
+
+        });
+        return false;
+    })
+
+    $(document).on("click", ".SureUzat", function () {
+        var id = $(this).attr("data-id");      
+        var sure = $("select#sure" + id).val();
+        if (sure<3) {
+            swal("Lütfen Süre Seçiniz.", "", "warning");
+        } else {
+            swal({
+                title: "",
+                text: "Yetki Süresinin Uzatılmasını Onaylıyor Musunuz !",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#e69a2a",
+                confirmButtonText: "Evet",
+                cancelButtonText: "Hayır",
+                closeOnConfirm: false
+            }, function () {
+                $.ajax({
+                    type: "get",
+                    url: "/Danisman/SureUzat",
+                    data: { id: id ,sure:sure},
+                    success: function () {
+                        $("#" + id).remove();
+                        swal("Başarılı", "", "success");
+                    }
+                })
+
+            });
+        }
+      
+        return false;
+    })
+
+    $(document).on("click", ".firsat", function () {
+        var id = $(this).attr("data-id");
+        $.ajax({
+            type: "get",
+            url: "/Home/Favori",
+            data: { id: id },
+            success: function () {
+
+            }
+        })
+    })
+
+    $(document).on("change", ".danisman", function () {
+        var did = $(this).val();
+        var pid = $(this).attr("data-id");
+        $.ajax({
+            type: "get",
+            url: "/Admin/ChangeDanisman",
+            data: { did: did ,pid:pid},
+            success: function () {
+
+            }
+        })
+    })
+
+    $(document).on("click", ".onay", function () {
+        var id = $(this).attr("data-id");
+        $.ajax({
+            type: "get",
+            url: "/Home/PortfoyOnay",
+            data: { id: id },
+            success: function () {
+                $("#" + id).remove();
+            }
+        })
+    })
+
+    $(document).on("click", ".TeklifGonder", function () {
+        var id = $(this).attr("data-id");
+        $("#GonderilecekPortfoy").html(id);
+    })
+
+</script>
+
+@{ danisman u = Session["User"] as danisman;}
+
+<div class="container-fluid">
+
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">İLANLAR</h5>
+        </div>
+
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="table-wrap">
+                            <div class="">
+                                <table id="myTable1" class="table table-hover display  pb-30">
+                                    <thead>
+                                        <tr>
+                                            <th>İlan Resmi</th>
+                                            <th>İlan Adı</th>
+                                            <th>Nitelik</th>
+                                            <th>Konum</th>
+                                            <th style="width:100px">Fiyat</th>
+                                            <th>m²</th>
+                                            @*<th style="width:100px">m² Fiyatı</th>*@
+
+                                            <th>Danısman</th>
+                                            @*<th>Broker</th>*@
+                                            @if (u.DanismanMi == true)
+                                            {
+                                                <th>Yetki Süresi</th>
+
+                                            }
+                                            @if (u.Admin == true)
+                                            {
+                                                <th>Vitrin</th>
+
+                                            }
+                                            @if (u.Broker == true)
+                                            {
+                                                <th>Onay</th>
+                                            }
+
+                                            <th>Düzenle / Sil</th>
+                                            <th>Bitmiş İşlem / Mail / PDF</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (portfoy item in Model)
+                                        {
+                                            <tr id="@item.Id">
+                                                <td><img src="@(item.fotografs.Count>0? item.fotografs.OrderBy(x=>x.PhotoOrder).First().Path:"/Theme/images/fotoYok.jpg")" style="height:100px;min-width:200px;object-fit:cover" /> </td>
+                                                <td><a title="Önizleme" target="_blank" href="@Url.Action("Portfoy","Home",new { PortfoyAdi =Helper.FriendlyURLTitle(item.Baslik), id=item.Id })"><i class="fa fa-eye"></i></a> <label style="font-weight:bold">İlan No :  @item.IlanNo</label> <br /> @item.Baslik</td>
+                                                <td> @(item.Satilik == true ? "Satılık" : "Kiralık") @item.IlanTipi</td>
+                                                <td> @item.neighborhood.district.town.city.CityName / @item.neighborhood.district.town.TownName / @item.neighborhood.NeighborhoodName</td>
+                                                <td> @item.Fiyat.Value.ToString("c2").Replace("$", "").Replace(".00", "") ₺</td>
+                                                <td> @item.M2</td>
+                                                @*<td> @((item.Fiyat / item.M2).Value.ToString("c2").Replace("$", "").Replace(".00", "")) ₺ / m2</td>*@
+
+                                            <td>
+                                                @if (u.Admin == true)
+                                                {
+                                                <select class="danisman" data-id="@item.Id">
+                                                    @foreach (danisman d in ViewBag.Danismanlar)
+                                                    {
+                                                        <option value="@d.Id" @(item.DanismanId==d.Id ? "selected":"")>@d.Ad </option>
+                                                    }
+
+                                                </select>
+                                                }
+                                                else
+                                                {
+                                                    @item.danisman.Ad
+                                                }
+
+                                            </td>
+                                                @*<td> @(item.danisman.BrokerId != null ? item.danisman.danisman2.Ad : "") </td>*@
+                                                @if (u.DanismanMi == true)
+                                                {
+                                                    if (item.BittiTarih < DateTime.Now.AddDays(15))
+                                                    {
+                                                        <td>
+                                                            <select class="yetkisuresi" id="sure@(item.Id)">
+                                                                <option value="">Seçim Yapınız</option>
+                                                                @for (int i = 3; i < 25; i += 3)
+                                                                {
+                                                                    <option value="@i">@i Ay </option>
+                                                                }
+
+
+                                                            </select>
+                                                            <button title="Yetki Süresi Uzat" class="btn btn-info btn-icon-anim btn-xs SureUzat" data-id="@item.Id" id="btn@(item.Id)">Yetki Süresi Uzat</button><br /> @item.BittiTarih.Value.ToString("dd.MM.yyyy")
+                                                        </td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td>@item.BittiTarih.Value.ToString("dd.MM.yyyy")</td>
+                                                    }
+
+
+                                                }
+                                                @if (u.Admin == true)
+                                                {
+                                                    <td>
+                                                        <div class="checkbox checkbox-success checkbox-circle firsat" data-id="@item.Id">
+                                                            <input type="checkbox" @(item.Firsat == true ? "checked" : "")>
+                                                            <label for="@item.Id">  </label>
+                                                        </div>
+                                                    </td>
+
+                                                }
+                                                @if (u.Broker == true)
+                                                {
+
+                                                    <td>
+                                                        <div class="checkbox checkbox-success checkbox-circle onay" data-id="@item.Id">
+                                                            <input type="checkbox" @(item.Onay == true ? "checked" : "")>
+                                                            <label for="@item.Id"> Onay </label>
+                                                        </div>
+                                                    </td>
+                                                }
+
+                                                <td>
+
+                                                    @if (u.DanismanMi == true || u.Broker == true)
+                                                    {
+
+                                                        <button title="Düzenle" onclick="location.href='/Danisman/PortfoyGuncelle/@item.Id'" class="btn btn-warning btn-icon-anim btn-circle"><i class="fa fa-pencil"></i></button>
+
+                                                    }
+                                                    <br />
+                                                    @if (item.IsDeleted == true)
+                                                    {
+                                                        <button title="Aktif Et" class="btn btn-info btn-icon-anim btn-circle PortfoySil" data-id="@item.Id"><i class="icon-refresh"></i></button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button title="Pasif Et" class="btn btn-info btn-icon-anim btn-circle PortfoySil" data-id="@item.Id"><i class="icon-trash"></i></button>
+                                                    }
+
+
+                                                </td>
+                                                <td>
+                                                    <button title="Bitmiş İşlem Raporu Doldur" onclick="location.href='/Danisman/BitmisIslem/@item.Id'" class="btn btn-primary btn-icon-anim btn-circle"><i class="fa fa-edit"></i></button><br />
+                                                    <button title="Mail Olarak Gönder" data-id="@item.IlanNo" class="btn btn-warning btn-icon-anim btn-circle TeklifGonder" data-toggle="modal" data-target="#TeklifGonder"><i class="fa fa-envelope"></i></button><br />
+                                                    <a href="@Url.Action("ExportTeklif","Home",new { item.Id})" title="PDF İndir" class="btn btn-info btn-icon-anim btn-circle"><i class="fa fa-file-pdf-o" style="padding-top:5px"></i></a>
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+
+</div>
+

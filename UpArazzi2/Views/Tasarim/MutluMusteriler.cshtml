@@ -1,0 +1,148 @@
+﻿@model List<mm>
+@{
+    ViewBag.Title = "MutluMusteriler";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script>
+
+
+    $(document).on("click", ".BlogSil", function () {
+        var id = $(this).attr("data-id");
+        swal({
+            title: "",
+            text: "İşlemi Onaylıyor Musunuz !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e69a2a",
+            confirmButtonText: "Evet",
+            cancelButtonText: "Hayır",
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                type: "get",
+                url: "/Tasarim/MMSil",
+                data: { id: id },
+                success: function () {
+                    $("#" + id).remove();
+                    swal("Başarılı", "", "success");
+                }
+            })
+        });
+        return false;
+    })
+
+    $(document).on("click", ".onay", function () {
+        var id = $(this).attr("data-id");
+        $.ajax({
+            type: "get",
+            url: "/Tasarim/MMShow",
+            data: { id: id },
+            success: function () {                
+            }
+        })
+    })
+
+    $(document).ready(function () {
+        $("#sortable").sortable({
+            opacity: "0.5",
+            revert: true,
+            cursor: "move",
+            update: function (event, ui) {
+                $(this).children().each(function (index) {
+                    if ($(this).attr("data-position") != (index + 1)) {
+                        $(this).attr("data-position", (index + 1)).addClass("updated");
+                    }
+                });
+                saveNewPosition();
+            }
+        });
+    })
+
+    function saveNewPosition() {
+        var positions = [];
+        $(".updated").each(function () {
+            positions.push([$(this).attr("data-index"), $(this).attr("data-position")]);
+            $(this).removeClass("updated");
+        });
+
+        $.ajax({
+            url: "/Tasarim/MMSirala/",
+            method: "post",
+            dataType: "text",
+            traditional: true,
+            data: { update: 1, positions: positions },
+            success: function () {
+
+            }
+        })
+    }
+
+
+
+
+
+</script>
+
+<div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h5 class="txt-dark">MUTLU MÜŞTERİLER LİSTESİ</h5>
+        </div>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <a class="btn btn-danger btn-block btn-outline btn-anim" href="/Tasarim/AddMM"><i class="fa fa-plus"></i><span class="btn-text">MUTLU MÜŞTERİ EKLE</span></a>
+                        <div class="table-wrap">
+
+                            <table id="myTable1" class="table table-hover display  pb-30">
+                                <thead>
+                                    <tr>
+                                        <th>Resim</th>                                      
+                                        <th>Başlık</th>                                     
+                                        <th>Vitrin</th>                                     
+                                        <th> Düzenle / Sil</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody id="sortable">
+                                    @foreach (mm item in Model)
+                                    {
+                                        <tr id="@item.Id" data-index="@item.Id" data-position="@item.MMOrder">
+                                            <td><img src="@item.PhotoPath" style="height:100px;min-width:200px;object-fit:contain" /> </td>
+                                           
+                                            <td> @item.Title</td>
+                                            <td>
+                                                <div class="checkbox checkbox-success checkbox-circle onay" data-id="@item.Id">
+                                                    <input type="checkbox" @(item.Showroom == true ? "checked" : "")>
+                                                    <label for="@item.Id"> </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                
+                                                <button title="Düzenle" onclick="location.href='/Tasarim/EditMM/@item.Id'" class="btn btn-primary btn-icon-anim btn-circle"><i class="fa fa-edit"></i></button>
+                                                <button title="Pasif Et" class="btn btn-info btn-icon-anim btn-circle BlogSil" data-id="@item.Id"><i class="icon-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+

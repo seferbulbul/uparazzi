@@ -1,0 +1,46 @@
+/*
+Theme Name: Homesweet
+Author: Anonymous
+Author URI:
+Version: 1
+Description: Homesweet theme for Wordpress
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: Homesweet
+Tags: one-column, two-columns
+Theme URI:
+*/
+
+// devices viewport width starts at:
+$breakpoints: (
+	'xs-phone': 480px,
+	'phone': 576px,
+	'tablet': 768px,
+	'desktop': 992px,
+	'widescreen': 1200px
+);
+ 
+// keywords
+$media-expressions: (
+    'screen': 'screen',
+	'print': 'print',
+	'handheld': 'handheld',
+	'landscape': '(orientation: landscape)',
+	'portrait': '(orientation: portrait)',
+	'retina2x': '(-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi)',
+	'retina3x': '(-webkit-min-device-pixel-ratio: 2.5), (min-resolution: 240dpi)'
+);
+
+// ligatured operators ≥ ≤
+
+@import 'vendors/include-media';
+
+@import "bootstrap-custom";
+@import "vendors/bootstrap/variables";
+@import "vendors/bootstrap/mixins";
+
+@import 'base/mixins';
+
+/* ---------------------------------------------------------
+	 Resposnive styles
+	 ---------------------------------------------------------*/

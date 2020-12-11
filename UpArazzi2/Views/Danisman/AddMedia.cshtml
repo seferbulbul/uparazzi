@@ -1,0 +1,133 @@
+﻿@model List<fotograf>
+@{
+    ViewBag.Title = "AddMedia";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#sortable").sortable({
+            opacity: "0.5",
+            revert: true,
+            cursor:"move",
+            update: function (event, ui) {
+                $(this).children().each(function (index) {
+                    if ($(this).attr("data-position") != (index + 1)) {
+                        $(this).attr("data-position", (index + 1)).addClass("updated");                         
+                    }
+                });
+                saveNewPosition();
+            }
+        });      
+    })
+
+    function saveNewPosition() {
+        var positions = [];
+        $(".updated").each(function () {
+            positions.push([$(this).attr("data-index"), $(this).attr("data-position")]);
+          
+            $(this).removeClass("updated");
+        });
+       
+        $.ajax({
+            url: "/Danisman/FotoSirala/",
+            method: "post",
+            dataType: "text",
+            traditional :true,
+            data: { update: 1, positions: positions },
+            success: function () {
+
+            }
+        })
+    }
+  
+
+    $(document).on("click", ".DeletePhoto", function () {
+        var id = $(this).attr("data-id");
+        swal({
+            title: "",
+            text: "Resmi Silmek İstediğinizi Onaylıyor Musunuz !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e69a2a",
+            confirmButtonText: "Evet",
+            cancelButtonText: "Hayır",
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                type: "get",
+                url: "/Danisman/FotoSil",
+                data: { id: id },
+                success: function () {
+                    $("#" + id).remove();
+                    swal("Silindi", "", "success");                   
+                }
+            })
+
+        });
+        return false;
+    })
+
+
+</script>
+
+
+
+
+<div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Resim Galerisi</h5>
+        </div>
+
+
+    </div>
+    <p style="color:red;font-weight:bold">@ViewBag.Mesaj</p>
+    <br />
+    <form action="/Danisman/AddMedia/@Model.First().PortfoyId" enctype="multipart/form-data" method="post">
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-8">
+                    <input type="file" name="Resimler" class="form-control" multiple required />
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-info btn-rounded btn-block btn-anim"><i class="fa fa-send"></i><span class="btn-text">YENİ RESİMLER EKLE</span></button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <p style="font-weight:bold">Not : Resimleri sürükleyerek dilediğiniz sıralamayı yapabilirsiniz..</p>
+    <br />
+
+    <div class="row" id="sortable">
+        @foreach (fotograf item in Model)
+        {
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12" data-index="@item.Id" data-position="@item.PhotoOrder" id="@item.Id">
+                <div class="panel panel-default card-view pa-0">
+                    <div class="panel-wrapper collapse in">
+                        <div class="panel-body pa-0">
+                            <article class="col-item">
+                                <div class="photo">
+                                    <div class="options">
+                                        <a style="cursor:pointer;font-weight:bold" data-id="@item.Id" class="font-18 txt-grey pull-left sa-warning DeletePhoto"><i class="zmdi zmdi-close"></i></a>
+                                    </div>
+
+                                    <img src="@item.Path" class="img-responsive" alt="Product Image" style="height:300px;object-fit:contain" />
+                                </div>
+
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+    </div>
+    <!-- /Product Row Four -->
+
+</div>

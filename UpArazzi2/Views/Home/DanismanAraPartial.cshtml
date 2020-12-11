@@ -1,0 +1,82 @@
+﻿@model List<danisman>
+
+<form id="search_form" role="search" class="top-nav-search collapse pull-left the-basics" method="post" action="/Home/DanismanAra">
+    <div class="input-group">
+        <input type="text" name="ara" class=" form-control typeahead DanismanAra " placeholder="Danışman ya da Broker Ara.." required style="width:160%">
+        <span class="input-group-btn">
+            <button type="button" class="btn  btn-default" data-target="#search_form" data-toggle="collapse" aria-label="Close" aria-expanded="true"><i class="zmdi zmdi-search"></i></button>
+        </span>
+    </div>
+</form>
+@foreach(danisman item in Model)
+{
+    <div class="danismanlar-title" style="display:none">@item.Ad</div>
+}
+
+<script src="/AdminTheme/vendors/bower_components/typeahead.js/dist/typeahead.bundle.min.js"></script>
+
+<script>
+    $(function () {
+        "use strict";
+
+        /*Basic*/
+
+        var substringMatcher = function (strs) {
+            return function findMatches(q, cb) {
+                var matches, substringRegex;
+
+                // an array that will be populated with substring matches
+                matches = [];
+
+                // regex used to determine if a string contains the substring `q`
+                var substrRegex = new RegExp(q, 'i');
+
+                // iterate through the pool of strings and for any string that
+                // contains the substring `q`, add it to the `matches` array
+                $.each(strs, function (i, str) {
+                    if (substrRegex.test(str)) {
+                        matches.push(str);
+                    }
+                });
+
+                cb(matches);
+            };
+        };
+
+        var states = [];
+
+        $('.danismanlar-title').each(function (i, elem) {
+            states.push($(elem).text());
+        });
+
+        $('.the-basics .typeahead').typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1,
+
+
+        },
+            {
+                name: 'states',
+                source: substringMatcher(states)
+            });
+
+        //$('input.typeahead').on('typeahead:selected', function (event, selection) {
+        //    alert(selection.value);
+        //});
+
+        $("input.DanismanAra").keyup(function () {
+            var kelime = $(this).val();
+            if (event.keyCode == 13) {
+                location.href = "/Home/DanismanAra/?ara=" + kelime;
+            }
+
+        })
+
+
+
+
+
+
+    });
+</script>

@@ -1,0 +1,259 @@
+﻿<script>
+    $(function () {
+        $("#password1").keyup(function (event) {
+            if (event.keyCode == 13) {
+                $(".GirisYap1").click();
+            }
+        });
+        $("#username1").keyup(function (event) {
+            if (event.keyCode == 13) {
+                $(".GirisYap1").click();
+            }
+        });
+        $("#password2").keyup(function (event) {
+            if (event.keyCode == 13) {
+                $(".GirisYap2").click();
+            }
+        });
+        $("#username2").keyup(function (event) {
+            if (event.keyCode == 13) {
+                $(".GirisYap2").click();
+            }
+        });
+        $("#password3").keyup(function (event) {
+            if (event.keyCode == 13) {
+                $(".GirisYap3").click();
+            }
+        });
+        $("#username3").keyup(function (event) {
+            if (event.keyCode == 13) {
+                $(".GirisYap3").click();
+            }
+        });
+    })
+</script>
+<script>
+    $(function () {
+        $(".ForgetPassword1").click(function () {
+            var username = $("#username1").val();
+            if (username != "") {
+                $.ajax({
+                    type: "get",
+                    data: { username: username },
+                    url: "/Home/ForgetPassword",
+                    success: function (data) {
+                        if (data == "1") {
+                            $("#GelenMesaj1").html("* Şifreniz Mail Adresinize Gönderilmiştir.");
+                        } else {
+                            $("#GelenMesaj1").html("* Kullanıcı Adı Bulunamamıştır.");
+                        }
+                    }
+                })
+            }
+            if (username == "") {
+                $("#username1").addClass("KirmiziBorder");
+                $("#GelenMesaj1").html("* Lütfen Kullanıcı Adınızı Yazınız.");
+            } else {
+                $("#username1").removeClass("KirmiziBorder");
+            }
+        });
+
+        $(".ForgetPassword2").click(function () {
+            var username = $("#username2").val();
+            if (username != "") {
+                $.ajax({
+                    type: "get",
+                    data: { username: username },
+                    url: "/Home/ForgetPassword",
+                    success: function (data) {
+                        if (data == "1") {
+                            $("#GelenMesaj2").html("* Şifreniz Mail Adresinize Gönderilmiştir.");
+                        } else {
+                            $("#GelenMesaj2").html("* Kullanıcı Adı Bulunamamıştır.");
+                        }
+                    }
+                })
+            }
+            if (username == "") {
+                $("#username2").addClass("KirmiziBorder");
+                $("#GelenMesaj2").html("* Lütfen Kullanıcı Adınızı Yazınız.");
+            } else {
+                $("#username2").removeClass("KirmiziBorder");
+            }
+        });
+
+        $(".ForgetPassword3").click(function () {
+            var username = $("#username3").val();
+            if (username != "") {
+                $.ajax({
+                    type: "get",
+                    data: { username: username },
+                    url: "/Home/ForgetPassword",
+                    success: function (data) {
+                        if (data == "1") {
+                            $("#GelenMesaj3").html("* Şifreniz Mail Adresinize Gönderilmiştir.");
+                        } else {
+                            $("#GelenMesaj3").html("* Kullanıcı Adı Bulunamamıştır.");
+                        }
+                    }
+                })
+            }
+            if (username == "") {
+                $("#username3").addClass("KirmiziBorder");
+                $("#GelenMesaj3").html("* Lütfen Kullanıcı Adınızı Yazınız.");
+            } else {
+                $("#username3").removeClass("KirmiziBorder");
+            }
+        });
+
+
+    })
+</script>
+<script>
+    $(function () {
+        $(".GirisYap1").click(function () {
+            var username = $("#username1").val();
+            var password = $("#password1").val();
+            var role = $("#role1").val();
+
+            if (username != "" && password != "") {
+                $.ajax({
+                    type: "get",
+                    data: { username: username, password: password, role: role },
+                    url: "/Home/Login",
+                    success: function (data) {
+                        if (data == "1") {
+                            location.href = "/Home/YonetimPaneli"
+                        }
+                        else if (data == "2")
+                        {
+                            location.href = "/"
+                        }
+                        else {
+                            $("#GelenMesaj1").html("* Kullanıcı Adı Yada Parola Hatalı.");
+                        }
+                    }
+                })
+            }
+            if (username == "") {
+                $("#username1").addClass("KirmiziBorder");
+
+            } else {
+                $("#username1").removeClass("KirmiziBorder");
+            }
+            if (password == "") {
+                $("#password1").addClass("KirmiziBorder");
+
+            } else {
+                $("#password1").removeClass("KirmiziBorder");
+            }
+        });
+
+
+
+        if ($('input.Kabul').prop('checked')) {
+            $(".Kontrol").attr("disabled", false);
+
+        } else {
+            $(".Kontrol").attr("disabled", true);
+        };
+        $('input.Kabul').click(function () {
+            if ($('input.Kabul').prop('checked')) {
+                $(".Kontrol").attr("disabled", false);
+
+            } else {
+                $(".Kontrol").attr("disabled", true);
+            }
+        })
+
+
+        $(".KayitOl").click(function () {
+            var ok = true;
+            for (var i = 1; i < 6; i++) {
+                var deger = "deger" + i;
+                deger = $(".form" + i).val();
+                if (deger == "") {
+                    $(".form" + i).addClass("KirmiziBorder");
+                    ok = false;
+                } else {
+                    $(".form" + i).removeClass("KirmiziBorder");
+                }
+
+            };
+            if (!$(".form2").val().includes('@@')) {
+                $(".form2").addClass("KirmiziBorder");
+                ok = false;
+
+            } else {
+                $(".form2").removeClass("KirmiziBorder");
+            };
+            if ($(".form4").val() != $(".form5").val() || $(".form4").val() == "" || $(".form5").val() == "") {
+                $(".form4").addClass("KirmiziBorder");
+                $(".form5").addClass("KirmiziBorder");
+                ok = false;
+            } else {
+                $(".form4").removeClass("KirmiziBorder");
+                $(".form5").removeClass("KirmiziBorder");
+            }
+            
+        })
+    })
+</script>
+<style>
+    .KirmiziBorder {
+        border-color: red;
+        border-width: thin;
+    }
+   
+</style>
+
+<div class="popup-holder">
+    <div id="popup1" class="lightbox-demo">
+        <!-- popupLoginFrom -->
+        <div action="#" class="popupHolderWrap bgLightDark center-block popupLarge popupLoginFrom">
+            <ul class="list-unstyled popupTabsetList text-center fwBold text-uppercase fontNeuron">
+                <li class="active"><a title="UpArazzi" href="#tab01">UPARAZZİ TÜRKİYE</a></li>
+                @*<li><a href="#tab02">KAYIT OL</a></li>*@
+
+            </ul>
+            <div class="tab-content">
+                <div id="tab01" class="tab-active" style="width:350PX">
+                    <div class="popupColsHolder">
+                        <div class="col bgWhite">
+                            <div class="form-group">
+                                <p style="color:red" id="GelenMesaj1"></p>
+                                <input type="text" name="username" class="form-control elemenBlock username" id="username1" placeholder="Kullanıcı Adı">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password" class="form-control elemenBlock password" id="password1" placeholder="Parola">
+                            </div>
+                          
+                            <div class="form-group">
+                                <select class="form-control" id="role1">
+                                    <option value="Danisman">Arsa ve Arazi Uzmanı </option>
+                                    <option value="Broker">Broker </option>
+                                    <option value="Asistan">Ofis Asistanı </option>
+                                    <option value="Mudur">Ofis Müdürü</option>
+
+
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="fwNormal customLabelCheck">
+                                    <input type="checkbox" class="customFormInputReset">
+                                    <span class="fakeCheckbox"></span>
+                                    <span class="fakeLabel">Oturumu Açık Tut</span>
+                                </label>
+                            </div>
+                            <button class="btn btnSecondary elemenBlock fontNeuron fwNormal text-uppercase btnSubmit GirisYap1">GİRİŞ YAP</button>
+                            <a href="#" class="linkForget ForgetPassword1">Parolamı Unuttum?</a>
+                        </div>
+                       
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>

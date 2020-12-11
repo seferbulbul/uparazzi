@@ -1,0 +1,266 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<kurumsal>
+@{
+    ViewBag.Title = "Kurumsal";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script>
+    $(document).on("click", ".Sil", function () {
+        var id = $(this).attr("data-id");
+        swal({
+            title: "",
+            text: "İşlemi Onaylıyor Musunuz !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e69a2a",
+            confirmButtonText: "Evet",
+            cancelButtonText: "Hayır",
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                type: "get",
+                url: "/Tasarim/KurumsalSil",
+                data: { id: id },
+                success: function () {
+                    $("#" + id).remove();
+                    swal("Tamamlandı", "", "success");
+                }
+            })
+
+        });
+        return false;
+    })
+</script>
+<style>
+
+    .modal2 {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(179,179, 179, 0.9);
+    }
+
+    .modalImage {
+        margin: auto;
+        display: block;
+        width: 50%;
+        padding: 20px;
+        max-width: 700px;
+    }
+
+    #caption {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 700px;
+        text-align: center;
+        color: #ccc;
+        padding: 10px 0;
+        height: 150px;
+    }
+
+    .close2 {
+        position: absolute;
+        top: 70px;
+        right: 55px;
+        color: black;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+    }
+
+        .close2:hover,
+        .close2:focus {
+            color: rgb(255, 0, 0);
+            cursor: pointer;
+        }
+
+    @@media only screen and (max-width: 700px) {
+        .modalImage {
+            width: 100%;
+        }
+    }
+</style>
+
+@{danisman u = Session["User"] as danisman; }
+<div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h5 class="txt-dark">KURUMSAL KİMLİKLER</h5>
+        </div>
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12" style="float:right">
+
+            <form action="/Home/Kurumsal" method="get" id="the-basics">
+
+                <input type="text" class="typeahead form-control KurumsalAra" placeholder="Arama.." name="search" value="@ViewBag.Search" />
+
+            </form>
+
+        </div>
+        <!-- Breadcrumb -->
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view pa-0">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body pa-0">
+                        <div class="">
+                            @if (u.Tasarim == true || u.Admin == true)
+                            {
+                                <a class="btn btn-danger btn-block btn-outline btn-anim" data-toggle="modal" data-target="#responsive-modal2"><i class="fa fa-plus"></i><span class="btn-text">Kurumsal Kimlik Yükle</span></a>
+
+                            }
+
+
+                            <div class="col-lg-12 col-md-12 file-sec pt-20">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="row">
+                                            @foreach (kurumsal item in Model)
+                                            {
+                                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12  file-box" id="@item.Id">
+                                                    <div class="file">
+
+
+
+                                                        <img class="ImgThumbnail" src="@item.PhotoPath" style="width:100%;object-fit:cover;height:250px;cursor:pointer" data-id="@item.Id" />
+
+                                                        <div class="file-name">
+                                                            @item.Title
+                                                            <br>
+                                                            <span>Eklenme Tarihi: @item.CreaterDate.Value.ToString("dd.MM.yyyy")</span>
+                                                            @if (u.Tasarim == true || u.Admin == true)
+                                                            {
+                                                                <button class="Sil" data-id="@item.Id" style="float:right;color:red;font-weight:bold">Sil</button>
+                                                            }
+
+                                                            <button onclick="location.href='@item.PdfPath'" data-id="@item.Id" style="float:right;color:red;font-weight:bold">İndir</button>
+
+
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                                <div class="modal2">
+                                                    <span class="close2" style="opacity:1">×</span>
+                                                    <img class="modalImage" id="img01" />
+                                                </div>
+
+                                            }
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @Html.PagedListPager(Model, page => Url.Action("Kurumsal", new { page, search = ViewBag.Search }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(PagedListRenderOptions.OnlyShowFivePagesAtATime, new AjaxOptions() { InsertionMode = InsertionMode.Replace, HttpMethod = "get", UpdateTargetId = "Kurumsal" }))
+        </div>
+    </div>
+    <!-- /Row -->
+
+</div>
+@foreach (var item in ViewBag.titles)
+{
+    <div class="panel-title" style="display:none">
+        @item
+    </div>
+}
+
+<script>
+    var modalEle = document.querySelector(".modal2");
+    var modalImage = document.querySelector(".modalImage");
+    Array.from(document.querySelectorAll(".ImgThumbnail")).forEach(item => {
+        item.addEventListener("click", event => {
+            modalEle.style.display = "block";
+            modalImage.src = event.target.src;
+        });
+    });
+    document.querySelector(".close2").addEventListener("click", () => {
+        modalEle.style.display = "none";
+    });
+</script>
+
+<script src="/AdminTheme/vendors/bower_components/typeahead.js/dist/typeahead.bundle.min.js"></script>
+
+<script>
+    $(function () {
+        "use strict";
+
+        /*Basic*/
+
+        var substringMatcher = function (strs) {
+            return function findMatches(q, cb) {
+                var matches, substringRegex;
+
+                // an array that will be populated with substring matches
+                matches = [];
+
+                // regex used to determine if a string contains the substring `q`
+                var substrRegex = new RegExp(q, 'i');
+
+                // iterate through the pool of strings and for any string that
+                // contains the substring `q`, add it to the `matches` array
+                $.each(strs, function (i, str) {
+                    if (substrRegex.test(str)) {
+                        matches.push(str);
+                    }
+                });
+
+                cb(matches);
+            };
+        };
+
+        var states = [];
+
+        $('.panel-title').each(function (i, elem) {
+            states.push($(elem).text());
+        });
+
+        $('#the-basics .typeahead').typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1,
+
+
+        },
+            {
+                name: 'states',
+                source: substringMatcher(states)
+            });
+
+        //$('input.typeahead').on('typeahead:selected', function (event, selection) {
+        //    alert(selection.value);
+        //});
+
+        $("input.KurumsalAra").keyup(function () {
+            var kelime = $(this).val();
+            if (event.keyCode == 13) {
+                location.href = "/Home/Kurumsal/?search=" + kelime;
+            }
+
+        })
+
+
+
+
+
+
+    });
+</script>

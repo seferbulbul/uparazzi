@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Ajanda";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<link href="/AdminTheme/vendors/bower_components/fullcalendar/dist/fullcalendar.css" rel="stylesheet" type="text/css" />
+
+
+<div class="container-fluid">
+
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">UPASİST</h5>
+        </div>      
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">  
+                        <a class="btn btn-danger btn-block btn-outline btn-anim" href="/Home/AddEvent"><i class="fa fa-plus"></i><span class="btn-text">ETKİNLİK EKLE</span></a>
+                        <div class="calendar-wrap mt-40">
+                            <div id="calendar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+
+<script src="/AdminTheme/vendors/bower_components/moment/min/moment.min.js"></script>
+<script src="/AdminTheme/vendors/jquery-ui.min.js"></script>
+
+<script src="/AdminTheme/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+<script src="/AdminTheme/doodle-demo/full-width-light/dist/js/fullcalendar-data.js"></script>

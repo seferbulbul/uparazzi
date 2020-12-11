@@ -1,0 +1,157 @@
+﻿@model List<islem> 
+@{
+    ViewBag.Title = "BitmisIslemRaporlari";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script>
+
+    $(document).on("click", ".IslemSil", function () {
+        var id = $(this).attr("data-id");
+        swal({
+            title: "",
+            text: "İşlemi Onaylıyor Musunuz !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e69a2a",
+            confirmButtonText: "Evet",
+            cancelButtonText: "Hayır",
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                type: "get",
+                url: "/Home/IslemSil",
+                data: { id: id },
+                success: function () {
+                    $("#" + id).remove();
+                    swal("Başarılı", "", "success");
+                }
+            })
+
+        });
+        return false;
+    })
+
+    $(document).on("click", ".BrokerOnay", function () {
+        var id = $(this).attr("data-id");
+        $.ajax({
+            type: "get",
+            url: "/Broker/BrokerOnay",
+            data: { id: id },
+            success: function () {
+
+            }
+        })
+    })
+
+    $(document).on("click", ".YonetimOnay", function () {
+        var id = $(this).attr("data-id");
+        $.ajax({
+            type: "get",
+            url: "/Admin/YonetimOnay",
+            data: { id: id },
+            success: function () {
+                $("#" + id).remove();
+            }
+        })
+    })
+
+</script>
+
+@{ danisman u = Session["User"] as danisman;}
+
+<div class="container-fluid">
+
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h5 class="txt-dark">BİTMİŞ İŞLEM RAPORLARI</h5>
+        </div>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="table-wrap">
+                            <div class="">
+                                <table id="myTable1" class="table table-hover display  pb-30">
+                                    <thead>
+                                        <tr>
+                                            <th>İlan Resmi</th>
+                                            <th>İlan Adı</th>
+                                            <th>Konum</th>
+                                            <th>İşlem Tarihi</th>
+                                            <th>Danısman</th>
+                                            <th>Broker</th>
+                                            <th>Rapor</th>
+                                            <th>Broker Onay</th>
+                                            <th>Yönetim Onay</th>
+                                            <th>Sil</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (islem item in Model)
+                                        {
+                                        <tr id="@item.Id">
+                                            <td><img src="@(item.portfoy.fotografs.Count>0? item.portfoy.fotografs.OrderBy(x=>x.PhotoOrder).First().Path:"/Theme/images/fotoYok.jpg")" style="height:100px;min-width:200px;object-fit:cover" /> </td>
+                                            <td> @item.portfoy.Baslik</td>
+
+                                            <td> @item.portfoy.neighborhood.district.town.city.CityName / @item.portfoy.neighborhood.district.town.TownName / @item.portfoy.neighborhood.NeighborhoodName</td>
+
+                                            <td> @item.Tarih.Value.ToString("dd.MM.yyyy") </td>
+                                            <td> @item.portfoy.danisman.Ad</td>
+                                            <td> @(item.portfoy.danisman.BrokerId != null ? item.portfoy.danisman.danisman2.Ad : "") </td>
+                                            <td><a href="@Url.Action("ExportPdf","Home",new { item.Id})" style="font-size:24px"><i class="fa fa-file-pdf-o"></i></a></td>
+                                            <td>
+                                                <div class="checkbox checkbox-success checkbox-circle BrokerOnay" data-id="@item.Id">
+                                                    <input type="checkbox" @(item.BrokerOnay == true ? "checked" : "")  @(u.Broker != true ? "disabled" : "") @(item.YonetimOnay == true ? "disabled" : "")>
+                                                    <label for="@item.Id">  </label>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="checkbox checkbox-success checkbox-circle YonetimOnay" data-id="@item.Id">
+                                                    <input type="checkbox" @(item.YonetimOnay == true ? "checked" : "")  @(u.Admin != true ? "disabled" : "")>
+                                                    <label for="@item.Id">  </label>
+                                                </div>
+                                            </td>
+                                          
+
+                                            <td>
+                                                @if (u.Admin == true || (u.Broker == true && item.YonetimOnay != true) || (u.DanismanMi == true && item.BrokerOnay != true))
+                                                {
+                                                    <button title="Pasif Et" class="btn btn-info btn-icon-anim btn-circle IslemSil" data-id="@item.Id"><i class="icon-trash"></i></button>
+                                                }
+                                                else
+                                                {
+                                                    <button title="Pasif Et" class="btn btn-info btn-icon-anim btn-circle" data-id="@item.Id" disabled><i class="icon-trash"></i></button>
+                                                }
+
+
+
+
+                                            </td>
+                                           
+                                        </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+
+</div>
+
+
+
+
+

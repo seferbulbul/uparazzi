@@ -1,0 +1,108 @@
+﻿@model List<haber>
+@{
+    ViewBag.Title = "AddUpHaber";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script>
+
+
+
+    $(document).on("click", ".DeletePhoto", function () {
+        var id = $(this).attr("id");
+        swal({
+            title: "",
+            text: "Haberi Silmek İstediğinizi Onaylıyor Musunuz !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e69a2a",
+            confirmButtonText: "Evet",
+            cancelButtonText: "Hayır",
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                type: "get",
+                url: "/Tasarim/HaberSil",
+                data: { id: id },
+                success: function () {
+                    $("#" + id).parent().parent().remove();
+                    swal("Silindi", "", "success");
+                }
+            })
+
+        });
+        return false;
+    })
+
+
+</script>
+
+<div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">UPHABER</h5>
+        </div>
+
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <!-- /Row -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+
+                    <div class="clearfix"></div>
+                </div>
+                <p style="color:red;font-weight:bold">@ViewBag.Mesaj</p>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="gallery-wrap">
+
+                            <div class="portfolio-wrap project-gallery">
+
+                               
+                                @{int i = 1;}
+                                @foreach (haber item in Model)
+                                {
+                                    <form action="/Tasarim/AddUpHaber/@item.Id" enctype="multipart/form-data" method="post">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <img id="resim@(item.Id)" src="@item.PhotoPath" alt="" style="width:100%" />
+                                                <input type="file" name="resim" onchange="$('#resim'+@item.Id)[0].src = window.URL.createObjectURL(this.files[0])" />
+                                                <br />
+                                                <button class="btn btn-danger btn-rounded btn-block btn-anim"><i class="fa fa-save"></i><span class="btn-text">GÜNCELLE</span></button>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <input type="text" name="title" value="@item.Title" class="form-control" />
+                                                <textarea name="text" class="form-control" required id="editor@(i++)">@item.Text</textarea>
+                                            </div>
+                                           
+                                        </div>
+                                    </form>
+                                    <br />
+                                }
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+
+<script src="~/ckeditor/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('editor1');
+    CKEDITOR.replace('editor2');
+    CKEDITOR.replace('editor3');
+</script>

@@ -1,0 +1,149 @@
+﻿@model List<danisman>
+@{
+    ViewBag.Title = "Danismanlar";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script>
+
+
+    $(document).on("click", ".DanismanSil", function () {
+        var id = $(this).attr("data-id");
+        swal({
+            title: "",
+            text: "İşlemi Onaylıyor Musunuz !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e69a2a",
+            confirmButtonText: "Evet",
+            cancelButtonText: "Hayır",
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                type: "get",
+                url: "/Home/DanismanSil",
+                data: { id: id },
+                success: function () {
+                    $("#" + id).remove();
+                    swal("Başarılı", "", "success");
+                }
+            })
+        });
+        return false;
+    })
+
+  
+
+    $(document).on("click", ".checkbox", function () {
+        var id = $(this).attr("data-id");
+        $.ajax({
+            type: "get",
+            url: "/Home/DanismanOnayla",
+            data: { id: id },
+            success: function () {
+                $("#" + id).remove();
+            }
+        })
+    })
+
+</script>
+
+@{ danisman u = Session["User"] as danisman;}
+
+<div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">UZMANLAR</h5>
+        </div>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="table-wrap">
+                            <div class="">
+                                <table id="myTable1" class="table table-hover display  pb-30">
+                                    <thead>
+                                        <tr>
+                                            <th>Resim</th>
+                                            <th>Adı Soyadı</th>
+                                            <th>Mail Adresi</th>
+                                            <th>Telefon</th>
+                                            <th>Görevi</th>
+                                            <th>Broker</th>
+                                            <th>Bölge</th>
+                                            <th>Veriler</th>
+
+                                            @if (u.Admin == true)
+                                            {
+                                                <th>Onay</th>
+                                            }
+
+                                            <th>Düzenle / Sil</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (danisman item in Model)
+                                        {
+                                            <tr id="@item.Id">
+                                                <td><img src="@(item.PhotoPath!=null ? item.PhotoPath : "/Theme/images/fotoYok.png")" style="height:100px;min-width:200px;object-fit:contain" /> </td>
+                                                <td> @item.Ad</td>
+                                                <td>@item.Email</td>
+                                                <td>@item.Telefon</td>
+                                                <td> @item.Gorevi</td>
+                                                <td>  @(item.BrokerId != null ? item.danisman2.Ad : "")</td>
+                                                <td> @item.Bolge</td>
+                                                <td>
+                                                    Satılık : @item.portfoys.Count(x => x.Satilik == true && !x.islems.Any(y=>y.IsDeleted==false && y.YonetimOnay==true) && x.IsDeleted == false) <br />
+                                                    Kiralık : @item.portfoys.Count(x => x.Satilik == false && !x.islems.Any(y=>y.IsDeleted==false && y.YonetimOnay==true) && x.IsDeleted == false) <br />
+                                                    Bitmiş İşlem(Satılık)  : @item.portfoys.Count(x => x.Satilik == true && x.islems.Any(y=>y.IsDeleted==false && y.YonetimOnay==true) && x.IsDeleted == false) <br />
+                                                    Bitmiş İşlem(Kiralık)  : @item.portfoys.Count(x => x.Satilik == false && x.islems.Any(y=>y.IsDeleted==false && y.YonetimOnay==true) && x.IsDeleted == false)
+                                                </td>
+
+                                                @if (u.Admin == true)
+                                                {
+                                                    <td>
+                                                        <div class="checkbox checkbox-success checkbox-circle" data-id="@item.Id">
+                                                            <input type="checkbox" @(item.Onay == true ? "checked" : "")>
+                                                            <label for="@item.Id"> </label>
+                                                        </div>
+                                                    </td>
+                                                }
+
+                                                <td>
+                                                    @if (u.Broker == true)
+                                                    {
+                                                        <button title="Düzenle" onclick="location.href='/Broker/DanismanGuncelle/@item.Id'" class="btn btn-primary btn-icon-anim btn-circle"><i class="fa fa-edit"></i></button>
+                                                    }
+                                                    @if (item.IsDeleted == true)
+                                                    {
+                                                        <button title="Aktif Et" class="btn btn-info btn-icon-anim btn-circle DanismanSil" data-id="@item.Id"><i class="icon-refresh"></i></button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button title="Pasif Et" class="btn btn-info btn-icon-anim btn-circle DanismanSil" data-id="@item.Id"><i class="icon-trash"></i></button>
+                                                    }
+
+                                                </td>
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+
+</div>
+
+
+

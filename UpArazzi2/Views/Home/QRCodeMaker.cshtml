@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "QRCodeMaker";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h5 class="txt-dark">KARE KOD</h5>
+        </div>
+    </div>
+   
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="mt-20 mb-20 ml-15 mr-15">
+                            <a class="btn btn-danger btn-block btn-outline btn-anim" download href="@ViewBag.imageBytes"><i class="fa fa-download"></i><span class="btn-text">KAREKOD İNDİR </span> </a>
+                        </div>
+                        <center>
+                            @if (ViewBag.imageBytes != null)
+                            {
+                                <img src="@ViewBag.imageBytes" style="max-height:600px;max-width:100%" />
+                            }
+                        </center>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+
+</div>
+

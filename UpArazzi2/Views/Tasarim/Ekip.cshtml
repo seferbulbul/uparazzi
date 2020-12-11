@@ -1,0 +1,119 @@
+﻿@model List<danisman>
+@{
+    ViewBag.Title = "Ekip";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+<script>
+
+    $(document).on("click", ".onay", function () {
+        var id = $(this).attr("data-id");
+        $.ajax({
+            type: "get",
+            url: "/Tasarim/EkipShow",
+            data: { id: id },
+            success: function () {
+            }
+        })
+    })
+
+    $(document).ready(function () {
+        $("#sortable").sortable({
+            opacity: "0.5",
+            revert: true,
+            cursor: "move",
+            update: function (event, ui) {
+                $(this).children().each(function (index) {
+                    if ($(this).attr("data-position") != (index + 1)) {
+                        $(this).attr("data-position", (index + 1)).addClass("updated");
+                    }
+                });
+                saveNewPosition();
+            }
+        });
+    })
+
+    function saveNewPosition() {
+        var positions = [];
+        $(".updated").each(function () {
+            positions.push([$(this).attr("data-index"), $(this).attr("data-position")]);
+            $(this).removeClass("updated");
+        });
+
+        $.ajax({
+            url: "/Tasarim/EkipSirala/",
+            method: "post",
+            dataType: "text",
+            traditional: true,
+            data: { update: 1, positions: positions },
+            success: function () {
+
+            }
+        })
+    }
+
+</script>
+
+<div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">UZMAN EKİBİMİZ</h5>
+        </div>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="table-wrap">
+                            <div class="">
+                                <table id="myTable1" class="table table-hover display  pb-30">
+                                    <thead>
+                                        <tr>
+                                            <th>Resim</th>
+                                            <th>Adı Soyadı</th>
+                                            <th>Mail Adresi</th>
+                                            <th>Telefon</th>
+                                            <th>Görevi</th>
+                                            <th> Vitrin </th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody id="sortable">
+                                        @foreach (danisman item in Model)
+                                        {
+                                            <tr id="@item.Id" data-index="@item.Id" data-position="@item.EkipOrder">
+                                                <td><img src="@(item.PhotoPath!=null ? item.PhotoPath : "/Theme/images/fotoYok.jpg")" style="height:100px;min-width:200px;object-fit:contain" /> </td>
+                                                <td> @item.Ad</td>
+                                                <td>@item.Email</td>
+                                                <td>@item.Telefon</td>
+                                                <td> @item.Gorevi</td>
+
+                                                <td>
+                                                    <div class="checkbox checkbox-success checkbox-circle onay" data-id="@item.Id">
+                                                        <input type="checkbox" @(item.Showroom == true ? "checked" : "")>
+                                                        <label for="@item.Id"> </label>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+
+</div>
+
+

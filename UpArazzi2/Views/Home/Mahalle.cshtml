@@ -1,0 +1,14 @@
+﻿@model List<neighborhood> 
+
+
+<select name="NeighborhoodId" required class="form-control">
+    <option value="">Mahalle Seçiniz</option>
+    @foreach (neighborhood item in Model)
+    {
+        <option value="@item.NeighborhoodID" @(ViewBag.MahId == item.NeighborhoodID ? "selected" : "")> @item.NeighborhoodName</option>
+    }
+</select>
+
+
+
+

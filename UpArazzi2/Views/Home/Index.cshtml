@@ -1,0 +1,430 @@
+﻿
+@{
+    ViewBag.Title = "uparazzi | Arsa & Arazi Yatırım Uzmanlığı";
+    ViewBag.Description = "Türkiye'nin arsa-arazi alım satım ve kiralama alanlarında hizmet veren, arsa-arazi gayrimenkul yatırımlarında uzmanlaşmış ilk ve tek franchise markası.";
+    ViewBag.Url = "https://www.uparazzi.com.tr";
+    ViewBag.Photo = "https://www.uparazzi.com.tr/Theme/images/logo.png";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{ Html.RenderAction("SliderPart");}
+<!-- findFormBlock -->
+
+
+
+
+<form action="/Home/Ilanlar" method="post" class="bgWhite hasShadow" style="padding-top:32px">
+    <div class="container">
+        <h1 class="fontNeuron blockH text-uppercase"><span class="bdrBottom">TOPRAK YATIRIMINIZI BULUN</span></h1>
+     
+        <br />
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="form-group">
+                    <select data-placeholder="İl Seçiniz" name="ilKey" class="form-control iller">
+                        <option value="">İl Seçiniz</option>
+                        @{ Html.RenderAction("Iller");}
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="form-group">
+                    <select data-placeholder="İlçe Seçiniz" name="ilceKey" class="form-control ilceler">
+                        @{ Html.RenderAction("Ilceler");}
+                    </select>
+
+
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="form-group">
+                    <select data-placeholder="Nitelik" name="ilanTipi" class="form-control">
+                        <option value="">Nitelik</option>
+                        <option value="">Hepsi</option>
+                        <option value="Arsa">Arsa</option>
+                        <option value="Tarla">Tarla</option>
+                        <option value="Hobi Bahçesi">Hobi Bahçesi</option>
+                        <option value="Bungalow,Çiftlik Evi,Villa,Köy Evi">Bungalow / Çiftlik Evi / Villa / Köy Evi</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <div class="form-group">
+                    <select name="Siralama" class="form-control">
+                        <option value="">Akıllı Sıralama</option>
+                        <option @(ViewBag.Siralama == "Artan" ? "selected" : "") value="Artan">Fiyata Göre Artan<i class="fa fa-user"></i></option>
+                        <option @(ViewBag.Siralama == "Azalan" ? "selected" : "") value="Azalan">Fiyata Göre Azalan</option>
+                        <option @(ViewBag.Siralama == "mArtan" ? "selected" : "") value="mArtan">Metrekareye Göre Artan</option>
+                        <option @(ViewBag.Siralama == "mAzalan" ? "selected" : "") value="mAzalan">Metrekareye Göre Azalan</option>
+                        <option @(ViewBag.Siralama == "tarihYeni" ? "selected" : "") value="tarihYeni">Tarihe Göre En Yeni</option>
+                        <option @(ViewBag.Siralama == "tarihEski" ? "selected" : "") value="tarihEski">Tarihe Göre En Eski</option>
+
+                    </select>
+                </div>
+            </div>
+
+
+        </div>
+        <!-- orderRow -->
+        <div class="row orderRow">
+            <div class="col-xs-12 col-sm-offset-6 col-sm-3 order2">
+                <button type="submit" class="btn btnSecondary text-uppercase fontNeuron pull-right">ARAMAYI BAŞLAT</button>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+<form action="#" class="bgWhite signupFormAside">
+    <div class="container signupFormAsideHolder">
+        <span class="icnAbsolute elemenBlock fi flaticon-message"></span>
+        <div class="col-xs-12 col-md-offset-2 col-md-7">
+            <h3 class="fontNeuron textSecondary">Toprak Gayrimenkullerinizle İlgili Detayları Bize İletin!</h3>
+            <p>Gayrimenkulünüzün tipi, yeri, boyutu ve özelliklerini yazın, değerini saptayarak en avantajlı teklif seçeneklerini birlikte değerlendirelim...</p>
+        </div>
+        <div class="col-xs-12 col-md-3">
+            <div class="form-group">
+
+                <a title="WhatsApp" rel="nofollow" href="https://api.whatsapp.com/send?phone=905304712779&text=Şirketinizden bilgi almak istiyorum. Benimle iletişime geçer misiniz?" class="headerModalOpener text-uppercase fontNeuron fwBold"> <i class="fab fa-whatsapp"> </i> WhatsApp</a>
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
+@{ Html.RenderAction("Firsat");}
+
+
+<section class="bgWhite newsNstoriesBlock">
+    <div class="container">
+        <h1 class="fontNeuron blockH text-uppercase"><a href="/Home/Blog"> <span class="bdrBottom">Öne Çıkan Yatırım Uzmanları</span></a></h1>
+        <div class="row">
+            <!-- newsCarousel -->
+            <div class="news-posts-carousel2 slickSlider newsCarousel">
+
+                <div>
+                    <div class="col-xs-12">
+                        <!-- newsPostColumn -->
+                        <article class="">
+                            
+
+                                <img src="~/Theme/images/CİRO BİRİNCİSİ.jpg" alt="image description">
+
+                         
+
+                        </article>
+                    </div>
+                </div>
+                <div>
+                    <div class="col-xs-12">
+                        <!-- newsPostColumn -->
+                        <article class="">
+                          
+
+                                <img src="~/Theme/images/İSLEM BİRİNCİSİ.jpg" alt="image description" >
+
+                          
+
+                        </article>
+                    </div>
+                </div>  <div>
+                    <div class="col-xs-12">
+                        <!-- newsPostColumn -->
+                        <article class="">
+                          
+
+                                <img src="~/Theme/images/müşteri.jpg" alt="image description" >
+
+                         
+
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="bgWhite newsNstoriesBlock">
+    <div class="container">
+        <h1 class="fontNeuron blockH text-uppercase"><span class="bdrBottom">Kazanç ve Kariyer İmkanları</span></h1>
+        <p>Sola Kaydırın</p>
+        <div class="row">
+            <!-- newsCarousel -->
+            <div class="news-posts-carousel slickSlider newsCarousel">
+
+                <div class="col-xs-12">
+                    <!-- newsPostColumn -->
+                    <article class="newsPostColumn">
+                        <div class="aligncenter">
+
+                            <img src="~/Theme/images/bayi.jpg" alt="image description" style="height:350px;object-fit:cover">
+
+                        </div>
+                        <h2 class="fontNeuron"> Bayilik Başvurusu </h2>
+                        <p>
+                            <a href="#popup2" class="lightbox">
+                                <label class="btn btnSmall btn-info">Başvuru Formu</label>
+                            </a>
+                            <time datetime="2011-01-12"><a href="#popup2" class="lightbox" style="color:#8e99a3">Formu doldurmak için tıklayınız...</a></time>
+
+
+                        </p>
+                        @*<footer class="PostColumnFoot">
+                            <a title="WhatsApp" rel="nofollow" href="https://api.whatsapp.com/send?phone=905304712779&text=bayilik sisteminizi öğrenmek istiyorum lütfen beni bilgilendirin" class="elemenBlock readMore text-capitalize">Bize Ulaşın.. <i class="fi flaticon-arrows readMoreIcn"></i></a>
+                        </footer>*@
+                    </article>
+                </div>
+
+                <div class="col-xs-12">
+                    <!-- newsPostColumn -->
+                    <article class="newsPostColumn">
+                        <div class="aligncenter">
+
+                            <img src="~/Theme/images/bizekatil.jpg" alt="image description" style="height:350px;object-fit:cover">
+
+                        </div>
+                        <h2 class="fontNeuron"> Yatırım Uzmanlığı Başvurusu</h2>
+                        <p>
+                            <a href="#popup3" class="lightbox">
+                                <label class="btn btnSmall btn-info">Başvuru Formu</label>
+                            </a>
+                            <time datetime="2011-01-12"><a href="#popup3" class="lightbox" style="color:#8e99a3">Formu doldurmak için tıklayınız...</a></time>
+
+                        </p>
+                        @*<footer class="PostColumnFoot">
+                            <a title="WhatsApp" rel="nofollow" href="https://api.whatsapp.com/send?phone=905304712779&text=arsa ve arazi yatırım uzmanı olmak istiyorum lütfen beni bilgilendirin" class="elemenBlock readMore text-capitalize">Bize Ulaşın..<i class="fi flaticon-arrows readMoreIcn"></i></a>
+                        </footer>*@
+                    </article>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    @@media only screen and (max-width: 600px) {
+        .formpop {
+            width: 350px;
+        }
+    }
+
+    @@media only screen and (min-width: 600px) {
+        .formpop {
+            width: 500px;
+        }
+    }
+</style>
+<div class="popup-holder">
+    <div id="popup2" class="lightbox-demo">
+        <!-- popupLoginFrom -->
+        <div action="#" class="popupHolderWrap bgLightDark center-block popupLarge popupLoginFrom">
+            <ul class="list-unstyled popupTabsetList text-center fwBold text-uppercase fontNeuron">
+                <li class="active"><a title="UpArazzi" href="#tab01">BAYİ OLMAK İSTİYORUM</a></li>
+
+
+            </ul>
+            <div class="tab-content">
+                <div id="tab01" class="tab-active formpop">
+                    <div class="popupColsHolder">
+                        <div class="col bgWhite">
+
+                            <div class="form-group">
+
+                                <label>Adınız Soyadınız</label>
+                                <input type="text" name="name" class="form-control elemenBlock " id="name">
+                            </div>
+                            <div class="form-group">
+                                <label>Telefon Numaranız</label>
+                                <input type="number" name="phone" class="form-control elemenBlock " id="phone">
+                            </div>
+                            <div class="form-group">
+                                <label>Doğum Tarihiniz</label>
+                                <input type="date" name="birthday" class="form-control elemenBlock " id="dt">
+                            </div>
+                            <div class="form-group">
+                                <label>Mail Adresiniz</label>
+                                <input type="email" name="mail" class="form-control elemenBlock username" id="mail">
+                            </div>
+                            <div class="form-group">
+
+                                <label>Mesleğiniz</label>
+                                <input type="text" name="job" class="form-control elemenBlock username" id="job">
+                            </div>
+                            <div class="form-group">
+
+                                <label>Ofis Açma İstediğiniz İl / İlçe</label>
+                                <input type="text" name="city" class="form-control elemenBlock username" id="city">
+                            </div>
+                            <div class="form-group">
+                                <label>Bize Nerede Ulaştınız ?</label>
+                                <select class="form-control" id="nereden">
+                                    <option value="">Seçim Yapınız</option>
+                                    <option value="Sosyal Medya">Sosyal Medya </option>
+                                    <option value="Basın">Basın</option>
+                                    <option value="Referans Kanalıyla">Referans Kanalıyla</option>
+                                    <option value="Google">Google</option>
+                                </select>
+                            </div>
+
+                            <button class="btn btnSecondary elemenBlock fontNeuron fwNormal text-uppercase btnSubmit GirisYap2">Gönder</button>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="popup-holder">
+    <div id="popup3" class="lightbox-demo">
+        <!-- popupLoginFrom -->
+        <div action="#" class="popupHolderWrap bgLightDark center-block popupLarge popupLoginFrom">
+            <ul class="list-unstyled popupTabsetList text-center fwBold text-uppercase fontNeuron">
+                <li class="active"><a title="UpArazzi" href="#tab01">Arsa ve Arazi Yatırım Uzmanı Olmak İstiyorum</a></li>
+
+
+            </ul>
+            <div class="tab-content">
+                <div id="tab01" class="tab-active formpop">
+                    <div class="popupColsHolder">
+                        <div class="col bgWhite">
+
+                            <div class="form-group">
+                                <label>Adınız Soyadınız</label>
+                                <input type="text" name="name" class="form-control elemenBlock " id="name2">
+                            </div>
+                            <div class="form-group">
+                                <label>Telefon Numaranız</label>
+                                <input type="number" name="phone" class="form-control elemenBlock " id="phone2">
+                            </div>
+                            <div class="form-group">
+                                <label>Doğum Tarihiniz</label>
+                                <input type="date" name="birthday" class="form-control elemenBlock " id="dt2">
+                            </div>
+                            <div class="form-group">
+                                <label>Mail Adresiniz</label>
+                                <input type="email" name="mail" class="form-control elemenBlock " id="mail2">
+                            </div>
+                            <div class="form-group">
+
+                                <label>Mesleğiniz</label>
+                                <input type="text" name="job" class="form-control elemenBlock " id="job2">
+                            </div>
+                            <div class="form-group">
+
+                                <label>Çalışmak İstediğiniz İl / İlçe</label>
+                                <input type="text" name="city" class="form-control elemenBlock " id="city2">
+                            </div>
+                            <div class="form-group">
+                                <label>Bize Nerede Ulaştınız ?</label>
+                                <select class="form-control" id="nereden2">
+                                    <option value="">Seçim Yapınız</option>
+                                    <option value="Sosyal Medya">Sosyal Medya </option>
+                                    <option value="Basın">Basın</option>
+                                    <option value="Referans Kanalıyla">Referans Kanalıyla</option>
+                                    <option value="Google">Google</option>
+                                </select>
+                            </div>
+
+                            <button class="btn btnSecondary elemenBlock fontNeuron fwNormal text-uppercase btnSubmit GirisYap3">Gönder</button>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".GirisYap2").click(function () {
+            var name = $("#name").val();
+            var phone = $("#phone").val();
+            var dt = $("#dt").val();
+            var mail = $("#mail").val();
+            var job = $("#job").val();
+            var city = $("#city").val();
+            var nereden = $("#nereden").val();
+
+            if (name.trim() != "" && phone.trim() != "" && dt.trim() != "" && mail.trim() != "" && job.trim() != "" && city.trim() != "" && nereden.trim() != "") {
+                $.ajax({
+                    type: "get",
+                    url: "/Home/KazanmakIcin",
+                    data: { name: name, phone: phone, dt: dt, mail: mail, job: job, city: city, nereden: nereden, type: "UpArazzi Ofisi Açmak İstiyorum." },
+                    success: function () {
+                        $(".fancybox-close-small").click();
+                        alert("Kaydınız alınmıştır, En kısa sürede geri dönüş sağlacaktır.");
+                    }, error: function () {
+                        alert("Bir Sorunla Karşılaşıldı, Lütfen Daha Sonra Tekrar Deneyiniz.");
+                    }
+                })
+
+            } else {
+                alert("Lütfen Tüm Alanları Eksiksiz Doldurunuz !");
+            }
+        })
+
+        $(".GirisYap3").click(function () {
+            var name = $("#name2").val();
+            var phone = $("#phone2").val();
+            var dt = $("#dt2").val();
+            var mail = $("#mail2").val();
+            var job = $("#job2").val();
+            var city = $("#city2").val();
+            var nereden = $("#nereden2").val();
+
+            if (name.trim() != "" && phone.trim() != "" && dt.trim() != "" && mail.trim() != "" && job.trim() != "" && city.trim() != "" && nereden.trim() != "") {
+                $.ajax({
+                    type: "get",
+                    url: "/Home/KazanmakIcin",
+                    data: { name: name, phone: phone, dt: dt, mail: mail, job: job, city: city, nereden: nereden, type: "Arsa ve Arazi Yatırım Uzmanı Olmak İstiyorum." },
+                    success: function () {
+                        $(".fancybox-close-small").click();
+                        alert("Kaydınız alınmıştır, En kısa sürede geri dönüş sağlacaktır.");
+                    }, error: function () {
+                        alert("Bir Sorunla Karşılaşıldı, Lütfen Daha Sonra Tekrar Deneyiniz.");
+                    }
+                })
+
+            } else {
+                alert("Lütfen Tüm Alanları Eksiksiz Doldurunuz !");
+            }
+        })
+    })
+</script>
+
+@{ Html.RenderAction("BlogPartial");}
+<!-- ourAgentBlock -->
+@{ Html.RenderAction("Ekip");}
+<!-- testimonilasBlock -->
+@{ Html.RenderAction("Medya");}
+@{ Html.RenderAction("MMPartial");}
+
+<section class="container sponsorsBlock" style="padding:20px">
+  
+    <div class=" slickSlider LogosCarousel">
+        <div>
+
+            <!-- logoColumn -->
+            @*<div class="logoColumn" style="width:215px;float:left">
+
+                <img src="/Theme/images/logo3.png" alt="uparazzi">
+
+            </div>
+            <div class="logoColumn" style="width:215px;float:right">
+
+                <img src="~/Theme/images/hayal2.png" alt="uparazzi">
+
+            </div>*@
+        </div>
+    </div>
+</section>
+

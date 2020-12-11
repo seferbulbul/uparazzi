@@ -1,0 +1,185 @@
+﻿@model PanelVM
+@{
+    ViewBag.Title = "YonetimPaneli";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="container-fluid">
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">UPNEWS</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view pb-0">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body pb-0">
+                        <div class="row">
+
+                            <div class="col-lg-4 col-md-6 col-sm-12 text-center mb-30">
+                                <div class="panel panel-pricing mb-0">
+                                    <div class="panel-heading">
+
+                                        <div class="item"><img src="~/Theme/images/CİRO BİRİNCİSİ.jpg" alt="UpHaber" style="width:80%"></div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- /item -->
+                            <!-- item -->
+                            <div class="col-lg-4 col-md-6 col-sm-12 text-center mb-30">
+                                <div class="panel panel-pricing mb-0">
+                                    <div class="panel-heading">
+
+                                        <div class="item"><img src="~/Theme/images/İSLEM BİRİNCİSİ.jpg" alt="UpHaber" style="width:80%"></div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <!-- /item -->
+                            <!-- item -->
+                            <div class="col-lg-4 col-md-6 col-sm-12 text-center mb-30">
+                                <div class="panel panel-pricing mb-0">
+                                    <div class="panel-heading">
+
+                                        <div class="item"><img src="~/Theme/images/müşteri.jpg" alt="UpHaber" style="width:80%"></div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view pb-0">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body pb-0">
+                        <div class="row">
+                            @foreach (haber item in Model.Habers)
+                            {
+                                <div class="col-lg-3 col-md-6 col-sm-12 text-center mb-30">
+                                    <div class="panel panel-pricing mb-0">
+                                        <div class="panel-heading">
+
+                                            <img src="@item.PhotoPath" style="width:100%;height:350px;object-fit:cover" />
+
+                                        </div>
+                                        <div class="panel-body text-center pl-0 pr-0">
+
+                                            <ul class="list-group mb-0 text-center">
+                                                <li class="list-group-item" style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden"><i class="fa fa-newspaper-o"></i> @item.Title</li>
+
+
+                                            </ul>
+                                        </div>
+                                        <div class="panel-footer pb-35">
+                                            <button class="btn btn-danger btn-outline  btn-0" data-toggle="modal" data-target="#myModal@(item.Id)">Devamını Oku..</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+
+                            <div class="col-lg-3 col-md-6 col-sm-12 text-center mb-30">
+                                <div class="panel panel-pricing mb-0">
+                                    <div class="panel-heading">
+                                        <div class="panel panel-default border-panel card-view">
+                                            <div class="panel-heading">
+                                                <div class="pull-left">
+                                                    <h6 class="panel-title pull-left">Son Eklenen İlanlar</h6>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+                                            </div>
+                                            <div class="panel-wrapper collapse in">
+                                                <div class="panel-body row pa-0">
+                                                    <div class="chat-cmplt-wrap ">
+                                                        <div>
+                                                            <div>
+                                                                <div class="users-nicescroll-bar">
+                                                                    <ul class="chat-list-wrap">
+                                                                        <li class="chat-list">
+                                                                            <div class="chat-body">
+                                                                                @foreach (portfoy item in Model.Portfoys)
+                                                                                {
+                                                                                    <a href="@Url.Action("Portfoy","Home",new { PortfoyAdi =Helper.FriendlyURLTitle(item.Baslik), id=item.Id })" target="_blank">
+                                                                                        <div class="chat-data">
+                                                                                            <img class="user-img img-circle" src="@item.danisman.PhotoPath" alt="user" />
+                                                                                            <div class="user-data" style="text-align:justify">
+                                                                                                <span> @item.danisman.Ad  </span>  <span style="color:gray;font-size:9px;text-transform:capitalize">@item.neighborhood.district.town.city.CityName.ToLower() / @item.neighborhood.district.town.TownName.ToLower()'de Yeni İlan Ekledi.<br />  </span> <span style="float:right;font-style:italic;font-size:9px;color:red"> @item.Fiyat.Value.ToString("c2").Replace("$", "").Replace(".00", "") ₺ </span>
+
+
+                                                                                            </div>
+
+                                                                                            <div class="clearfix"></div>
+                                                                                        </div>
+                                                                                    </a>
+                                                                                }
+
+                                                                            </div>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Row -->
+    </div>
+
+    @foreach (haber item in Model.Habers)
+    {
+        <div id="myModal@(item.Id)" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h5 class="modal-title" id="myModalLabel">UpNews</h5>
+                    </div>
+                    <div class="modal-body">
+                        <h5 class="mb-15">
+                            @item.Title
+                        </h5>
+                        <p>
+                           @Html.Raw(item.Text)</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Kapat</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    }
+  

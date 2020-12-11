@@ -1,0 +1,398 @@
+﻿@model  islem
+@{
+    Layout = null;
+}
+<div style="padding:50px">
+    <table style="width: 100%; border-collapse: collapse; border: none; margin-left: 4.8pt; margin-right: calc(6%);">
+        <tbody>
+            <tr>
+                <td colspan="6" style="width: 466.1pt;border: 1pt solid windowtext;padding: 0in 5.4pt;height: 20.85pt;vertical-align: top;">
+                    <p style='margin-top:15px;margin-right:0in;margin-bottom:10px;margin-left:0in;line-height:normal;font-size:16px;font-family:"Calibri",sans-serif;text-align:center;'>&nbsp;<img src="~/Theme/images/logo.png" style="width: 100.5pt; height: 48pt;" alt="image"><strong><br>&nbsp;BİTMİŞ İŞLEM RAPORU</strong></p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="width: 131.4pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>TARİH:</p>
+                </td>
+                <td colspan="3" style="width: 46.626%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.Tarih.Value.ToString("dd.MM.yyyy") </p>
+                </td>
+                <td style="width: 31.2912%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>RAPOR NO: @Model.RaporNo</p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6" style="width: 466.1pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 3.5pt;vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="width: 131.4pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 0.15in;vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:16px;font-family:"Calibri",sans-serif;'>RAPOR T&Uuml;R&Uuml; :</p>
+                </td>
+                <td colspan="3" style="width: 46.626%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 0.15in; vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:5.4pt;line-height:normal;font-size:16px;font-family:"Calibri",sans-serif;'>@(Model.Satilik == true ? "SATIŞ" : "KİRALAMA")</p>
+                </td>
+                <td style="width: 31.2912%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 0.15in; vertical-align: top;">
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:.0001pt;margin-left:5.4pt;line-height:normal;font-size:16px;font-family:"Calibri",sans-serif;'>PORTF&Ouml;Y NO: @Model.PortfoyNo</p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="width: 131.4pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 0.15in;vertical-align: top;">
+                    <p style='margin-top: 0in; margin-right: 0in; margin-bottom: .0001pt; margin-left: 0in; line-height: normal; font-size: 15px; font-family: "Calibri",sans-serif;'>NİTELİK :&nbsp;</p>
+                </td>
+                <td colspan="4" style="width: 334.7pt;border-top: none;border-left: none;border-bottom: 1pt solid windowtext;border-right: 1pt solid windowtext;padding: 0in 5.4pt;height: 0.15in;vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.Nitelik.ToUpper()</p>
+                </td>
+            </tr>
+            <tr>
+                @{ int rows = 6;}
+                @if (Model.Nitelik == "Arsa" || Model.Nitelik == "Arazi" || Model.Nitelik == "Tarla" || Model.Nitelik == "Hobi Bahçesi")
+                {
+                    rows = 7;
+                }
+                <td colspan="2" rowspan="@rows" style="width: 131.4pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 14.1pt;vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>GAYRİMENKUL&Uuml;N ADRESİ:</p>
+                </td>
+                <td colspan="2" style="width: 27.5545%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 14.1pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>İL:</p>
+                </td>
+                <td colspan="2" style="width: 50.3627%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 14.1pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.Il</p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="width: 27.5545%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.7pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>İL&Ccedil;E:</p>
+                </td>
+                <td colspan="2" style="width: 50.3627%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.7pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.Ilce</p>
+                </td>
+            </tr>
+
+            @if (rows == 7)
+            {
+                <tr>
+                    <td colspan="2" style="width: 27.5545%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.7pt; vertical-align: top;">
+                        <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>BELDE / KÖY:</p>
+                    </td>
+                    <td colspan="2" style="width: 50.3627%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.7pt; vertical-align: top;">
+                        <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.Belde</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="width: 27.5545%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.7pt; vertical-align: top;">
+                        <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>ADA:</p>
+                    </td>
+                    <td colspan="2" style="width: 50.3627%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.7pt; vertical-align: top;">
+                        <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.AdaNo</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="width: 27.5545%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.7pt; vertical-align: top;">
+                        <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>PARSEL:</p>
+                    </td>
+                    <td colspan="2" style="width: 50.3627%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.7pt; vertical-align: top;">
+                        <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.Parsel</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="        width: 27.5545%;
+        border-top: none;
+        border-left: none;
+        border-bottom: 1pt solid windowtext;
+        border-right: 1pt solid windowtext;
+        padding: 0in 5.4pt;
+        height: 13.7pt;
+        vertical-align: top;">
+                        <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>M2:</p>
+                    </td>
+                    <td colspan="2" style="width: 50.3627%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.7pt; vertical-align: top;">
+                        <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.m2</p>
+                    </td>
+                </tr>
+            }
+            else
+            {
+                <tr>
+                    <td colspan="2" style="width: 27.5545%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.7pt; vertical-align: top;">
+                        <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>KAT:</p>
+                    </td>
+                    <td colspan="2" style="        width: 50.3627%;
+        border-top: none;
+        border-left: none;
+        border-bottom: 1pt solid windowtext;
+        border-right: 1pt solid windowtext;
+        padding: 0in 5.4pt;
+        height: 28.65pt;
+        vertical-align: top;">
+                        <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.Kat</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="        width: 27.5545%;
+        border-top: none;
+        border-left: none;
+        border-bottom: 1pt solid windowtext;
+        border-right: 1pt solid windowtext;
+        padding: 0in 5.4pt;
+        height: 27.35pt;
+        vertical-align: top;">
+                        <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>NO:</p>
+                    </td>
+                    <td colspan="2" style="width: 50.3627%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.7pt; vertical-align: top;">
+                        <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.No</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="width: 27.5545%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.7pt; vertical-align: top;">
+                        <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>ODA SAYISI M2:</p>
+                    </td>
+                    <td colspan="2" style="width: 50.3627%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.7pt; vertical-align: top;">
+                        <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.OdaSayisi</p>
+                    </td>
+                </tr>
+            }
+
+
+
+
+            <tr>
+                <td colspan="2" style="width: 27.5545%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 16.4pt; vertical-align: top;">
+                    <p style='        margin-top: 0in;
+        margin-right: 0in;
+        margin-bottom: .0001pt;
+        margin-left: 0in;
+        line-height: normal;
+        font-size: 15px;
+        font-family: "Calibri",sans-serif;'>FİYAT:</p>
+                </td>
+                <td colspan="2" style="width: 50.3627%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 16.4pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.Fiyat.Value.ToString("F") ₺</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 131.4pt; border-right: 1pt solid windowtext; border-bottom: 1pt solid windowtext; border-left: 1pt solid windowtext; border-image: initial; border-top: none; padding: 0in 5.4pt; height: 9.3pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>ROUTİNG</p>
+                </td>
+                <td colspan="3" style="width: 31.2421%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 9.3pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.RoutingS</p>
+                </td>
+                <td style="width: 19.148%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 9.3pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>ROUTİNG:</p>
+                </td>
+                <td style="width: 31.2911%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 9.3pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.RoutingA</p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" style="width: 49.5118%; border-right: 1pt solid windowtext; border-bottom: 1pt solid windowtext; border-left: 1pt solid windowtext; border-image: initial; border-top: none; padding: 0in 5.4pt; height: 13.1pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>SATICI BİLGİLERİ</p>
+                </td>
+                <td colspan="2" style="width: 50.3627%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.1pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>ALICI/KİRACI BİLGİLERİ&nbsp;</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 131.4pt; border-right: 1pt solid windowtext; border-bottom: 1pt solid windowtext; border-left: 1pt solid windowtext; border-image: initial; border-top: none; padding: 0in 5.4pt; height: 14.3pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>ADI-SOYADI:</p>
+                </td>
+                <td colspan="3" style="        width: 31.2421%;
+        border-top: none;
+        border-left: none;
+        border-bottom: 1pt solid windowtext;
+        border-right: 1pt solid windowtext;
+        padding: 0in 5.4pt;
+        height: 14.3pt;
+        vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.AdS</p>
+                </td>
+                <td style="width: 19.148%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 14.3pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>ADI-SOYADI:</p>
+                </td>
+                <td style="width: 31.2911%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 14.3pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.AdA</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 131.4pt; border-right: 1pt solid windowtext; border-bottom: 1pt solid windowtext; border-left: 1pt solid windowtext; border-image: initial; border-top: none; padding: 0in 5.4pt; height: 13.15pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>ADRESİ:</p>
+                </td>
+                <td colspan="3" style="        width: 31.2421%;
+        border-top: none;
+        border-left: none;
+        border-bottom: 1pt solid windowtext;
+        border-right: 1pt solid windowtext;
+        padding: 0in 5.4pt;
+        height: 13.15pt;
+        vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.AdresS</p>
+                </td>
+                <td style="width: 19.148%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.15pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>ADRESİ:</p>
+                </td>
+                <td style="width: 31.2911%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.15pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.AdresA</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 131.4pt; border-right: 1pt solid windowtext; border-bottom: 1pt solid windowtext; border-left: 1pt solid windowtext; border-image: initial; border-top: none; padding: 0in 5.4pt; height: 13.4pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>TC KİMLİK NO:</p>
+                </td>
+                <td colspan="3" style="width: 31.2421%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.4pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.TCS</p>
+                </td>
+                <td style="width: 19.148%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.4pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>TC KİMLİK NO:</p>
+                </td>
+                <td style="width: 31.2911%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 13.4pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.TCA</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 131.4pt; border-right: 1pt solid windowtext; border-bottom: 1pt solid windowtext; border-left: 1pt solid windowtext; border-image: initial; border-top: none; padding: 0in 5.4pt; height: 11.6pt; vertical-align: top;">
+                    <p style='        margin-top: 0in;
+        margin-right: 0in;
+        margin-bottom: .0001pt;
+        margin-left: 0in;
+        line-height: normal;
+        font-size: 15px;
+        font-family: "Calibri",sans-serif;'>İRTİBAT TEL:</p>
+                </td>
+                <td colspan="3" style="width: 31.2421%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 11.6pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.TelS</p>
+                </td>
+                <td style="width: 19.148%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 11.6pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>İRTİBAT TEL:</p>
+                </td>
+                <td style="width: 31.2911%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 11.6pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.TelA</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 131.4pt; border-right: 1pt solid windowtext; border-bottom: 1pt solid windowtext; border-left: 1pt solid windowtext; border-image: initial; border-top: none; padding: 0in 5.4pt; height: 9.1pt; vertical-align: top;">
+                    <p style='        margin-top: 0in;
+        margin-right: 0in;
+        margin-bottom: .0001pt;
+        margin-left: 0in;
+        line-height: normal;
+        font-size: 15px;
+        font-family: "Calibri",sans-serif;'>SATICI DANIŞMANI:</p>
+                </td>
+                <td colspan="3" style="width: 31.2421%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 9.1pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.DanismanS</p>
+                </td>
+                <td style="width: 19.148%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 9.1pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>ALICI DANIŞMANI:</p>
+                </td>
+                <td style="width: 31.2911%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 9.1pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.DanismanA</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 131.4pt; border-right: 1pt solid windowtext; border-bottom: 1pt solid windowtext; border-left: 1pt solid windowtext; border-image: initial; border-top: none; padding: 0in 5.4pt; height: 9.1pt; vertical-align: middle;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>SATICI DANIŞMANI 2:</p>
+                </td>
+                <td colspan="3" style="width: 31.2421%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 9.1pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.Danisman2S</p>
+                </td>
+                <td style="width: 19.148%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 9.1pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>ALICI DANIŞMANI 2:</p>
+                </td>
+                <td style="width: 31.2911%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 9.1pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.Danisman2A</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="        width: 131.4pt;
+        border-right: 1pt solid windowtext;
+        border-bottom: 1pt solid windowtext;
+        border-left: 1pt solid windowtext;
+        border-image: initial;
+        border-top: none;
+        padding: 0in 5.4pt;
+        height: 29.25pt;
+        vertical-align: top;
+">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>SATICI TARAF BR&Uuml;T HİZMET BEDELİ:</p>
+                </td>
+                <td colspan="3" style="width: 31.2421%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 29.25pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.BrütS.Value.ToString("F") ₺</p>
+                </td>
+                <td style="width: 19.148%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 29.25pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>ALICI TARAF BR&Uuml;T HİZMET&nbsp; BEDELİ:</p>
+                </td>
+                <td style="width: 31.2911%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 29.25pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.BrütA.Value.ToString("F") ₺</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 131.4pt; border-right: 1pt solid windowtext; border-bottom: 1pt solid windowtext; border-left: 1pt solid windowtext; border-image: initial; border-top: none; padding: 0in 5.4pt; height:  11.9pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>TAPU İŞLEM TARİHİ:</p>
+                </td>
+                <td colspan="3" style="width: 31.2421%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height:  11.9pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.TapuTarihiS.Value.ToString("dd.MM.yyyy")</p>
+                </td>
+                <td style="width: 19.148%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height:  11.9pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>TAPU İŞLEM TARİHİ:</p>
+                </td>
+                <td style="width: 31.2911%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height:  11.9pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.TapuTarihiA.Value.ToString("dd.MM.yyyy")</p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 131.4pt; border-right: 1pt solid windowtext; border-bottom: 1pt solid windowtext; border-left: 1pt solid windowtext; border-image: initial; border-top: none; padding: 0in 5.4pt; height: 11.9pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>TAHSİLAT ŞEKLİ:</p>
+                </td>
+                <td colspan="3" style="width: 31.2421%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 11.9pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.TahsilatS</p>
+                </td>
+                <td style="width: 19.148%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 11.9pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>TAHSİLAT ŞEKLİ:</p>
+                </td>
+                <td style="width: 31.2911%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 11.9pt; vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.TahsilatA</p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6" style="width: 466.1pt;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 12.9pt;vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>BİTMİŞ İŞLEM TOPLAM RAPORLAMA: @Model.ToplamRapor.Value.ToString("F") ₺</p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" style="width: 35%;border-right: 1pt solid windowtext;border-bottom: 1pt solid windowtext;border-left: 1pt solid windowtext;border-image: initial;border-top: none;padding: 0in 5.4pt;height: 176.8pt;vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:5.4pt;line-height:115%;font-size:16px;font-family:"Calibri",sans-serif;'> <input type="checkbox" checked /> %70 HİZMET BEDELİNİ TESLİM ALDIM</p>
+
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:5.4pt;line-height:115%;font-size:16px;font-family:"Calibri",sans-serif;'><br></p>
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.portfoy.danisman.Ad</p>
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@Model.portfoy.danisman.Gorevi</p>
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                </td>
+                <td colspan="2" style="width: 35%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 176.8pt; vertical-align: top;">
+
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:5.4pt;line-height:115%;font-size:16px;font-family:"Calibri",sans-serif;'> <input type="checkbox" @(Model.BrokerOnay == true ? "checked" : "") /> %30 HİZMET BEDELİNİ TESLİM ALDIM</p>
+
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:0in;line-height:115%;font-size:16px;font-family:"Calibri",sans-serif;'><br></p>
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@(Model.portfoy.danisman.danisman2 != null ? Model.portfoy.danisman.danisman2.Ad : Model.portfoy.danisman.Ad)  </p>
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>@(Model.portfoy.danisman.danisman2 != null ? Model.portfoy.danisman.danisman2.Gorevi : Model.portfoy.danisman.Gorevi)</p>
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                </td>
+                <td style="width: 30%; border-top: none; border-left: none; border-bottom: 1pt solid windowtext; border-right: 1pt solid windowtext; padding: 0in 5.4pt; height: 176.8pt;vertical-align: top;">
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>&nbsp;%8 ROYALITY BEDELİ&nbsp;</p>
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:5.4pt;line-height:115%;font-size:16px;font-family:"Calibri",sans-serif;'><br></p>
+                    <p style='margin-top:0in;margin-right:0in;margin-bottom:10.0pt;margin-left:5.4pt;line-height:115%;font-size:16px;font-family:"Calibri",sans-serif;'><br></p>
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>UPARAZZİ T&Uuml;RKİYE</p>
+                    <p style='margin : 3px;line-height:  normal;font-size:16px;font-family:"Calibri",sans-serif;'>&nbsp;</p>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>

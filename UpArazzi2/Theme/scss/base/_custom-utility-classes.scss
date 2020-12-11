@@ -1,0 +1,147 @@
+.fontBase{
+	font-family: $font-family-sans-serif;
+}
+
+.fontNeuron{
+	font-family: $font-neuron;
+}
+
+.fwBold{
+	font-weight: 700;
+}
+
+.fwNormal{
+	font-weight: 400;
+}
+
+.fwLight{
+	font-weight: 300;
+}
+
+.fwSemi{
+	font-weight: 600;
+}
+
+.elemenBlock{
+	display: block;
+}
+
+.textWhite{
+	color: $white;
+}
+
+.roundedCircle{
+	border-radius: 100%;
+}
+
+.noShrink{
+	flex-shrink: 0;
+}
+
+.staticBlock{
+	position: static;
+}
+
+.bgCover{
+	background-size: cover;
+	background-position: 50% 50%;
+}
+
+.bgWhite{
+	background-color: $white;
+}
+
+.bgLightDark{
+	background-color: $clr1;
+}
+
+.bgBase{
+	background-color: $body-bg;
+}
+
+.textLightDark{
+	color: $clr2;
+}
+
+.buttonReset{
+	border: 0;
+	background-color: transparent;
+	padding: 0;
+}
+
+.text-info{
+	color: $brand-info;
+}
+
+.hidden-ph{
+
+	@include media('>xs-phone' , '<phone'){
+		display: none !important;
+	}
+}
+
+.hidden-xs-ph{
+
+	@include media('<xs-phone'){
+		display: none !important;
+	}
+}
+
+.hd-up-phone{
+
+	@include media('>=phone' , '<tablet'){
+		display: none !important;
+	}
+}
+
+.hidden-di{
+
+	@include media('>=desktop' , '<desktop2'){
+		display: none !important;
+	}
+}
+
+.hidden-dii{
+
+	@include media('>=desktop2' , '<widescreen'){
+		display: none !important;
+	}
+}
+
+.hidden-wii{
+
+	@include media('>=widescreen' , '<widescreen2'){
+		display: none !important;
+	}
+}
+.hidden-wiii{
+
+	@include media('>=widescreen2' , '<widescreen3'){
+		display: none !important;
+	}
+}
+.hidden-wiv{
+
+	@include media('>=widescreen3'){
+		display: none !important;
+	}
+}
+
+.hasShadow{
+	box-shadow: 0 7px 4px -4px rgba($brand-primary, 0.05);
+}
+
+.hasShadowTop{
+	box-shadow: inset 0 7px 4px -4px rgba($brand-primary, 0.05);
+}
+
+.textSecondary{
+	color: $clr15;
+}
+
+.col-wd3-2{
+
+	@include media('>=widescreen3'){
+		width: 16.6667%;
+	}
+}

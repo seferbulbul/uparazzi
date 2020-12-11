@@ -1,0 +1,1685 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="uparazzidbModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ajanda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tarih" Type="date" />
+          <Property Name="Saat" Type="time" Precision="0" />
+          <Property Name="AppUserId" Type="int" />
+          <Property Name="toDanisman" Type="bool" />
+          <Property Name="toBroker" Type="bool" />
+          <Property Name="Title" Type="varchar" MaxLength="100" />
+          <Property Name="Text" Type="varchar" MaxLength="400" />
+          <Property Name="CreatedDate" Type="datetime" Precision="0" />
+          <Property Name="toYonetim" Type="bool" />
+          <Property Name="toMudur" Type="bool" />
+          <Property Name="toAsistan" Type="bool" />
+        </EntityType>
+        <EntityType Name="blog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="145" />
+          <Property Name="Text" Type="longtext" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="Category" Type="varchar" MaxLength="45" />
+          <Property Name="ReadCount" Type="int" />
+          <Property Name="SSS" Type="bool" />
+        </EntityType>
+        <EntityType Name="city">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CountryID" Type="int" Nullable="false" />
+          <Property Name="CityName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PlateNo" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="PhoneCode" Type="varchar" MaxLength="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="danisman">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Telefon" Type="varchar" MaxLength="50" />
+          <Property Name="Ozgecmis" Type="longtext" />
+          <Property Name="Bolge" Type="varchar" MaxLength="100" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="IsDeleted" Type="bool" />
+          <Property Name="Onay" Type="bool" />
+          <Property Name="PhotoPath" Type="varchar" MaxLength="250" />
+          <Property Name="Gorevi" Type="varchar" MaxLength="245" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="Sicil" Type="varchar" MaxLength="245" />
+          <Property Name="Kimlik" Type="varchar" MaxLength="245" />
+          <Property Name="Yeterlilik" Type="varchar" MaxLength="245" />
+          <Property Name="DanismanSozlesme" Type="varchar" MaxLength="245" />
+          <Property Name="Kabul" Type="bool" />
+          <Property Name="Admin" Type="bool" />
+          <Property Name="Broker" Type="bool" />
+          <Property Name="Mudur" Type="bool" />
+          <Property Name="Asistan" Type="bool" />
+          <Property Name="DanismanMi" Type="bool" />
+          <Property Name="Tasarim" Type="bool" />
+          <Property Name="BrokerId" Type="int" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="245" />
+          <Property Name="VergiDairesi" Type="varchar" MaxLength="245" />
+          <Property Name="VergiPhone" Type="varchar" MaxLength="45" />
+          <Property Name="BirthDay" Type="date" />
+          <Property Name="OfficeContact" Type="varchar" MaxLength="445" />
+          <Property Name="UparazziName" Type="varchar" MaxLength="145" />
+          <Property Name="BrokerLogo" Type="varchar" MaxLength="345" />
+          <Property Name="EkipOrder" Type="int" />
+          <Property Name="Showroom" Type="bool" />
+        </EntityType>
+        <EntityType Name="district">
+          <Key>
+            <PropertyRef Name="DistrictID" />
+          </Key>
+          <Property Name="DistrictID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TownID" Type="int" Nullable="false" />
+          <Property Name="DistrictName" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="errortable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Precision="0" />
+          <Property Name="Page" Type="varchar" MaxLength="245" />
+          <Property Name="appuser" Type="varchar" MaxLength="145" />
+          <Property Name="code" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="filtre">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DanismanId" Type="int" />
+          <Property Name="UnitPriceMin" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="UnitPriceMax" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="m2Min" Type="int" />
+          <Property Name="m2Max" Type="int" />
+          <Property Name="Nitelik" Type="varchar" MaxLength="45" />
+          <Property Name="IlId" Type="int" />
+          <Property Name="IlceId" Type="int" />
+          <Property Name="MahId" Type="int" />
+          <Property Name="Satilik" Type="bool" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="Title" Type="varchar" MaxLength="145" />
+        </EntityType>
+        <EntityType Name="fotograf">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Path" Type="varchar" MaxLength="300" />
+          <Property Name="PortfoyId" Type="int" />
+          <Property Name="PhotoOrder" Type="int" />
+          <Property Name="BlogId" Type="int" />
+        </EntityType>
+        <EntityType Name="haber">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PhotoPath" Type="varchar" MaxLength="245" />
+          <Property Name="Title" Type="varchar" MaxLength="145" />
+          <Property Name="Text" Type="longtext" />
+          <Property Name="NewsOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="history">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DanismanId" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" Precision="0" />
+          <Property Name="Action" Type="varchar" MaxLength="445" />
+          <Property Name="forAdmin" Type="bool" />
+        </EntityType>
+        <EntityType Name="islem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Tarih" Type="date" />
+          <Property Name="RaporNo" Type="varchar" MaxLength="45" />
+          <Property Name="Satilik" Type="bool" />
+          <Property Name="PortfoyNo" Type="varchar" MaxLength="45" />
+          <Property Name="Nitelik" Type="varchar" MaxLength="45" />
+          <Property Name="Il" Type="varchar" MaxLength="45" />
+          <Property Name="Ilce" Type="varchar" MaxLength="45" />
+          <Property Name="Belde" Type="varchar" MaxLength="45" />
+          <Property Name="AdaNo" Type="varchar" MaxLength="45" />
+          <Property Name="Parsel" Type="varchar" MaxLength="45" />
+          <Property Name="m2" Type="varchar" MaxLength="45" />
+          <Property Name="Fiyat" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="Kat" Type="varchar" MaxLength="45" />
+          <Property Name="No" Type="int" />
+          <Property Name="OdaSayisi" Type="varchar" MaxLength="45" />
+          <Property Name="RoutingS" Type="varchar" MaxLength="45" />
+          <Property Name="AdS" Type="varchar" MaxLength="145" />
+          <Property Name="AdresS" Type="varchar" MaxLength="145" />
+          <Property Name="TCS" Type="varchar" MaxLength="45" />
+          <Property Name="TelS" Type="varchar" MaxLength="45" />
+          <Property Name="DanismanS" Type="varchar" MaxLength="45" />
+          <Property Name="Danisman2S" Type="varchar" MaxLength="45" />
+          <Property Name="BrütS" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="TapuTarihiS" Type="date" />
+          <Property Name="TahsilatS" Type="varchar" MaxLength="45" />
+          <Property Name="ToplamRapor" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="RoutingA" Type="varchar" MaxLength="45" />
+          <Property Name="AdA" Type="varchar" MaxLength="145" />
+          <Property Name="AdresA" Type="varchar" MaxLength="145" />
+          <Property Name="TCA" Type="varchar" MaxLength="45" />
+          <Property Name="TelA" Type="varchar" MaxLength="45" />
+          <Property Name="DanismanA" Type="varchar" MaxLength="45" />
+          <Property Name="Danisman2A" Type="varchar" MaxLength="45" />
+          <Property Name="BrütA" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="TapuTarihiA" Type="date" />
+          <Property Name="TahsilatA" Type="varchar" MaxLength="45" />
+          <Property Name="PortfoyId" Type="int" />
+          <Property Name="IsDeleted" Type="bool" />
+          <Property Name="BrokerOnay" Type="bool" />
+          <Property Name="YonetimOnay" Type="bool" />
+        </EntityType>
+        <EntityType Name="kurumsal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="145" />
+          <Property Name="CreaterDate" Type="date" />
+          <Property Name="PdfPath" Type="varchar" MaxLength="245" />
+          <Property Name="PhotoPath" Type="varchar" MaxLength="245" />
+        </EntityType>
+        <EntityType Name="mail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatedDate" Type="date" />
+          <Property Name="Name" Type="varchar" MaxLength="45" />
+          <Property Name="Phone" Type="varchar" MaxLength="45" />
+          <Property Name="Birthday" Type="date" />
+          <Property Name="Email" Type="varchar" MaxLength="45" />
+          <Property Name="Job" Type="varchar" MaxLength="45" />
+          <Property Name="City" Type="varchar" MaxLength="45" />
+          <Property Name="Nereden" Type="varchar" MaxLength="45" />
+          <Property Name="Type" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="mm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PhotoPath" Type="varchar" MaxLength="145" />
+          <Property Name="Title" Type="varchar" MaxLength="145" />
+          <Property Name="MMOrder" Type="int" />
+          <Property Name="Showroom" Type="bool" />
+        </EntityType>
+        <EntityType Name="neighborhood">
+          <Key>
+            <PropertyRef Name="NeighborhoodID" />
+          </Key>
+          <Property Name="NeighborhoodID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DistrictID" Type="int" Nullable="false" />
+          <Property Name="NeighborhoodName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ozellik">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ad" Type="varchar" MaxLength="145" />
+          <Property Name="Kategori" Type="varchar" MaxLength="45" />
+          <Property Name="IsDeleted" Type="bool" />
+        </EntityType>
+        <EntityType Name="portfoy">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Baslik" Type="varchar" MaxLength="100" />
+          <Property Name="NeighborhoodId" Type="int" />
+          <Property Name="Fiyat" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="M2" Type="int" />
+          <Property Name="M2Fiyat" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="IlanTarihi" Type="date" />
+          <Property Name="TapuDurumu" Type="varchar" MaxLength="50" />
+          <Property Name="TakasMi" Type="bool" />
+          <Property Name="KatKarsiligi" Type="bool" />
+          <Property Name="IlanTipi" Type="varchar" MaxLength="50" />
+          <Property Name="AdaNo" Type="varchar" MaxLength="50" />
+          <Property Name="KrediyeUygunluk" Type="bool" />
+          <Property Name="PaftaTo" Type="varchar" MaxLength="50" />
+          <Property Name="ParselNo" Type="varchar" MaxLength="50" />
+          <Property Name="Kimden" Type="varchar" MaxLength="50" />
+          <Property Name="Emsal" Type="varchar" MaxLength="50" />
+          <Property Name="KadastralYol" Type="bool" />
+          <Property Name="IsDeleted" Type="bool" />
+          <Property Name="Onay" Type="bool" />
+          <Property Name="DanismanId" Type="int" />
+          <Property Name="Imar" Type="varchar" MaxLength="145" />
+          <Property Name="Gabari" Type="varchar" MaxLength="145" />
+          <Property Name="TapuResim" Type="varchar" MaxLength="245" />
+          <Property Name="Latitude" Type="varchar" MaxLength="45" />
+          <Property Name="Longtitude" Type="varchar" MaxLength="45" />
+          <Property Name="Firsat" Type="bool" />
+          <Property Name="Satilik" Type="bool" />
+          <Property Name="IlanNo" Type="varchar" MaxLength="45" />
+          <Property Name="Aciklama" Type="longtext" />
+          <Property Name="Video" Type="varchar" MaxLength="345" />
+          <Property Name="BittiTarih" Type="date" />
+        </EntityType>
+        <EntityType Name="portfoyozellik">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PortfoyId" Type="int" />
+          <Property Name="OzellikId" Type="int" />
+        </EntityType>
+        <EntityType Name="service">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DanismanId" Type="int" />
+          <Property Name="MeetDate" Type="date" />
+          <Property Name="OfferPrice" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="DosyaNo" Type="varchar" MaxLength="45" />
+          <Property Name="NeighborhoodId" Type="int" />
+          <Property Name="AdaParsel" Type="varchar" MaxLength="45" />
+          <Property Name="m2" Type="int" />
+          <Property Name="Nitelik" Type="varchar" MaxLength="45" />
+          <Property Name="IletisimNo" Type="varchar" MaxLength="45" />
+          <Property Name="Price" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="LastPrice" Type="decimal" Precision="19" Scale="4" />
+          <Property Name="Note" Type="longtext" />
+          <Property Name="PortfoyDetay" Type="longtext" />
+          <Property Name="IsDeleted" Type="bool" />
+          <Property Name="Gonderen" Type="varchar" MaxLength="45" />
+        </EntityType>
+        <EntityType Name="slider">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Path" Type="varchar" MaxLength="345" />
+          <Property Name="SliderOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="sozluk">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="145" />
+          <Property Name="Detail" Type="longtext" />
+        </EntityType>
+        <EntityType Name="town">
+          <Key>
+            <PropertyRef Name="TownID" />
+          </Key>
+          <Property Name="TownID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CityID" Type="int" Nullable="false" />
+          <Property Name="TownName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="ajanda_ibfk_1">
+          <End Role="danisman" Type="Self.danisman" Multiplicity="0..1" />
+          <End Role="ajanda" Type="Self.ajanda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="danisman">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ajanda">
+              <PropertyRef Name="AppUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="danisman_ibfk_1">
+          <End Role="danisman" Type="Self.danisman" Multiplicity="0..1" />
+          <End Role="danisman1" Type="Self.danisman" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="danisman">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="danisman1">
+              <PropertyRef Name="BrokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="filtre_ibfk_1">
+          <End Role="danisman" Type="Self.danisman" Multiplicity="0..1" />
+          <End Role="filtre" Type="Self.filtre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="danisman">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="filtre">
+              <PropertyRef Name="DanismanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="filtre_ibfk_2">
+          <End Role="city" Type="Self.city" Multiplicity="0..1" />
+          <End Role="filtre" Type="Self.filtre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="filtre">
+              <PropertyRef Name="IlId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_District_TownID">
+          <End Role="town" Type="Self.town" Multiplicity="1" />
+          <End Role="district" Type="Self.district" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="town">
+              <PropertyRef Name="TownID" />
+            </Principal>
+            <Dependent Role="district">
+              <PropertyRef Name="TownID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fotograf_Portfoy">
+          <End Role="portfoy" Type="Self.portfoy" Multiplicity="0..1" />
+          <End Role="fotograf" Type="Self.fotograf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="portfoy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="fotograf">
+              <PropertyRef Name="PortfoyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Neighborhood_DistrictID">
+          <End Role="district" Type="Self.district" Multiplicity="1" />
+          <End Role="neighborhood" Type="Self.neighborhood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="district">
+              <PropertyRef Name="DistrictID" />
+            </Principal>
+            <Dependent Role="neighborhood">
+              <PropertyRef Name="DistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Portfoy_Danisman">
+          <End Role="danisman" Type="Self.danisman" Multiplicity="0..1" />
+          <End Role="portfoy" Type="Self.portfoy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="danisman">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="portfoy">
+              <PropertyRef Name="DanismanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Town_CityID">
+          <End Role="city" Type="Self.city" Multiplicity="1" />
+          <End Role="town" Type="Self.town" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="town">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fotograf_ibfk_1">
+          <End Role="blog" Type="Self.blog" Multiplicity="0..1" />
+          <End Role="fotograf" Type="Self.fotograf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="blog">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="fotograf">
+              <PropertyRef Name="BlogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="history_ibfk_1">
+          <End Role="danisman" Type="Self.danisman" Multiplicity="0..1" />
+          <End Role="history" Type="Self.history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="danisman">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="history">
+              <PropertyRef Name="DanismanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="islem_ibfk_1">
+          <End Role="portfoy" Type="Self.portfoy" Multiplicity="0..1" />
+          <End Role="islem" Type="Self.islem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="portfoy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="islem">
+              <PropertyRef Name="PortfoyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="portfoy_ibfk_1">
+          <End Role="neighborhood" Type="Self.neighborhood" Multiplicity="0..1" />
+          <End Role="portfoy" Type="Self.portfoy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="neighborhood">
+              <PropertyRef Name="NeighborhoodID" />
+            </Principal>
+            <Dependent Role="portfoy">
+              <PropertyRef Name="NeighborhoodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="portfoyozellik_ibfk_1">
+          <End Role="portfoy" Type="Self.portfoy" Multiplicity="0..1" />
+          <End Role="portfoyozellik" Type="Self.portfoyozellik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="portfoy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="portfoyozellik">
+              <PropertyRef Name="PortfoyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="portfoyozellik_ibfk_2">
+          <End Role="ozellik" Type="Self.ozellik" Multiplicity="0..1" />
+          <End Role="portfoyozellik" Type="Self.portfoyozellik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ozellik">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="portfoyozellik">
+              <PropertyRef Name="OzellikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="service_ibfk_2">
+          <End Role="danisman" Type="Self.danisman" Multiplicity="0..1" />
+          <End Role="service" Type="Self.service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="danisman">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="service">
+              <PropertyRef Name="DanismanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="service_ibfk_3">
+          <End Role="neighborhood" Type="Self.neighborhood" Multiplicity="0..1" />
+          <End Role="service" Type="Self.service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="neighborhood">
+              <PropertyRef Name="NeighborhoodID" />
+            </Principal>
+            <Dependent Role="service">
+              <PropertyRef Name="NeighborhoodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="uparazzidbModelStoreContainer">
+          <EntitySet Name="ajanda" EntityType="Self.ajanda" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="blog" EntityType="Self.blog" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="city" EntityType="Self.city" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="danisman" EntityType="Self.danisman" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="district" EntityType="Self.district" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="errortable" EntityType="Self.errortable" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="filtre" EntityType="Self.filtre" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="fotograf" EntityType="Self.fotograf" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="haber" EntityType="Self.haber" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="history" EntityType="Self.history" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="islem" EntityType="Self.islem" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="kurumsal" EntityType="Self.kurumsal" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="mail" EntityType="Self.mail" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="mm" EntityType="Self.mm" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="neighborhood" EntityType="Self.neighborhood" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="ozellik" EntityType="Self.ozellik" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="portfoy" EntityType="Self.portfoy" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="portfoyozellik" EntityType="Self.portfoyozellik" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="service" EntityType="Self.service" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="slider" EntityType="Self.slider" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="sozluk" EntityType="Self.sozluk" Schema="up2" store:Type="Tables" />
+          <EntitySet Name="town" EntityType="Self.town" Schema="up2" store:Type="Tables" />
+          <AssociationSet Name="ajanda_ibfk_1" Association="Self.ajanda_ibfk_1">
+            <End Role="danisman" EntitySet="danisman" />
+            <End Role="ajanda" EntitySet="ajanda" />
+          </AssociationSet>
+          <AssociationSet Name="danisman_ibfk_1" Association="Self.danisman_ibfk_1">
+            <End Role="danisman" EntitySet="danisman" />
+            <End Role="danisman1" EntitySet="danisman" />
+          </AssociationSet>
+          <AssociationSet Name="filtre_ibfk_1" Association="Self.filtre_ibfk_1">
+            <End Role="danisman" EntitySet="danisman" />
+            <End Role="filtre" EntitySet="filtre" />
+          </AssociationSet>
+          <AssociationSet Name="filtre_ibfk_2" Association="Self.filtre_ibfk_2">
+            <End Role="city" EntitySet="city" />
+            <End Role="filtre" EntitySet="filtre" />
+          </AssociationSet>
+          <AssociationSet Name="FK_District_TownID" Association="Self.FK_District_TownID">
+            <End Role="town" EntitySet="town" />
+            <End Role="district" EntitySet="district" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fotograf_Portfoy" Association="Self.FK_Fotograf_Portfoy">
+            <End Role="portfoy" EntitySet="portfoy" />
+            <End Role="fotograf" EntitySet="fotograf" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Neighborhood_DistrictID" Association="Self.FK_Neighborhood_DistrictID">
+            <End Role="district" EntitySet="district" />
+            <End Role="neighborhood" EntitySet="neighborhood" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Portfoy_Danisman" Association="Self.FK_Portfoy_Danisman">
+            <End Role="danisman" EntitySet="danisman" />
+            <End Role="portfoy" EntitySet="portfoy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Town_CityID" Association="Self.FK_Town_CityID">
+            <End Role="city" EntitySet="city" />
+            <End Role="town" EntitySet="town" />
+          </AssociationSet>
+          <AssociationSet Name="fotograf_ibfk_1" Association="Self.fotograf_ibfk_1">
+            <End Role="blog" EntitySet="blog" />
+            <End Role="fotograf" EntitySet="fotograf" />
+          </AssociationSet>
+          <AssociationSet Name="history_ibfk_1" Association="Self.history_ibfk_1">
+            <End Role="danisman" EntitySet="danisman" />
+            <End Role="history" EntitySet="history" />
+          </AssociationSet>
+          <AssociationSet Name="islem_ibfk_1" Association="Self.islem_ibfk_1">
+            <End Role="portfoy" EntitySet="portfoy" />
+            <End Role="islem" EntitySet="islem" />
+          </AssociationSet>
+          <AssociationSet Name="portfoy_ibfk_1" Association="Self.portfoy_ibfk_1">
+            <End Role="neighborhood" EntitySet="neighborhood" />
+            <End Role="portfoy" EntitySet="portfoy" />
+          </AssociationSet>
+          <AssociationSet Name="portfoyozellik_ibfk_1" Association="Self.portfoyozellik_ibfk_1">
+            <End Role="portfoy" EntitySet="portfoy" />
+            <End Role="portfoyozellik" EntitySet="portfoyozellik" />
+          </AssociationSet>
+          <AssociationSet Name="portfoyozellik_ibfk_2" Association="Self.portfoyozellik_ibfk_2">
+            <End Role="ozellik" EntitySet="ozellik" />
+            <End Role="portfoyozellik" EntitySet="portfoyozellik" />
+          </AssociationSet>
+          <AssociationSet Name="service_ibfk_2" Association="Self.service_ibfk_2">
+            <End Role="danisman" EntitySet="danisman" />
+            <End Role="service" EntitySet="service" />
+          </AssociationSet>
+          <AssociationSet Name="service_ibfk_3" Association="Self.service_ibfk_3">
+            <End Role="neighborhood" EntitySet="neighborhood" />
+            <End Role="service" EntitySet="service" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="uparazzidbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="UpArazziDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ajandas" EntityType="uparazzidbModel.ajanda" />
+          <EntitySet Name="blogs" EntityType="uparazzidbModel.blog" />
+          <EntitySet Name="cities" EntityType="uparazzidbModel.city" />
+          <EntitySet Name="danismen" EntityType="uparazzidbModel.danisman" />
+          <EntitySet Name="districts" EntityType="uparazzidbModel.district" />
+          <EntitySet Name="errortables" EntityType="uparazzidbModel.errortable" />
+          <EntitySet Name="filtres" EntityType="uparazzidbModel.filtre" />
+          <EntitySet Name="fotografs" EntityType="uparazzidbModel.fotograf" />
+          <EntitySet Name="habers" EntityType="uparazzidbModel.haber" />
+          <EntitySet Name="islems" EntityType="uparazzidbModel.islem" />
+          <EntitySet Name="kurumsals" EntityType="uparazzidbModel.kurumsal" />
+          <EntitySet Name="mails" EntityType="uparazzidbModel.mail" />
+          <EntitySet Name="mms" EntityType="uparazzidbModel.mm" />
+          <EntitySet Name="neighborhoods" EntityType="uparazzidbModel.neighborhood" />
+          <EntitySet Name="ozelliks" EntityType="uparazzidbModel.ozellik" />
+          <EntitySet Name="portfoys" EntityType="uparazzidbModel.portfoy" />
+          <EntitySet Name="portfoyozelliks" EntityType="uparazzidbModel.portfoyozellik" />
+          <EntitySet Name="services" EntityType="uparazzidbModel.service" />
+          <EntitySet Name="sliders" EntityType="uparazzidbModel.slider" />
+          <EntitySet Name="sozluks" EntityType="uparazzidbModel.sozluk" />
+          <EntitySet Name="towns" EntityType="uparazzidbModel.town" />
+          <AssociationSet Name="ajanda_ibfk_1" Association="uparazzidbModel.ajanda_ibfk_1">
+            <End Role="danisman" EntitySet="danismen" />
+            <End Role="ajanda" EntitySet="ajandas" />
+          </AssociationSet>
+          <AssociationSet Name="fotograf_ibfk_1" Association="uparazzidbModel.fotograf_ibfk_1">
+            <End Role="blog" EntitySet="blogs" />
+            <End Role="fotograf" EntitySet="fotografs" />
+          </AssociationSet>
+          <AssociationSet Name="filtre_ibfk_2" Association="uparazzidbModel.filtre_ibfk_2">
+            <End Role="city" EntitySet="cities" />
+            <End Role="filtre" EntitySet="filtres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Town_CityID" Association="uparazzidbModel.FK_Town_CityID">
+            <End Role="city" EntitySet="cities" />
+            <End Role="town" EntitySet="towns" />
+          </AssociationSet>
+          <AssociationSet Name="danisman_ibfk_1" Association="uparazzidbModel.danisman_ibfk_1">
+            <End Role="danisman" EntitySet="danismen" />
+            <End Role="danisman1" EntitySet="danismen" />
+          </AssociationSet>
+          <AssociationSet Name="filtre_ibfk_1" Association="uparazzidbModel.filtre_ibfk_1">
+            <End Role="danisman" EntitySet="danismen" />
+            <End Role="filtre" EntitySet="filtres" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Portfoy_Danisman" Association="uparazzidbModel.FK_Portfoy_Danisman">
+            <End Role="danisman" EntitySet="danismen" />
+            <End Role="portfoy" EntitySet="portfoys" />
+          </AssociationSet>
+          <AssociationSet Name="service_ibfk_2" Association="uparazzidbModel.service_ibfk_2">
+            <End Role="danisman" EntitySet="danismen" />
+            <End Role="service" EntitySet="services" />
+          </AssociationSet>
+          <AssociationSet Name="FK_District_TownID" Association="uparazzidbModel.FK_District_TownID">
+            <End Role="town" EntitySet="towns" />
+            <End Role="district" EntitySet="districts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Neighborhood_DistrictID" Association="uparazzidbModel.FK_Neighborhood_DistrictID">
+            <End Role="district" EntitySet="districts" />
+            <End Role="neighborhood" EntitySet="neighborhoods" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Fotograf_Portfoy" Association="uparazzidbModel.FK_Fotograf_Portfoy">
+            <End Role="portfoy" EntitySet="portfoys" />
+            <End Role="fotograf" EntitySet="fotografs" />
+          </AssociationSet>
+          <AssociationSet Name="islem_ibfk_1" Association="uparazzidbModel.islem_ibfk_1">
+            <End Role="portfoy" EntitySet="portfoys" />
+            <End Role="islem" EntitySet="islems" />
+          </AssociationSet>
+          <AssociationSet Name="portfoy_ibfk_1" Association="uparazzidbModel.portfoy_ibfk_1">
+            <End Role="neighborhood" EntitySet="neighborhoods" />
+            <End Role="portfoy" EntitySet="portfoys" />
+          </AssociationSet>
+          <AssociationSet Name="service_ibfk_3" Association="uparazzidbModel.service_ibfk_3">
+            <End Role="neighborhood" EntitySet="neighborhoods" />
+            <End Role="service" EntitySet="services" />
+          </AssociationSet>
+          <AssociationSet Name="portfoyozellik_ibfk_2" Association="uparazzidbModel.portfoyozellik_ibfk_2">
+            <End Role="ozellik" EntitySet="ozelliks" />
+            <End Role="portfoyozellik" EntitySet="portfoyozelliks" />
+          </AssociationSet>
+          <AssociationSet Name="portfoyozellik_ibfk_1" Association="uparazzidbModel.portfoyozellik_ibfk_1">
+            <End Role="portfoy" EntitySet="portfoys" />
+            <End Role="portfoyozellik" EntitySet="portfoyozelliks" />
+          </AssociationSet>
+          <EntitySet Name="histories" EntityType="uparazzidbModel.history" />
+          <AssociationSet Name="history_ibfk_1" Association="uparazzidbModel.history_ibfk_1">
+            <End Role="danisman" EntitySet="danismen" />
+            <End Role="history" EntitySet="histories" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ajanda">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tarih" Type="DateTime" />
+          <Property Name="Saat" Type="Time" />
+          <Property Name="AppUserId" Type="Int32" />
+          <Property Name="toDanisman" Type="Boolean" />
+          <Property Name="toBroker" Type="Boolean" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Text" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" />
+          <Property Name="toYonetim" Type="Boolean" />
+          <Property Name="toMudur" Type="Boolean" />
+          <Property Name="toAsistan" Type="Boolean" />
+          <NavigationProperty Name="danisman" Relationship="uparazzidbModel.ajanda_ibfk_1" FromRole="ajanda" ToRole="danisman" />
+        </EntityType>
+        <EntityType Name="blog">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="145" FixedLength="false" Unicode="false" />
+          <Property Name="Text" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" />
+          <Property Name="Category" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="ReadCount" Type="Int32" />
+          <Property Name="SSS" Type="Boolean" />
+          <NavigationProperty Name="fotografs" Relationship="uparazzidbModel.fotograf_ibfk_1" FromRole="blog" ToRole="fotograf" />
+        </EntityType>
+        <EntityType Name="city">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CountryID" Type="Int32" Nullable="false" />
+          <Property Name="CityName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PlateNo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneCode" Type="String" Nullable="false" MaxLength="7" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="filtres" Relationship="uparazzidbModel.filtre_ibfk_2" FromRole="city" ToRole="filtre" />
+          <NavigationProperty Name="towns" Relationship="uparazzidbModel.FK_Town_CityID" FromRole="city" ToRole="town" />
+        </EntityType>
+        <EntityType Name="danisman">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ozgecmis" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Bolge" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="Onay" Type="Boolean" />
+          <Property Name="PhotoPath" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Gorevi" Type="String" MaxLength="245" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" />
+          <Property Name="Sicil" Type="String" MaxLength="245" FixedLength="false" Unicode="false" />
+          <Property Name="Kimlik" Type="String" MaxLength="245" FixedLength="false" Unicode="false" />
+          <Property Name="Yeterlilik" Type="String" MaxLength="245" FixedLength="false" Unicode="false" />
+          <Property Name="DanismanSozlesme" Type="String" MaxLength="245" FixedLength="false" Unicode="false" />
+          <Property Name="Kabul" Type="Boolean" />
+          <Property Name="Admin" Type="Boolean" />
+          <Property Name="Broker" Type="Boolean" />
+          <Property Name="Mudur" Type="Boolean" />
+          <Property Name="Asistan" Type="Boolean" />
+          <Property Name="DanismanMi" Type="Boolean" />
+          <Property Name="Tasarim" Type="Boolean" />
+          <Property Name="BrokerId" Type="Int32" />
+          <Property Name="CompanyName" Type="String" MaxLength="245" FixedLength="false" Unicode="false" />
+          <Property Name="VergiDairesi" Type="String" MaxLength="245" FixedLength="false" Unicode="false" />
+          <Property Name="VergiPhone" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="BirthDay" Type="DateTime" />
+          <Property Name="OfficeContact" Type="String" MaxLength="445" FixedLength="false" Unicode="false" />
+          <Property Name="UparazziName" Type="String" MaxLength="145" FixedLength="false" Unicode="false" />
+          <Property Name="BrokerLogo" Type="String" MaxLength="345" FixedLength="false" Unicode="false" />
+          <Property Name="EkipOrder" Type="Int32" />
+          <Property Name="Showroom" Type="Boolean" />
+          <NavigationProperty Name="ajandas" Relationship="uparazzidbModel.ajanda_ibfk_1" FromRole="danisman" ToRole="ajanda" />
+          <NavigationProperty Name="danisman1" Relationship="uparazzidbModel.danisman_ibfk_1" FromRole="danisman" ToRole="danisman1" />
+          <NavigationProperty Name="danisman2" Relationship="uparazzidbModel.danisman_ibfk_1" FromRole="danisman1" ToRole="danisman" />
+          <NavigationProperty Name="filtres" Relationship="uparazzidbModel.filtre_ibfk_1" FromRole="danisman" ToRole="filtre" />
+          <NavigationProperty Name="portfoys" Relationship="uparazzidbModel.FK_Portfoy_Danisman" FromRole="danisman" ToRole="portfoy" />
+          <NavigationProperty Name="services" Relationship="uparazzidbModel.service_ibfk_2" FromRole="danisman" ToRole="service" />
+          <NavigationProperty Name="histories" Relationship="uparazzidbModel.history_ibfk_1" FromRole="danisman" ToRole="history" />
+        </EntityType>
+        <EntityType Name="district">
+          <Key>
+            <PropertyRef Name="DistrictID" />
+          </Key>
+          <Property Name="DistrictID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TownID" Type="Int32" Nullable="false" />
+          <Property Name="DistrictName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="town" Relationship="uparazzidbModel.FK_District_TownID" FromRole="district" ToRole="town" />
+          <NavigationProperty Name="neighborhoods" Relationship="uparazzidbModel.FK_Neighborhood_DistrictID" FromRole="district" ToRole="neighborhood" />
+        </EntityType>
+        <EntityType Name="errortable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedDate" Type="DateTime" />
+          <Property Name="Page" Type="String" MaxLength="245" FixedLength="false" Unicode="false" />
+          <Property Name="appuser" Type="String" MaxLength="145" FixedLength="false" Unicode="false" />
+          <Property Name="code" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="filtre">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DanismanId" Type="Int32" />
+          <Property Name="UnitPriceMin" Type="Decimal" />
+          <Property Name="UnitPriceMax" Type="Decimal" />
+          <Property Name="m2Min" Type="Int32" />
+          <Property Name="m2Max" Type="Int32" />
+          <Property Name="Nitelik" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="IlId" Type="Int32" />
+          <Property Name="IlceId" Type="Int32" />
+          <Property Name="MahId" Type="Int32" />
+          <Property Name="Satilik" Type="Boolean" />
+          <Property Name="CreatedDate" Type="DateTime" />
+          <Property Name="Title" Type="String" MaxLength="145" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="city" Relationship="uparazzidbModel.filtre_ibfk_2" FromRole="filtre" ToRole="city" />
+          <NavigationProperty Name="danisman" Relationship="uparazzidbModel.filtre_ibfk_1" FromRole="filtre" ToRole="danisman" />
+        </EntityType>
+        <EntityType Name="fotograf">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="PortfoyId" Type="Int32" />
+          <Property Name="PhotoOrder" Type="Int32" />
+          <Property Name="BlogId" Type="Int32" />
+          <NavigationProperty Name="blog" Relationship="uparazzidbModel.fotograf_ibfk_1" FromRole="fotograf" ToRole="blog" />
+          <NavigationProperty Name="portfoy" Relationship="uparazzidbModel.FK_Fotograf_Portfoy" FromRole="fotograf" ToRole="portfoy" />
+        </EntityType>
+        <EntityType Name="haber">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PhotoPath" Type="String" MaxLength="245" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="145" FixedLength="false" Unicode="false" />
+          <Property Name="Text" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="NewsOrder" Type="Int32" />
+        </EntityType>
+        <EntityType Name="islem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tarih" Type="DateTime" />
+          <Property Name="RaporNo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Satilik" Type="Boolean" />
+          <Property Name="PortfoyNo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Nitelik" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Il" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Ilce" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Belde" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="AdaNo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Parsel" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="m2" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Fiyat" Type="Decimal" />
+          <Property Name="Kat" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="No" Type="Int32" />
+          <Property Name="OdaSayisi" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="RoutingS" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="AdS" Type="String" MaxLength="145" FixedLength="false" Unicode="false" />
+          <Property Name="AdresS" Type="String" MaxLength="145" FixedLength="false" Unicode="false" />
+          <Property Name="TCS" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="TelS" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="DanismanS" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Danisman2S" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="BrütS" Type="Decimal" />
+          <Property Name="TapuTarihiS" Type="DateTime" />
+          <Property Name="TahsilatS" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="ToplamRapor" Type="Decimal" />
+          <Property Name="RoutingA" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="AdA" Type="String" MaxLength="145" FixedLength="false" Unicode="false" />
+          <Property Name="AdresA" Type="String" MaxLength="145" FixedLength="false" Unicode="false" />
+          <Property Name="TCA" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="TelA" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="DanismanA" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Danisman2A" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="BrütA" Type="Decimal" />
+          <Property Name="TapuTarihiA" Type="DateTime" />
+          <Property Name="TahsilatA" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="PortfoyId" Type="Int32" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="BrokerOnay" Type="Boolean" />
+          <Property Name="YonetimOnay" Type="Boolean" />
+          <NavigationProperty Name="portfoy" Relationship="uparazzidbModel.islem_ibfk_1" FromRole="islem" ToRole="portfoy" />
+        </EntityType>
+        <EntityType Name="kurumsal">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="145" FixedLength="false" Unicode="false" />
+          <Property Name="CreaterDate" Type="DateTime" />
+          <Property Name="PdfPath" Type="String" MaxLength="245" FixedLength="false" Unicode="false" />
+          <Property Name="PhotoPath" Type="String" MaxLength="245" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="mail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedDate" Type="DateTime" />
+          <Property Name="Name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Birthday" Type="DateTime" />
+          <Property Name="Email" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Job" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Nereden" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Type" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="mm">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PhotoPath" Type="String" MaxLength="145" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="145" FixedLength="false" Unicode="false" />
+          <Property Name="MMOrder" Type="Int32" />
+          <Property Name="Showroom" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="neighborhood">
+          <Key>
+            <PropertyRef Name="NeighborhoodID" />
+          </Key>
+          <Property Name="NeighborhoodID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DistrictID" Type="Int32" Nullable="false" />
+          <Property Name="NeighborhoodName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ZipCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="district" Relationship="uparazzidbModel.FK_Neighborhood_DistrictID" FromRole="neighborhood" ToRole="district" />
+          <NavigationProperty Name="portfoys" Relationship="uparazzidbModel.portfoy_ibfk_1" FromRole="neighborhood" ToRole="portfoy" />
+          <NavigationProperty Name="services" Relationship="uparazzidbModel.service_ibfk_3" FromRole="neighborhood" ToRole="service" />
+        </EntityType>
+        <EntityType Name="ozellik">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ad" Type="String" MaxLength="145" FixedLength="false" Unicode="false" />
+          <Property Name="Kategori" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <NavigationProperty Name="portfoyozelliks" Relationship="uparazzidbModel.portfoyozellik_ibfk_2" FromRole="ozellik" ToRole="portfoyozellik" />
+        </EntityType>
+        <EntityType Name="portfoy">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Baslik" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NeighborhoodId" Type="Int32" />
+          <Property Name="Fiyat" Type="Decimal" />
+          <Property Name="M2" Type="Int32" />
+          <Property Name="M2Fiyat" Type="Decimal" />
+          <Property Name="IlanTarihi" Type="DateTime" />
+          <Property Name="TapuDurumu" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TakasMi" Type="Boolean" />
+          <Property Name="KatKarsiligi" Type="Boolean" />
+          <Property Name="IlanTipi" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AdaNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KrediyeUygunluk" Type="Boolean" />
+          <Property Name="PaftaTo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ParselNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Kimden" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Emsal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="KadastralYol" Type="Boolean" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="Onay" Type="Boolean" />
+          <Property Name="DanismanId" Type="Int32" />
+          <Property Name="Imar" Type="String" MaxLength="145" FixedLength="false" Unicode="false" />
+          <Property Name="Gabari" Type="String" MaxLength="145" FixedLength="false" Unicode="false" />
+          <Property Name="TapuResim" Type="String" MaxLength="245" FixedLength="false" Unicode="false" />
+          <Property Name="Latitude" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Longtitude" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Firsat" Type="Boolean" />
+          <Property Name="Satilik" Type="Boolean" />
+          <Property Name="IlanNo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Aciklama" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="Video" Type="String" MaxLength="345" FixedLength="false" Unicode="false" />
+          <Property Name="BittiTarih" Type="DateTime" />
+          <NavigationProperty Name="danisman" Relationship="uparazzidbModel.FK_Portfoy_Danisman" FromRole="portfoy" ToRole="danisman" />
+          <NavigationProperty Name="fotografs" Relationship="uparazzidbModel.FK_Fotograf_Portfoy" FromRole="portfoy" ToRole="fotograf" />
+          <NavigationProperty Name="islems" Relationship="uparazzidbModel.islem_ibfk_1" FromRole="portfoy" ToRole="islem" />
+          <NavigationProperty Name="neighborhood" Relationship="uparazzidbModel.portfoy_ibfk_1" FromRole="portfoy" ToRole="neighborhood" />
+          <NavigationProperty Name="portfoyozelliks" Relationship="uparazzidbModel.portfoyozellik_ibfk_1" FromRole="portfoy" ToRole="portfoyozellik" />
+        </EntityType>
+        <EntityType Name="portfoyozellik">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PortfoyId" Type="Int32" />
+          <Property Name="OzellikId" Type="Int32" />
+          <NavigationProperty Name="ozellik" Relationship="uparazzidbModel.portfoyozellik_ibfk_2" FromRole="portfoyozellik" ToRole="ozellik" />
+          <NavigationProperty Name="portfoy" Relationship="uparazzidbModel.portfoyozellik_ibfk_1" FromRole="portfoyozellik" ToRole="portfoy" />
+        </EntityType>
+        <EntityType Name="service">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DanismanId" Type="Int32" />
+          <Property Name="MeetDate" Type="DateTime" />
+          <Property Name="OfferPrice" Type="Decimal" />
+          <Property Name="DosyaNo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="NeighborhoodId" Type="Int32" />
+          <Property Name="AdaParsel" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="m2" Type="Int32" />
+          <Property Name="Nitelik" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="IletisimNo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Decimal" />
+          <Property Name="LastPrice" Type="Decimal" />
+          <Property Name="Note" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="PortfoyDetay" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="Gonderen" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="danisman" Relationship="uparazzidbModel.service_ibfk_2" FromRole="service" ToRole="danisman" />
+          <NavigationProperty Name="neighborhood" Relationship="uparazzidbModel.service_ibfk_3" FromRole="service" ToRole="neighborhood" />
+        </EntityType>
+        <EntityType Name="slider">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="String" MaxLength="345" FixedLength="false" Unicode="false" />
+          <Property Name="SliderOrder" Type="Int32" />
+        </EntityType>
+        <EntityType Name="sozluk">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="145" FixedLength="false" Unicode="false" />
+          <Property Name="Detail" Type="String" MaxLength="1073741823" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="town">
+          <Key>
+            <PropertyRef Name="TownID" />
+          </Key>
+          <Property Name="TownID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityID" Type="Int32" Nullable="false" />
+          <Property Name="TownName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="city" Relationship="uparazzidbModel.FK_Town_CityID" FromRole="town" ToRole="city" />
+          <NavigationProperty Name="districts" Relationship="uparazzidbModel.FK_District_TownID" FromRole="town" ToRole="district" />
+        </EntityType>
+        <Association Name="ajanda_ibfk_1">
+          <End Type="uparazzidbModel.danisman" Role="danisman" Multiplicity="0..1" />
+          <End Type="uparazzidbModel.ajanda" Role="ajanda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="danisman">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ajanda">
+              <PropertyRef Name="AppUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fotograf_ibfk_1">
+          <End Type="uparazzidbModel.blog" Role="blog" Multiplicity="0..1" />
+          <End Type="uparazzidbModel.fotograf" Role="fotograf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="blog">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="fotograf">
+              <PropertyRef Name="BlogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="filtre_ibfk_2">
+          <End Type="uparazzidbModel.city" Role="city" Multiplicity="0..1" />
+          <End Type="uparazzidbModel.filtre" Role="filtre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="filtre">
+              <PropertyRef Name="IlId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Town_CityID">
+          <End Type="uparazzidbModel.city" Role="city" Multiplicity="1" />
+          <End Type="uparazzidbModel.town" Role="town" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="city">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="town">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="danisman_ibfk_1">
+          <End Type="uparazzidbModel.danisman" Role="danisman" Multiplicity="0..1" />
+          <End Type="uparazzidbModel.danisman" Role="danisman1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="danisman">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="danisman1">
+              <PropertyRef Name="BrokerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="filtre_ibfk_1">
+          <End Type="uparazzidbModel.danisman" Role="danisman" Multiplicity="0..1" />
+          <End Type="uparazzidbModel.filtre" Role="filtre" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="danisman">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="filtre">
+              <PropertyRef Name="DanismanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Portfoy_Danisman">
+          <End Type="uparazzidbModel.danisman" Role="danisman" Multiplicity="0..1" />
+          <End Type="uparazzidbModel.portfoy" Role="portfoy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="danisman">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="portfoy">
+              <PropertyRef Name="DanismanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="service_ibfk_2">
+          <End Type="uparazzidbModel.danisman" Role="danisman" Multiplicity="0..1" />
+          <End Type="uparazzidbModel.service" Role="service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="danisman">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="service">
+              <PropertyRef Name="DanismanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_District_TownID">
+          <End Type="uparazzidbModel.town" Role="town" Multiplicity="1" />
+          <End Type="uparazzidbModel.district" Role="district" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="town">
+              <PropertyRef Name="TownID" />
+            </Principal>
+            <Dependent Role="district">
+              <PropertyRef Name="TownID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Neighborhood_DistrictID">
+          <End Type="uparazzidbModel.district" Role="district" Multiplicity="1" />
+          <End Type="uparazzidbModel.neighborhood" Role="neighborhood" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="district">
+              <PropertyRef Name="DistrictID" />
+            </Principal>
+            <Dependent Role="neighborhood">
+              <PropertyRef Name="DistrictID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Fotograf_Portfoy">
+          <End Type="uparazzidbModel.portfoy" Role="portfoy" Multiplicity="0..1" />
+          <End Type="uparazzidbModel.fotograf" Role="fotograf" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="portfoy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="fotograf">
+              <PropertyRef Name="PortfoyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="islem_ibfk_1">
+          <End Type="uparazzidbModel.portfoy" Role="portfoy" Multiplicity="0..1" />
+          <End Type="uparazzidbModel.islem" Role="islem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="portfoy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="islem">
+              <PropertyRef Name="PortfoyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="portfoy_ibfk_1">
+          <End Type="uparazzidbModel.neighborhood" Role="neighborhood" Multiplicity="0..1" />
+          <End Type="uparazzidbModel.portfoy" Role="portfoy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="neighborhood">
+              <PropertyRef Name="NeighborhoodID" />
+            </Principal>
+            <Dependent Role="portfoy">
+              <PropertyRef Name="NeighborhoodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="service_ibfk_3">
+          <End Type="uparazzidbModel.neighborhood" Role="neighborhood" Multiplicity="0..1" />
+          <End Type="uparazzidbModel.service" Role="service" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="neighborhood">
+              <PropertyRef Name="NeighborhoodID" />
+            </Principal>
+            <Dependent Role="service">
+              <PropertyRef Name="NeighborhoodId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="portfoyozellik_ibfk_2">
+          <End Type="uparazzidbModel.ozellik" Role="ozellik" Multiplicity="0..1" />
+          <End Type="uparazzidbModel.portfoyozellik" Role="portfoyozellik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ozellik">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="portfoyozellik">
+              <PropertyRef Name="OzellikId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="portfoyozellik_ibfk_1">
+          <End Type="uparazzidbModel.portfoy" Role="portfoy" Multiplicity="0..1" />
+          <End Type="uparazzidbModel.portfoyozellik" Role="portfoyozellik" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="portfoy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="portfoyozellik">
+              <PropertyRef Name="PortfoyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="history">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DanismanId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" />
+          <Property Name="Action" Type="String" MaxLength="445" FixedLength="false" Unicode="false" />
+          <Property Name="forAdmin" Type="Boolean" />
+          <NavigationProperty Name="danisman" Relationship="uparazzidbModel.history_ibfk_1" FromRole="history" ToRole="danisman" />
+        </EntityType>
+        <Association Name="history_ibfk_1">
+          <End Type="uparazzidbModel.danisman" Role="danisman" Multiplicity="0..1" />
+          <End Type="uparazzidbModel.history" Role="history" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="danisman">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="history">
+              <PropertyRef Name="DanismanId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="uparazzidbModelStoreContainer" CdmEntityContainer="UpArazziDBEntities">
+          <EntitySetMapping Name="ajandas">
+            <EntityTypeMapping TypeName="uparazzidbModel.ajanda">
+              <MappingFragment StoreEntitySet="ajanda">
+                <ScalarProperty Name="toAsistan" ColumnName="toAsistan" />
+                <ScalarProperty Name="toMudur" ColumnName="toMudur" />
+                <ScalarProperty Name="toYonetim" ColumnName="toYonetim" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="toBroker" ColumnName="toBroker" />
+                <ScalarProperty Name="toDanisman" ColumnName="toDanisman" />
+                <ScalarProperty Name="AppUserId" ColumnName="AppUserId" />
+                <ScalarProperty Name="Saat" ColumnName="Saat" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="blogs">
+            <EntityTypeMapping TypeName="uparazzidbModel.blog">
+              <MappingFragment StoreEntitySet="blog">
+                <ScalarProperty Name="SSS" ColumnName="SSS" />
+                <ScalarProperty Name="ReadCount" ColumnName="ReadCount" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cities">
+            <EntityTypeMapping TypeName="uparazzidbModel.city">
+              <MappingFragment StoreEntitySet="city">
+                <ScalarProperty Name="PhoneCode" ColumnName="PhoneCode" />
+                <ScalarProperty Name="PlateNo" ColumnName="PlateNo" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="CountryID" ColumnName="CountryID" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="danismen">
+            <EntityTypeMapping TypeName="uparazzidbModel.danisman">
+              <MappingFragment StoreEntitySet="danisman">
+                <ScalarProperty Name="Showroom" ColumnName="Showroom" />
+                <ScalarProperty Name="EkipOrder" ColumnName="EkipOrder" />
+                <ScalarProperty Name="BrokerLogo" ColumnName="BrokerLogo" />
+                <ScalarProperty Name="UparazziName" ColumnName="UparazziName" />
+                <ScalarProperty Name="OfficeContact" ColumnName="OfficeContact" />
+                <ScalarProperty Name="BirthDay" ColumnName="BirthDay" />
+                <ScalarProperty Name="VergiPhone" ColumnName="VergiPhone" />
+                <ScalarProperty Name="VergiDairesi" ColumnName="VergiDairesi" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="BrokerId" ColumnName="BrokerId" />
+                <ScalarProperty Name="Tasarim" ColumnName="Tasarim" />
+                <ScalarProperty Name="DanismanMi" ColumnName="DanismanMi" />
+                <ScalarProperty Name="Asistan" ColumnName="Asistan" />
+                <ScalarProperty Name="Mudur" ColumnName="Mudur" />
+                <ScalarProperty Name="Broker" ColumnName="Broker" />
+                <ScalarProperty Name="Admin" ColumnName="Admin" />
+                <ScalarProperty Name="Kabul" ColumnName="Kabul" />
+                <ScalarProperty Name="DanismanSozlesme" ColumnName="DanismanSozlesme" />
+                <ScalarProperty Name="Yeterlilik" ColumnName="Yeterlilik" />
+                <ScalarProperty Name="Kimlik" ColumnName="Kimlik" />
+                <ScalarProperty Name="Sicil" ColumnName="Sicil" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Gorevi" ColumnName="Gorevi" />
+                <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
+                <ScalarProperty Name="Onay" ColumnName="Onay" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Bolge" ColumnName="Bolge" />
+                <ScalarProperty Name="Ozgecmis" ColumnName="Ozgecmis" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="districts">
+            <EntityTypeMapping TypeName="uparazzidbModel.district">
+              <MappingFragment StoreEntitySet="district">
+                <ScalarProperty Name="DistrictName" ColumnName="DistrictName" />
+                <ScalarProperty Name="TownID" ColumnName="TownID" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="errortables">
+            <EntityTypeMapping TypeName="uparazzidbModel.errortable">
+              <MappingFragment StoreEntitySet="errortable">
+                <ScalarProperty Name="code" ColumnName="code" />
+                <ScalarProperty Name="appuser" ColumnName="appuser" />
+                <ScalarProperty Name="Page" ColumnName="Page" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="filtres">
+            <EntityTypeMapping TypeName="uparazzidbModel.filtre">
+              <MappingFragment StoreEntitySet="filtre">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Satilik" ColumnName="Satilik" />
+                <ScalarProperty Name="MahId" ColumnName="MahId" />
+                <ScalarProperty Name="IlceId" ColumnName="IlceId" />
+                <ScalarProperty Name="IlId" ColumnName="IlId" />
+                <ScalarProperty Name="Nitelik" ColumnName="Nitelik" />
+                <ScalarProperty Name="m2Max" ColumnName="m2Max" />
+                <ScalarProperty Name="m2Min" ColumnName="m2Min" />
+                <ScalarProperty Name="UnitPriceMax" ColumnName="UnitPriceMax" />
+                <ScalarProperty Name="UnitPriceMin" ColumnName="UnitPriceMin" />
+                <ScalarProperty Name="DanismanId" ColumnName="DanismanId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fotografs">
+            <EntityTypeMapping TypeName="uparazzidbModel.fotograf">
+              <MappingFragment StoreEntitySet="fotograf">
+                <ScalarProperty Name="BlogId" ColumnName="BlogId" />
+                <ScalarProperty Name="PhotoOrder" ColumnName="PhotoOrder" />
+                <ScalarProperty Name="PortfoyId" ColumnName="PortfoyId" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="habers">
+            <EntityTypeMapping TypeName="uparazzidbModel.haber">
+              <MappingFragment StoreEntitySet="haber">
+                <ScalarProperty Name="NewsOrder" ColumnName="NewsOrder" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="islems">
+            <EntityTypeMapping TypeName="uparazzidbModel.islem">
+              <MappingFragment StoreEntitySet="islem">
+                <ScalarProperty Name="YonetimOnay" ColumnName="YonetimOnay" />
+                <ScalarProperty Name="BrokerOnay" ColumnName="BrokerOnay" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="PortfoyId" ColumnName="PortfoyId" />
+                <ScalarProperty Name="TahsilatA" ColumnName="TahsilatA" />
+                <ScalarProperty Name="TapuTarihiA" ColumnName="TapuTarihiA" />
+                <ScalarProperty Name="BrütA" ColumnName="BrütA" />
+                <ScalarProperty Name="Danisman2A" ColumnName="Danisman2A" />
+                <ScalarProperty Name="DanismanA" ColumnName="DanismanA" />
+                <ScalarProperty Name="TelA" ColumnName="TelA" />
+                <ScalarProperty Name="TCA" ColumnName="TCA" />
+                <ScalarProperty Name="AdresA" ColumnName="AdresA" />
+                <ScalarProperty Name="AdA" ColumnName="AdA" />
+                <ScalarProperty Name="RoutingA" ColumnName="RoutingA" />
+                <ScalarProperty Name="ToplamRapor" ColumnName="ToplamRapor" />
+                <ScalarProperty Name="TahsilatS" ColumnName="TahsilatS" />
+                <ScalarProperty Name="TapuTarihiS" ColumnName="TapuTarihiS" />
+                <ScalarProperty Name="BrütS" ColumnName="BrütS" />
+                <ScalarProperty Name="Danisman2S" ColumnName="Danisman2S" />
+                <ScalarProperty Name="DanismanS" ColumnName="DanismanS" />
+                <ScalarProperty Name="TelS" ColumnName="TelS" />
+                <ScalarProperty Name="TCS" ColumnName="TCS" />
+                <ScalarProperty Name="AdresS" ColumnName="AdresS" />
+                <ScalarProperty Name="AdS" ColumnName="AdS" />
+                <ScalarProperty Name="RoutingS" ColumnName="RoutingS" />
+                <ScalarProperty Name="OdaSayisi" ColumnName="OdaSayisi" />
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="Kat" ColumnName="Kat" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+                <ScalarProperty Name="m2" ColumnName="m2" />
+                <ScalarProperty Name="Parsel" ColumnName="Parsel" />
+                <ScalarProperty Name="AdaNo" ColumnName="AdaNo" />
+                <ScalarProperty Name="Belde" ColumnName="Belde" />
+                <ScalarProperty Name="Ilce" ColumnName="Ilce" />
+                <ScalarProperty Name="Il" ColumnName="Il" />
+                <ScalarProperty Name="Nitelik" ColumnName="Nitelik" />
+                <ScalarProperty Name="PortfoyNo" ColumnName="PortfoyNo" />
+                <ScalarProperty Name="Satilik" ColumnName="Satilik" />
+                <ScalarProperty Name="RaporNo" ColumnName="RaporNo" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kurumsals">
+            <EntityTypeMapping TypeName="uparazzidbModel.kurumsal">
+              <MappingFragment StoreEntitySet="kurumsal">
+                <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
+                <ScalarProperty Name="PdfPath" ColumnName="PdfPath" />
+                <ScalarProperty Name="CreaterDate" ColumnName="CreaterDate" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mails">
+            <EntityTypeMapping TypeName="uparazzidbModel.mail">
+              <MappingFragment StoreEntitySet="mail">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Nereden" ColumnName="Nereden" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Job" ColumnName="Job" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mms">
+            <EntityTypeMapping TypeName="uparazzidbModel.mm">
+              <MappingFragment StoreEntitySet="mm">
+                <ScalarProperty Name="Showroom" ColumnName="Showroom" />
+                <ScalarProperty Name="MMOrder" ColumnName="MMOrder" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="PhotoPath" ColumnName="PhotoPath" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="neighborhoods">
+            <EntityTypeMapping TypeName="uparazzidbModel.neighborhood">
+              <MappingFragment StoreEntitySet="neighborhood">
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="NeighborhoodName" ColumnName="NeighborhoodName" />
+                <ScalarProperty Name="DistrictID" ColumnName="DistrictID" />
+                <ScalarProperty Name="NeighborhoodID" ColumnName="NeighborhoodID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ozelliks">
+            <EntityTypeMapping TypeName="uparazzidbModel.ozellik">
+              <MappingFragment StoreEntitySet="ozellik">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Kategori" ColumnName="Kategori" />
+                <ScalarProperty Name="Ad" ColumnName="Ad" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="portfoys">
+            <EntityTypeMapping TypeName="uparazzidbModel.portfoy">
+              <MappingFragment StoreEntitySet="portfoy">
+                <ScalarProperty Name="BittiTarih" ColumnName="BittiTarih" />
+                <ScalarProperty Name="Video" ColumnName="Video" />
+                <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
+                <ScalarProperty Name="IlanNo" ColumnName="IlanNo" />
+                <ScalarProperty Name="Satilik" ColumnName="Satilik" />
+                <ScalarProperty Name="Firsat" ColumnName="Firsat" />
+                <ScalarProperty Name="Longtitude" ColumnName="Longtitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="TapuResim" ColumnName="TapuResim" />
+                <ScalarProperty Name="Gabari" ColumnName="Gabari" />
+                <ScalarProperty Name="Imar" ColumnName="Imar" />
+                <ScalarProperty Name="DanismanId" ColumnName="DanismanId" />
+                <ScalarProperty Name="Onay" ColumnName="Onay" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="KadastralYol" ColumnName="KadastralYol" />
+                <ScalarProperty Name="Emsal" ColumnName="Emsal" />
+                <ScalarProperty Name="Kimden" ColumnName="Kimden" />
+                <ScalarProperty Name="ParselNo" ColumnName="ParselNo" />
+                <ScalarProperty Name="PaftaTo" ColumnName="PaftaTo" />
+                <ScalarProperty Name="KrediyeUygunluk" ColumnName="KrediyeUygunluk" />
+                <ScalarProperty Name="AdaNo" ColumnName="AdaNo" />
+                <ScalarProperty Name="IlanTipi" ColumnName="IlanTipi" />
+                <ScalarProperty Name="KatKarsiligi" ColumnName="KatKarsiligi" />
+                <ScalarProperty Name="TakasMi" ColumnName="TakasMi" />
+                <ScalarProperty Name="TapuDurumu" ColumnName="TapuDurumu" />
+                <ScalarProperty Name="IlanTarihi" ColumnName="IlanTarihi" />
+                <ScalarProperty Name="M2Fiyat" ColumnName="M2Fiyat" />
+                <ScalarProperty Name="M2" ColumnName="M2" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+                <ScalarProperty Name="NeighborhoodId" ColumnName="NeighborhoodId" />
+                <ScalarProperty Name="Baslik" ColumnName="Baslik" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="portfoyozelliks">
+            <EntityTypeMapping TypeName="uparazzidbModel.portfoyozellik">
+              <MappingFragment StoreEntitySet="portfoyozellik">
+                <ScalarProperty Name="OzellikId" ColumnName="OzellikId" />
+                <ScalarProperty Name="PortfoyId" ColumnName="PortfoyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="services">
+            <EntityTypeMapping TypeName="uparazzidbModel.service">
+              <MappingFragment StoreEntitySet="service">
+                <ScalarProperty Name="Gonderen" ColumnName="Gonderen" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="PortfoyDetay" ColumnName="PortfoyDetay" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="LastPrice" ColumnName="LastPrice" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="IletisimNo" ColumnName="IletisimNo" />
+                <ScalarProperty Name="Nitelik" ColumnName="Nitelik" />
+                <ScalarProperty Name="m2" ColumnName="m2" />
+                <ScalarProperty Name="AdaParsel" ColumnName="AdaParsel" />
+                <ScalarProperty Name="NeighborhoodId" ColumnName="NeighborhoodId" />
+                <ScalarProperty Name="DosyaNo" ColumnName="DosyaNo" />
+                <ScalarProperty Name="OfferPrice" ColumnName="OfferPrice" />
+                <ScalarProperty Name="MeetDate" ColumnName="MeetDate" />
+                <ScalarProperty Name="DanismanId" ColumnName="DanismanId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sliders">
+            <EntityTypeMapping TypeName="uparazzidbModel.slider">
+              <MappingFragment StoreEntitySet="slider">
+                <ScalarProperty Name="SliderOrder" ColumnName="SliderOrder" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sozluks">
+            <EntityTypeMapping TypeName="uparazzidbModel.sozluk">
+              <MappingFragment StoreEntitySet="sozluk">
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="towns">
+            <EntityTypeMapping TypeName="uparazzidbModel.town">
+              <MappingFragment StoreEntitySet="town">
+                <ScalarProperty Name="TownName" ColumnName="TownName" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="TownID" ColumnName="TownID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="histories">
+            <EntityTypeMapping TypeName="uparazzidbModel.history">
+              <MappingFragment StoreEntitySet="history">
+                <ScalarProperty Name="forAdmin" ColumnName="forAdmin" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="DanismanId" ColumnName="DanismanId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,38 @@
+﻿@model List<mm>
+@{
+    ViewBag.Title = "MutluMusteriler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<section class="twoColumns container" style="padding-top: 50px">
+    <!-- contentFiltersHeadingWrap -->
+    <header class="contentFiltersHeadingWrap row">
+        <div class="col-xs-12 col-sm-10">           
+            <h1 class="fontNeuron">Mutlu Müşteriler</h1>
+        </div>
+    </header>
+    <div class="row">
+        @foreach (mm item in Model)
+        {
+            <div class="col-xs-12 col-sm-6 col-md-4">
+                <!-- profileColumn -->
+                <article class="agencyColumn bgWhite">
+                    <div class="aligncenter">
+                       
+                            <img src="@item.PhotoPath" alt="@item.Title" style="height:300px;width:100%;object-fit:contain">
+                      
+                    </div>
+                    <div class="textWrap">
+                        <h2 class="fontNeuron text-capitalize" style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden">  <span class="icn"><i class="fi flaticon-pin-1"></i></span> @item.Title</h2>
+                        <!-- captionAddress -->
+                       
+                    </div>
+                </article>
+            </div>
+        }
+
+    
+    </div>
+</section>
+<!-- signupFormAside -->

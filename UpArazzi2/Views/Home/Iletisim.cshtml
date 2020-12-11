@@ -1,0 +1,114 @@
+﻿
+@{
+   ViewBag.Title = "uparazzi | Arsa & Arazi Yatırım Uzmanlığı";
+    ViewBag.Description = "uparazzi | Arsa & Arazi Yatırım Danışmanlığı";
+    ViewBag.Url = "https://www.uparazzi.com.tr/home/iletisim";
+    ViewBag.Photo = "https://www.uparazzi.com.tr/Theme/images/logo.png";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    @@media only screen and (max-width: 780px) {
+       
+        #harita {
+            height: 400px;
+        }
+    }
+
+    @@media only screen and (min-width: 780px) {
+        #harita {
+            height: 760px;
+        }
+    }
+</style>
+
+
+
+<div class="map-area mapPlacer" style="padding:55px 5px 0px 5px;background-color:white">
+    <div class="row">
+        <div class="col-md-6" style="box-shadow: 5px 10px 18px #888888">
+            <div class="contactInfoPage" >
+                <h4 class="fontNeuron">Sizin İçin Buradayız...</h4>
+                <p>Arsa ve arazi yatırımına veya franchise sistemimize dair sormak istediğiniz her şey için aşağıda yazan iletişim bilgileri veya mesaj formundan bize ulaşabilirsiniz.</p>
+                <address class="adr">
+                    <div class="item">
+                        <i class="fi flaticon-navigation"></i>
+                        <span class="text">Soğanlık Yeni Mah. AC Moment İstanbul Residence B/Blok No:87 - Kartal İstanbul, Türkiye</span>
+                    </div>
+                    <div class="item">
+                        <i class="fi flaticon-24-hours"></i>
+                        <span class="text"><a href="tel:08502272779">0850 227 27 79</a></span>
+
+                    </div>
+                    <div class="item">
+                        <i class="fi flaticon-mail"></i>
+                        <span class="text">
+                            <a href="mailto:info@uparazzi.com.tr">
+                                info@uparazzi.com.tr
+                            </a>
+                        </span>
+                    </div>
+                </address>
+                @*<ul class="socialNetworks list-unstyled">
+                        <li><a href="https://www.youtube.com/channel/UCNNTPQH6NnOLDqNyQaxulrA/videos"><i class="fab fa-youtube"></i></a></li>
+                        <li><a href="https://www.facebook.com/UpArazzi/"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="https://www.instagram.com/uparazzi/"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="https://twitter.com/UpArazzi"><i class="fab fa-instagram"></i></a></li>
+                        <li><a href="https://www.linkedin.com/company/uparazzi/"><i class="fab fa-linkedin"></i></a></li>
+                    </ul>*@
+            </div>
+
+            <div class="contactFormPage">
+
+                <form action="/Home/Iletisim" method="post">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <p style="color:red;font-weight:bold">@ViewBag.Mesaj</p>
+                            <div class="form-group">
+                                <h4 class="fontNeuron">Mesaj Formu</h4>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <input type="text" name="name" placeholder="İsminiz" class="form-control" required>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <input type="number" name="phone" placeholder="Telefon Numaranız" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-6">
+                            <div class="form-group">
+                                <input type="email" name="mail" placeholder="E-Postanız" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" name="message" placeholder="Mesaj" required></textarea>
+                        <input type="checkbox" required />  uparazzi'den haber ve bülten almak istiyorum, bu amaçla <a href="/Home/KullanimGizlilik" target="_blank"> "KVKK Kapsamında Aydınlatma Metni ve Onay Formu"</a>nu okudum ve kabul ediyorum.
+                    </div>
+                   
+               
+                    <button type="submit" class="btn btnDark fontNeuron buttonXL">Gönder</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-6" >
+            <div id="map-container">
+                <iframe id="harita" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3014.951612054085!2d29.18614181566007!3d40.916806832997054!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14cac52a67f697b5%3A0xde5f7ad773f63a07!2sUparazzi!5e0!3m2!1str!2str!4v1583665335931!5m2!1str!2str" frameborder="0" style="border:0;width:100%" allowfullscreen=""></iframe>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- content -->
+<!-- signupFormAside -->
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUPAdoOOy1nVtzhjrBUxPDuWGajbHu7RM" defer="defer"></script>
+
+
+

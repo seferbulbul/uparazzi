@@ -1,0 +1,108 @@
+﻿@model List<blog>
+@{
+    ViewBag.Title = "Blog";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script>
+
+
+    $(document).on("click", ".BlogSil", function () {
+        var id = $(this).attr("data-id");
+        swal({
+            title: "",
+            text: "İşlemi Onaylıyor Musunuz !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e69a2a",
+            confirmButtonText: "Evet",
+            cancelButtonText: "Hayır",
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                type: "get",
+                url: "/Tasarim/BlogSil",
+                data: { id: id },
+                success: function () {
+                    $("#" + id).remove();
+                    swal("Başarılı", "", "success");
+                }
+            })
+        });
+        return false;
+    })
+
+
+
+
+
+</script>
+<div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">@(ViewBag.SSS ? "SSS" : "BLOG") LİSTESİ</h5>
+        </div>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <a class="btn btn-danger btn-block btn-outline btn-anim" href="/Tasarim/AddBlog/?SSS=@(ViewBag.SSS ? "true" : "false")"><i class="fa fa-plus"></i><span class="btn-text">@(ViewBag.SSS ? "SSS" : "BLOG") EKLE</span></a>
+                        <div class="table-wrap">
+
+                            <table id="myTable1" class="table table-hover display  pb-30">
+                                <thead>
+                                    <tr>
+                                        @if (!ViewBag.SSS)
+                                        {
+                                            <th>Resim</th>
+                                            <th>Kategori</th>
+                                        }
+
+
+                                        <th>Başlık</th>
+                                        <th>Oluşturma Tarihi</th>
+                                        <th>@(ViewBag.SSS ? "" : "Galeri / ")  Düzenle / Sil</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (blog item in Model)
+                                    {
+                                    <tr id="@item.Id">
+                                        @if (!ViewBag.SSS)
+                                        {
+                                            <td><img src="@(item.fotografs.Count>0 ? item.fotografs.First().Path : "/Theme/images/fotoYok.png")" style="height:100px;min-width:200px;object-fit:contain" /> </td>
+                                            <td> @item.Category</td>
+                                        }
+
+
+                                        <td> @item.Title</td>
+                                        <td>@item.CreatedDate.Value.ToShortDateString()</td>
+                                        <td>
+                                            @if (!ViewBag.SSS)
+                                            {
+                                                <button title="Resim Galerisi" onclick="location.href='/Tasarim/BlogMedia/@item.Id'" class="btn btn-success btn-icon-anim btn-circle"><i class="fa fa-photo"></i></button>
+                                            }
+
+                                            <button title="Düzenle" onclick="location.href='/Tasarim/EditBlog/@item.Id'" class="btn btn-primary btn-icon-anim btn-circle"><i class="fa fa-edit"></i></button>
+                                            <button title="Pasif Et" class="btn btn-info btn-icon-anim btn-circle BlogSil" data-id="@item.Id"><i class="icon-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+

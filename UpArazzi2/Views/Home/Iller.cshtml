@@ -1,0 +1,8 @@
+﻿@model List<city>
+@foreach (city item in Model)
+{
+    <option @(ViewBag.ilkey == item.CityID ? "selected":"") value="@item.CityID">@item.CityName</option>
+}
+
+
+

@@ -1,0 +1,194 @@
+﻿@model service
+@{
+    ViewBag.Title = "ServisEkle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script>
+    $(function () {
+        $(".iller").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                type: "get",
+                data: { IlKeyId: id, Ekle: true },
+                url: "/Home/Ilceler",
+                success: function (data) {
+                    $(".ilceler").html(data);
+                }
+            })
+        })
+
+        $(".ilceler").change(function () {
+            var id = $(this).val();
+            $.ajax({
+                type: "get",
+                data: { IlceKeyId: id },
+                url: "/Home/Mahalle",
+                success: function (data) {
+                    $(".Mahalle").html(data);
+                }
+            })
+        })
+    });
+</script>
+<div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Servis Ekle </h5>
+        </div>
+        <!-- Breadcrumb -->
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">SERVİS BİLGİLERİ</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <h6 style="color:red;font-weight:bold">@ViewBag.Mesaj</h6>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <form action="/Danisman/ServisEkle" method="post">
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label> Dosya No </label>
+                                        @Html.TextBoxFor(x => x.DosyaNo, new { @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label> Ada / Parsel </label>
+                                        @Html.TextBoxFor(x => x.AdaParsel, new { @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label> m2 </label>
+                                        @Html.TextBoxFor(x => x.m2, new { @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-18">İl</label>
+                                        <select required class="form-control iller">
+                                            <option value="">İl Seçiniz</option>
+                                            @{ Html.RenderAction("Iller", "Home", new { Ekle = true }); }
+                                        </select>
+                                        <!-- end of block .form-property__control-->
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-19">İlçe</label>
+
+                                        <select required class="form-control ilceler">
+                                            <option value="">İlçe Seçiniz</option>
+                                            @{ Html.RenderAction("Ilceler", "Home"); }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-20">Mahalle / Köy</label>
+                                        <div class="Mahalle">
+                                            @{ Html.RenderAction("Mahalle", "Home"); }
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-23">Fiyat</label>
+                                        @Html.TextBoxFor(x => x.Price, new { @class = "form-control", required = "required", pattern = "[1-9]{1}[0-9]{3,}" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-23">Verilen Teklif</label>
+                                        @Html.TextBoxFor(x => x.OfferPrice, new { @class = "form-control", required = "required", pattern = "[1-9]{1}[0-9]{3,}" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="itemN-23">Son Fiyat</label>
+                                        @Html.TextBoxFor(x => x.LastPrice, new { @class = "form-control", required = "required", pattern = "[1-9]{1}[0-9]{3,}" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Nitelik</label>
+                                        <select required name="Nitelik" class="form-control">
+                                            <option value="">Seçim Yapınız</option>
+                                            <option value="Arsa">Arsa</option>
+                                            <option value="Tarla">Tarla</option>
+                                            <option value="Hobi Bahçesi">Hobi Bahçesi</option>
+                                            <option value="Çiftlik">Çiftlik</option>
+                                            <option value="Villa">Villa</option>
+                                            <option value="Köy Evi">Köy Evi</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label> Gönderen </label>
+                                        @Html.TextBoxFor(x => x.Gonderen, new { @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label> İletişim No </label>
+                                        @Html.TextBoxFor(x => x.IletisimNo, new { @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label> Görüşme Tarihi</label>
+                                        @Html.TextBoxFor(x => x.MeetDate, new { @class = "form-control", required = "required", type = "date" })
+                                    </div>
+                                </div>
+
+
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label> Görüşme Notu</label>
+                                        @Html.TextAreaFor(x => x.Note, new { rows = "8", @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label> Portföy Açıklamas</label>
+                                        @Html.TextAreaFor(x => x.PortfoyDetay, new { rows = "8", @class = "form-control" })
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button class="btn btn-danger btn-rounded btn-block btn-anim"><i class="fa fa-send"></i><span class="btn-text">KAYDET</span></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+

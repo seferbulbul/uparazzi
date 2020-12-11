@@ -1,0 +1,39 @@
+﻿@model List<blog>
+
+
+    <section class=" newsNstoriesBlock">
+        <div class="container">
+            <h1 class="fontNeuron blockH text-uppercase"><a href="/Home/Blog"> <span class="bdrBottom">UpBlog</span></a></h1>
+            <div class="row">
+                <!-- newsCarousel -->
+                <div class="news-posts-carousel2 slickSlider newsCarousel">
+                    @foreach (blog item in Model)
+                    {
+                        <div>
+                            <div class="col-xs-12">
+                                <!-- newsPostColumn -->
+                                <article class="newsPostColumn">
+                                    <div class="aligncenter">
+                                        <a href="@Url.Action("BlogDetay","Home",new { blogAdi =Helper.FriendlyURLTitle(item.Title), id=item.Id })">
+                                            <img src="@item.fotografs.First().Path" alt="image description" style="height:250px;width:100%;object-fit:cover">
+                                        </a>
+                                    </div>
+                                    <a href="@Url.Action("BlogDetay","Home",new { blogAdi =Helper.FriendlyURLTitle(item.Title), id=item.Id })">
+                                        <h2 class="fontNeuron" style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden;color:white">@item.Title</h2>
+                                    </a>
+                                    <p>
+                                        <a class="btn btnSmall btn-info">@item.Category</a>
+                                        <time datetime="2011-01-12">@item.CreatedDate.Value.ToString("dd-MM-yyyy")</time>
+                                       
+                                    </p>
+                                    <footer class="PostColumnFoot">
+                                        <a href="@Url.Action("BlogDetay","Home",new { blogAdi =Helper.FriendlyURLTitle(item.Title), id=item.Id })" class="elemenBlock readMore text-capitalize" style="color:white">Daha Fazla Oku... <i class="fi flaticon-arrows readMoreIcn"></i></a>
+                                    </footer>
+                                </article>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </section>

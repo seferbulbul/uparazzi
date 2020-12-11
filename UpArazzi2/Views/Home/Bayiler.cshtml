@@ -1,0 +1,197 @@
+﻿
+@{
+    ViewBag.Title = "uparazzi | Arsa & Arazi Yatırım Uzmanlığı";
+    ViewBag.Description = "uparazzi | Arsa & Arazi Yatırım Danışmanlığı";
+    ViewBag.Url = "https://www.uparazzi.com.tr/home/bayiler";
+    ViewBag.Photo = "https://www.uparazzi.com.tr/Theme/images/logo.png";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    @@media screen and (max-width: 600px) {
+        .mobile {
+            display: none;
+        }
+        .icnAbsolute {
+            display:none;           
+        }
+        .signupFormAside{
+            padding-top:50px;
+        }
+        #yazi{
+            font-size : 12px;
+        }
+    }
+    @@media screen and (min-width: 600px) {
+        .signupFormAside{
+            padding-top:100px;
+        }
+        #yazi {
+            font-size: 15px;
+        }
+    }
+</style>
+
+<section class="introBanner">
+    <div class="bannerImageSlideshow bg-primary slickSlider">
+
+        <div>
+
+            <span class="bgCover elemenBlock mobile" style="background-image: url(/Theme/images/bayi.jpeg);"></span>
+
+            <span class="bgCover elemenBlock 2" style="background-image: url(/Theme/images/bayi2.jpeg);"></span>
+
+        </div>
+
+    </div>
+    <form action="#" class="signupFormAside" style="z-index:3">
+        <div class="container signupFormAsideHolder">
+            <span class="icnAbsolute elemenBlock fi flaticon-message"></span>
+            <div class="col-md-offset-2 col-md-7">
+             
+                <p style="color:black;text-align:justify" id="yazi">uparazzi, Türkiye'nin arsa arazi yatırımı alanında uzmanlaşmış ilk ve tek franchise markasıdır. Özenli bir çalışmayla kurduğu hizmet kapsamı, başarılı uparazzi temsilcileriyle her geçen gün genişlemektedir. uparazzi sektörel ağında yer almak için başvuru formunu doldurarak bize ulaşabilirsiniz...</p>
+            </div>
+            <div class="col-md-3" >
+                <div class="form-group" style="float:right">
+
+                    <a title="WhatsApp" rel="nofollow" href="#popup2" class="headerModalOpener text-uppercase fontNeuron fwBold lightbox">  Başvuru Formu</a>
+                  
+                </div>
+            </div>
+        </div>
+    </form>
+
+</section>
+<script>
+    $(document).ready(function () {
+        $(".GirisYap2").click(function () {
+            var name = $("#name").val();
+            var phone = $("#phone").val();
+            var dt = $("#dt").val();
+            var mail = $("#mail").val();
+            var job = $("#job").val();
+            var city = $("#city").val();
+            var nereden = $("#nereden").val();
+
+            if (name.trim() != "" && phone.trim() != "" && dt.trim() != "" && mail.trim() != "" && job.trim() != "" && city.trim() != "" && nereden.trim() != "") {
+                $.ajax({
+                    type: "get",
+                    url: "/Home/KazanmakIcin",
+                    data: { name: name, phone: phone, dt: dt, mail: mail, job: job, city: city, nereden: nereden, type: "UpArazzi Ofisi Açmak İstiyorum." },
+                    success: function () {
+                        $(".fancybox-close-small").click();
+                        alert("Kaydınız alınmıştır, En kısa sürede geri dönüş sağlacaktır.");
+                    }, error: function () {
+                        alert("Bir Sorunla Karşılaşıldı, Lütfen Daha Sonra Tekrar Deneyiniz.");
+                    }
+                })
+
+            } else {
+                alert("Lütfen Tüm Alanları Eksiksiz Doldurunuz !");
+            }
+        })
+
+        $(".GirisYap3").click(function () {
+            var name = $("#name2").val();
+            var phone = $("#phone2").val();
+            var dt = $("#dt2").val();
+            var mail = $("#mail2").val();
+            var job = $("#job2").val();
+            var city = $("#city2").val();
+            var nereden = $("#nereden2").val();
+
+            if (name.trim() != "" && phone.trim() != "" && dt.trim() != "" && mail.trim() != "" && job.trim() != "" && city.trim() != "" && nereden.trim() != "") {
+                $.ajax({
+                    type: "get",
+                    url: "/Home/KazanmakIcin",
+                    data: { name: name, phone: phone, dt: dt, mail: mail, job: job, city: city, nereden: nereden, type: "Arsa ve Arazi Yatırım Uzmanı Olmak İstiyorum." },
+                    success: function () {
+                        $(".fancybox-close-small").click();
+                        alert("Kaydınız alınmıştır, En kısa sürede geri dönüş sağlacaktır.");
+                    }, error: function () {
+                        alert("Bir Sorunla Karşılaşıldı, Lütfen Daha Sonra Tekrar Deneyiniz.");
+                    }
+                })
+
+            } else {
+                alert("Lütfen Tüm Alanları Eksiksiz Doldurunuz !");
+            }
+        })
+    })
+</script>
+<style>
+    @@media only screen and (max-width: 600px) {
+        .formpop {
+            width: 350px;
+        }
+    }
+
+    @@media only screen and (min-width: 600px) {
+        .formpop {
+            width: 500px;
+        }
+    }
+</style>
+<div class="popup-holder" >
+    <div id="popup2" class="lightbox-demo">
+        <!-- popupLoginFrom -->
+        <div action="#" class="popupHolderWrap bgLightDark center-block popupLarge popupLoginFrom">
+            <ul class="list-unstyled popupTabsetList text-center fwBold text-uppercase fontNeuron">
+                <li class="active"><a title="UpArazzi" href="#tab01">BAYİ OLMAK İSTİYORUM</a></li>
+
+
+            </ul>
+            <div class="tab-content">
+                <div id="tab01" class="tab-active formpop">
+                    <div class="popupColsHolder">
+                        <div class="col bgWhite">
+
+                            <div class="form-group">
+
+                                <label>Adınız Soyadınız</label>
+                                <input type="text" name="name" class="form-control elemenBlock " id="name">
+                            </div>
+                            <div class="form-group">
+                                <label>Telefon Numaranız</label>
+                                <input type="number" name="phone" class="form-control elemenBlock " id="phone">
+                            </div>
+                            <div class="form-group">
+                                <label>Doğum Tarihiniz</label>
+                                <input type="date" name="birthday" class="form-control elemenBlock " id="dt">
+                            </div>
+                            <div class="form-group">
+                                <label>Mail Adresiniz</label>
+                                <input type="email" name="mail" class="form-control elemenBlock username" id="mail">
+                            </div>
+                            <div class="form-group">
+
+                                <label>Mesleğiniz</label>
+                                <input type="text" name="job" class="form-control elemenBlock username" id="job">
+                            </div>
+                            <div class="form-group">
+
+                                <label>Ofis Açma İstediğiniz İl / İlçe</label>
+                                <input type="text" name="city" class="form-control elemenBlock username" id="city">
+                            </div>
+                            <div class="form-group">
+                                <label>Bize Nerede Ulaştınız ?</label>
+                                <select class="form-control" id="nereden">
+                                    <option value="">Seçim Yapınız</option>
+                                    <option value="Sosyal Medya">Sosyal Medya </option>
+                                    <option value="Basın">Basın</option>
+                                    <option value="Referans Kanalıyla">Referans Kanalıyla</option>
+                                    <option value="Google">Google</option>
+                                </select>
+                            </div>
+
+                            <button class="btn btnSecondary elemenBlock fontNeuron fwNormal text-uppercase btnSubmit GirisYap2">Gönder</button>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

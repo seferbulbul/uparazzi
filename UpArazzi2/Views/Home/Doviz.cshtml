@@ -1,0 +1,33 @@
+﻿<div class="col-xs-12 col-sm-3 col">
+    <h2 class="fontNeuron fwSemi text-uppercase">Kurlar</h2>
+    <!-- postsWidgetList -->
+    <ul class="list-unstyled postsWidgetList">
+        <li>
+            <div class="alignright">
+               
+            </div>
+            <div class="descrWrap">
+                <h3 class="fwNormal">Dolar</h3>
+                <h4 class="fwSemi">Dolar = @ViewBag.Dolar ₺</h4>
+            </div>
+        </li>
+        <li>
+            <div class="alignright">
+               
+            </div>
+            <div class="descrWrap">
+                <h3 class="fwNormal">Euro</h3>
+                <h4 class="fwSemi">Euro = @ViewBag.Euro ₺</h4>
+            </div>
+        </li>
+        <li>
+            <div class="alignright">
+              
+            </div>
+            <div class="descrWrap">
+                <h3 class="fwNormal">Arazi</h3>
+                <h4 class="fwSemi">m2 = <a title="Detay" href="@Url.Action("Portfoy","Home",new { PortfoyAdi =Helper.FriendlyURLTitle(ViewBag.Baslik), id=ViewBag.Id })">@ViewBag.M2 ₺</a> </h4>
+            </div>
+        </li>
+    </ul>
+</div>

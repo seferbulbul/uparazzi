@@ -1,0 +1,12 @@
+﻿@model List<town>
+
+<option value="">İlçe Seçiniz</option>
+@foreach (town item in Model)
+{
+    <option value="@item.TownID" @(ViewBag.IlceKeyId == item.TownID ? "selected" : "")> @item.TownName</option>
+}
+
+
+
+
+

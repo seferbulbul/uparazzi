@@ -1,0 +1,140 @@
+﻿@model List<service>
+@{
+    ViewBag.Title = "Servislerim";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script>
+
+    $(document).on("click", ".IslemSil", function () {
+        var id = $(this).attr("data-id");
+        swal({
+            title: "",
+            text: "İşlemi Onaylıyor Musunuz !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e69a2a",
+            confirmButtonText: "Evet",
+            cancelButtonText: "Hayır",
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                type: "get",
+                url: "/Danisman/ServisSil",
+                data: { id: id },
+                success: function () {
+                    $("#" + id).remove();
+                    swal("Başarılı", "", "success");
+                }
+            })
+
+        });
+        return false;
+    })
+
+
+
+</script>
+
+@{danisman u = Session["User"] as danisman;
+    bool admin = u.Admin.HasValue && u.Admin.Value ? true : false;}
+
+<div class="container-fluid">
+
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">SERVİSLERİM</h5>
+        </div>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        @if (!admin)
+                        {
+                            <a class="btn btn-danger btn-block btn-outline btn-anim" href="/Danisman/ServisEkle"><i class="fa fa-plus"></i><span class="btn-text">SERVİS EKLE</span></a>
+                            <br />
+                        }
+
+                        <a class="btn btn-success" style="color:white;font-weight:bold;float:right" href="@Url.Action("ExportServicesToExcel","Home")"> <i class="fa fa-file-excel-o"></i> Exel'e Aktar</a>
+
+                        <div class="table-wrap">
+                            <div class="">
+                                <table id="myTable1" class="table table-hover display  pb-30">
+                                    <thead>
+                                        <tr>
+                                            <th>Dosya No</th>
+                                            @if (admin)
+                                            {
+                                                <th>Danışman</th>
+                                            }
+                                            <th>İl / İlçe / Mahalle</th>
+                                            <th>Ada / Parsel</th>
+                                            <th>m2</th>
+                                            <th>Nitelik</th>
+                                            <th>Gönderen</th>
+                                            <th>İletişim No</th>
+                                            <th>Görüşme Tarihi</th>
+                                            <th>Fiyat</th>
+                                            <th>Verilen Teklif</th>
+                                            <th>Son Fiyat</th>
+                                            <th>Görüşme Notu</th>
+                                            <th>Portföy Açıklaması</th>
+                                            <th>Sil</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (service item in Model)
+                                        {
+                                        <tr id="@item.Id">
+                                            <td>@item.DosyaNo </td>
+                                            @if (admin)
+                                            {
+                                                <td>@item.danisman.Ad</td>
+                                            }
+                                            <td style="text-transform:capitalize"> @item.neighborhood.district.town.city.CityName.ToLower() <br /> @item.neighborhood.district.town.TownName.ToLower() <br /> @item.neighborhood.NeighborhoodName.ToLower()</td>
+                                            <td>@item.AdaParsel</td>
+                                            <td>@item.m2</td>
+                                            <td>@item.Nitelik</td>
+                                            <td>@item.Gonderen</td>
+                                            <td>@item.IletisimNo</td>
+                                            <td>@item.MeetDate.Value.ToString("dd.MM.yyyy")</td>
+                                            <td>@(item.Price.HasValue ? item.Price.Value.ToString("C2").Replace("$","") + " ₺": "-") </td>
+                                            <td>@(item.OfferPrice.HasValue ? item.OfferPrice.Value.ToString("C2").Replace("$","") + " ₺": "-") </td>
+                                            <td>@(item.LastPrice.HasValue ? item.LastPrice.Value.ToString("C2").Replace("$","") + " ₺": "-") </td>
+
+                                            <td> @item.Note</td>
+                                            <td> @item.PortfoyDetay</td>
+
+                                            <td>
+
+                                                <button title="İşlem Sil" class="btn btn-info btn-icon-anim btn-circle IslemSil" data-id="@item.Id"><i class="icon-trash"></i></button>
+
+
+
+
+
+                                            </td>
+
+                                        </tr>
+
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+
+</div>
+
+

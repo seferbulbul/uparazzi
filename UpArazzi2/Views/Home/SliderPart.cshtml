@@ -1,0 +1,20 @@
+﻿@model List<slider>
+<section class="introBanner">
+    <div class="container holder text-center textWhite">
+        <div class="align">
+
+        </div>
+    </div>
+    <!-- bannerImageSlideshow -->
+    <div class="bannerImageSlideshow bg-primary slickSlider">
+        @foreach (slider item in Model)
+        {
+            <div>
+                <span class="bgCover elemenBlock" style="background-image: url(@item.Path);"></span>
+            </div>
+        }
+
+      
+
+    </div>
+</section>

@@ -1,0 +1,155 @@
+﻿@model BlogVM
+@{
+    ViewBag.Title = Model.Blog.Title;
+    ViewBag.Description = Model.Blog.Title + " blog yazısı ve detaylı bilgi için tıklayın!";
+    ViewBag.Url = "https://www.uparazzi.com.tr/blog/" + Helper.FriendlyURLTitle(Model.Blog.Title) + "-" + Model.Blog.Id;
+    ViewBag.Photo = "https://www.uparazzi.com.tr" + Model.Blog.fotografs.First().Path;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    @@media only screen and (min-width: 768px) { 
+  .Resim {
+    height: 500px;
+  }
+}
+</style>
+<section class="twoColumns container" style="padding-top: 50px">
+    <!-- contentFiltersHeadingWrap -->
+    <header class="contentFiltersHeadingWrap row">
+        <div class="col-xs-12 col-sm-10">
+            <!-- breadcrumb -->
+
+            <h1 class="fontNeuron">@Model.Blog.Title</h1>
+        </div>
+
+    </header>
+    <div class="row">
+        <div class="col-xs-12 col-md-8">
+            <!-- content -->
+            <div id="content">
+                <div class="post-detail">
+
+                    <article class="accountData newsPostColumn newsPostColumn2 bgWhite bdr-none mb-30" >
+                        <div class="aligncenter">
+                            <div class="slick-carousel slickSlider postColumnImageSlider">
+                                @foreach (fotograf item in Model.Fotografs)
+                                {
+                                    <div>
+                                        <center>
+                                            <div class="imgHolder">
+                                                <img class="Resim" src="@item.Path" style="width:100%;object-fit:contain">
+                                            </div>
+                                        </center>
+                                    </div>
+                                }
+
+
+
+                            </div>
+                        </div>
+
+
+                        <h2 class="fontNeuron">@Model.Blog.Title</h2>
+                        <p>
+                            <a href="#" class="btn btnSmall btn-info">@Model.Blog.Category</a>
+                            <time datetime="2011-01-12">@Model.Blog.CreatedDate.Value.ToString("dd-MM-yyyy")</time>
+
+                        </p>
+                        <p>@Html.Raw(Model.Blog.Text)</p>
+                    </article>
+
+                    <div class="accountData arrowbox bgWhite">
+                        <span class="pull-left">
+                            Önceki
+                            <em>Blog Yazısı</em>
+                        </span>
+                        <span class="pull-right">
+                            Sonraki
+                            <em>Blog Yazısı</em>
+                        </span>
+                    </div>
+                    <div class="accountData-area">
+                        <div class="news-posts-carousel3 slickSlider row">
+                            @foreach (blog item in Model.Blogs.Where(x => x.Id != Model.Blog.Id))
+                            {
+                                <div>
+                                    <div class="col-xs-12">
+                                        <!-- newsPostColumn -->
+                                        <article class="newsPostColumn">
+                                            <div class="aligncenter">
+                                                <a href="@Url.Action("BlogDetay","Home",new { blogAdi =Helper.FriendlyURLTitle(item.Title), id=item.Id })">
+                                                    <img src="@item.fotografs.First().Path" alt="image description" style="height:250px;width:100%;object-fit:cover">
+                                                </a>
+                                            </div>
+                                            <h2 class="fontNeuron" style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden"><a href="@Url.Action("BlogDetay","Home",new { blogAdi =Helper.FriendlyURLTitle(item.Title), id=item.Id })">@item.Title</a></h2>
+                                            <p>
+                                                <a href="#" class="btn btnSmall btn-info">@item.Category</a>
+                                                <time datetime="2011-01-12">@item.CreatedDate.Value.ToString("dd-MM-yyyy")</time>
+                                            </p>
+                                            <p>
+                                                @{string metin = item.Text != null ? System.Text.RegularExpressions.Regex.Replace(item.Text, @"<(.|\n)*?>", string.Empty) : ""; }
+                                                @Html.Raw(metin.Length > 300 ? metin.Substring(0, 300) + "..." : metin)
+                                            </p>
+                                            <footer class="PostColumnFoot">
+                                                <a href="@Url.Action("BlogDetay","Home",new { blogAdi =Helper.FriendlyURLTitle(item.Title), id=item.Id })" class="elemenBlock readMore text-capitalize">Devamını Oku.. <i class="fi flaticon-arrows readMoreIcn"></i></a>
+                                            </footer>
+                                        </article>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-4">
+            <!-- sidebar -->
+            <aside id="sidebar">
+                <!-- widgetCalc -->
+                <section class="widget widgetPadding widgetCalc bgWhite">
+                    <!-- widgetCalcForm -->
+                    <form action="/Home/Blog" class="widgetSearchForm">
+                        <div class="form-group">
+                            <input type="text" class="form-control elemenBlock" placeholder="Arama" name="Search">
+                            <button type="submit" class="elemenBlock btn btnSecondary fontNeuron text-uppercase bdr-none"><i class="fi flaticon-search"></i></button>
+                        </div>
+                    </form>
+                </section>
+                <section class="widget widgetPadding widgetCalc bgWhite">
+                    <h3 class="fontNeuron fwBold text-capitalize">Kategoriler</h3>
+                    <ul class="list-unstyled widgetCategoryList">
+                        @foreach (blog item in Model.Blogs.GroupBy(x => x.Category).Select(x => x.First()))
+                        {
+                            <li><a href="/Home/Blog/?Category=@item.Category">@item.Category</a></li>
+                        }
+                    </ul>
+                </section>
+                <!-- widgetRecentPosts -->
+                <section class="widget widgetPadding widgetRecentPosts bgWhite">
+                    <h3 class="fontNeuron fwBold text-capitalize">Popüler Yayınlar</h3>
+                    <ul class="list-unstyled widgetRecentPostsList padlReset">
+                        @foreach (blog item in Model.Blogs.OrderByDescending(x => x.ReadCount).Take(5))
+                        {
+                            <li>
+                                <div class="alignleft">
+                                    <a href="@Url.Action("BlogDetay","Home",new { blogAdi =Helper.FriendlyURLTitle(item.Title), id=item.Id })"><img src="@item.fotografs.First().Path" alt="image description" style="height:100px;width:100%;object-fit:cover"></a>
+                                </div>
+                                <div class="descrWrap">
+                                    <h4 class="fontNeuron fwBold"><a href="@Url.Action("BlogDetay","Home",new { blogAdi =Helper.FriendlyURLTitle(item.Title), id=item.Id })">@item.Title</a></h4>
+                                    <p>@item.CreatedDate.Value.ToString("dd-MM-yyyy")</p>
+                                </div>
+                            </li>
+                        }
+
+
+                    </ul>
+                </section>
+
+
+            </aside>
+        </div>
+    </div>
+</section>
+<!-- signupFormAside -->

@@ -1,0 +1,129 @@
+// custom variables and override bootstrap variables
+
+//== Colors
+$gray-base:																									#000 !default;
+$white:																										#fff;
+$gray:																										#444;
+$gray-light:																								#8e99a3;
+$brand-primary:																								#13293d;
+$brand-success:																								#6dcd6d;
+$brand-info:																								#56ccf2;
+$clr1:																										#dcf2f7;
+$clr2:																										#43909f;
+$clr3:																										#93d0dc;
+$clr4:																										#a2c4cc;
+$clr5:																										#83b0bb;
+$clr6:																										#4f767f;
+$clr7:																										#dfebee;
+$clr8:																										#57bb57;
+$clr9:																										#6d7d8b;
+$clr10:																										#d8e5f0;
+$clr11:																										#114a82;
+$clr12:																										#2f80ed;
+$clr13:																										#f4faff;
+$clr14:																										#e3eef0;
+$clr15:																										#4c58a4;
+$clr16:																										#c2d6db;
+$clr17:																										#deedf0;
+$clr18:																										#94b6be;
+$clr19:																										#aec6cb;
+$clr20:																										#050e17;
+$clr21:																										#d9e0e7;
+$clr22:																										#a6c2c9;
+$clr23:																										#99b3b9;
+$clr24:																										#b2c7cc;
+$clr25:																										#ccd5dd;
+$clr26:																										#bacbcf;
+$clr27:																										#bcd8df;
+$clr28:																										#d72638;
+$clr29:																										#9dbfc7;
+$clr30:																										#37438d;
+$clr31:																										#aecae4;
+$clr32:																										#0e2132;
+$clr33:																										#afe9fb;
+$clr-34:																									#bedee5;
+$clr35:																										#789ba2;
+$clr36:																										#919191;
+$clr37:																										#484848;
+$clr38:																										#7ea3ab;
+$clr39:																										#3b5998;
+$clr40:																										#1da1f2;
+
+//== Scaffolding
+$body-bg:																									#f0f9fb;
+$text-color:																								$gray-light;
+$link-color:																								$brand-info;
+$link-hover-decoration:																						none;
+
+//== Typography
+$font-family-sans-serif:																					"Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-neuron:																								"Neuron", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-size-base:																							13px;
+$line-height-base:																							(24/13);
+$font-size-h1:																								30px;
+$font-size-h2:																								26px;
+$font-size-h3:																								22px;
+$font-size-h4:																								18px;
+$font-size-h5:																								15px;
+$font-size-h6:																								$font-size-base;
+$headings-font-weight:																						700;
+$headings-color:																							$brand-primary;
+
+//== Components
+$border-radius-base:																						0;
+$caret-width-base:																							5px;
+
+//== Dropdowns
+$dropdown-bg:																								$white;
+$dropdown-border:																							$dropdown-bg;
+$dropdown-fallback-border:																					$dropdown-bg;
+$dropdown-divider-bg:																						$clr3;
+$dropdown-link-color:																						$clr9;
+$dropdown-link-hover-color:																					$clr9;
+$dropdown-link-hover-bg:																					$clr10;
+$dropdown-link-active-color:																				$dropdown-link-hover-color;
+$dropdown-link-active-bg:																					$dropdown-link-hover-bg;
+$dropdown-header-color:																						$body-bg;
+$dropdown-caret-color:																						$body-bg;
+
+//== Forms
+$input-bg:																									$white;
+$input-color:																								$brand-primary;
+$input-border:																								$clr7;
+$input-border-radius-large:																					99px;
+$input-border-focus:																						$brand-primary;
+$input-color-placeholder:																					$gray-light;
+$input-height-base:																							50px;
+$input-height-large:																						$input-height-base;
+
+//== Navbar
+$navbar-collapse-max-height:																				100vh;
+$navbar-default-color:																						$white;
+$navbar-default-bg:																							$brand-primary;
+$navbar-default-border:																						transparent;
+$navbar-default-link-color:																					$white;
+$navbar-default-link-hover-color:																			$white;
+$navbar-default-link-hover-bg:																				$brand-info;
+$navbar-default-link-active-color:																			$white;
+$navbar-default-link-active-bg:																				$brand-info;
+$navbar-default-toggle-hover-bg:																			$clr3;
+$navbar-default-toggle-icon-bar-bg:																			$brand-primary;
+$navbar-default-toggle-border-color:																		$brand-primary;
+
+//== Breadcrumbs
+$breadcrumb-bg:																								transparent;
+$breadcrumb-color:																							$gray-light;
+$breadcrumb-separator:																						"-";
+
+//== Pagination
+$pagination-color:																							$clr24;
+$pagination-hover-color:																					$white;
+$pagination-hover-bg:																						$brand-primary;
+$pagination-hover-border:																					$brand-primary;
+$pagination-active-color:																					$white;
+
+//== Panels
+$panel-inner-border:																						$clr17;
+$panel-default-text:																						$text-color;
+$panel-default-border:																						transparent;
+$panel-default-heading-bg:																					transparent;

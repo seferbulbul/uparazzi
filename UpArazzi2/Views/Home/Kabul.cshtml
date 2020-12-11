@@ -1,0 +1,47 @@
+﻿@model danisman
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+
+
+
+@if (Model != null)
+{
+    <script>
+        $(document).ready(function () {
+            (async () => {
+                const { value: accept } = await Swal.fire({
+                    width: "680px",
+                    title: 'Bilgilendirme',
+                    allowOutsideClick: false,
+                    input: 'checkbox',
+                    allowEscapeKey: false,
+                        reverseButtons: true,
+                    inputValue: 0,
+                     showCancelButton: true,
+                     cancelButtonText: "<a href=\"/Home/LogOut\">Oturumu Kapat</a>",
+                    inputPlaceholder:
+                        '<a href="/Home/KullanimGizlilik">Kullanım Şartlarını ve Gizlilik Politikası</a>' + '\'nı Okudum, Kabul Ediyorum.',
+                    confirmButtonText:
+                        'Devam Et',
+                    inputValidator: (result) => {
+                        return !result && 'Devam Edebilmeniz İçin Kutucuğu İşaretlemeniz Gerekir.'
+                    }
+                })
+
+                if (accept) {
+                    $.ajax({
+                        type: "get",
+                        url: "/Home/GetKabul",
+                        success: function () {
+                            Swal.fire({ type: 'success', text: 'Teşekkürler !' });
+                        }
+                    })
+                }
+            })()
+        })
+    </script>  
+
+}
+
+

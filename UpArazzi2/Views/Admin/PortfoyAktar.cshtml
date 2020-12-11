@@ -1,0 +1,62 @@
+﻿@model List<danisman>
+@{
+    ViewBag.Title = "PortfoyAktar";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container-fluid">
+
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <h5 class="txt-dark">PORTFÖY AKTAR</h5>
+        </div>
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <p style="color:red;font-weight:bold">@ViewBag.Mesaj</p>
+                        <form action="/Admin/PortfoyAktar" method="post">
+
+                            <div class="col-md-4">
+                                <label>Kimden</label>
+                                <select class="form-control" name="kimden" required>
+                                    <option value="">Seçim Yapınız</option>
+                                    @foreach (danisman item in Model)
+                                    {
+                                        <option value="@item.Id">@item.Ad</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Kime</label>
+                                <select class="form-control" name="kime" required>
+                                    <option value="">Seçim Yapınız</option>
+                                    @foreach (danisman item in Model)
+                                    {
+                                        <option value="@item.Id">@item.Ad</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+
+                                <label></label>
+                                <button class="btn btn-danger btn-rounded btn-block btn-anim"><i class="fa fa-save"></i><span class="btn-text">AKTAR</span></button>
+
+
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+
+</div>
+

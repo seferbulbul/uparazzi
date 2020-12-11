@@ -1,0 +1,88 @@
+﻿@model List<portfoy>
+@{
+    ViewBag.Title = "TumIlanlar";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+    <div class="container-fluid">
+
+        <!-- Title -->
+        <div class="row heading-bg">
+            <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+                <h5 class="txt-dark">
+                    @{ 
+                        string a="";
+                        try
+                        {
+                            a=Model.First(x => x.danisman.Broker == true).danisman.UparazziName;
+                        }
+                        catch (Exception)
+                        {
+
+                            a=Model.First().danisman.danisman2.UparazziName;
+                        };
+                    }
+                @a.ToUpper() İLANLARI
+                </h5>
+            </div>
+
+        </div>
+        <!-- /Title -->
+        <!-- Row -->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default card-view">
+                    <div class="panel-wrapper collapse in">
+                        <div class="panel-body">
+                            <div class="table-wrap">
+                                <div class="">
+                                    <table id="myTable1" class="table table-hover display  pb-30">
+                                        <thead>
+                                            <tr>
+                                                <th>İlan Resmi</th>
+                                                <th>İlan Adı</th>
+                                                <th>Nitelik</th>
+                                                <th>Konum</th>
+                                                <th style="width:100px">Fiyat</th>
+                                                <th>m²</th>
+                                                <th style="width:100px">m² Fiyatı</th>
+                                                <th>Danısman</th>
+                                             
+                                                
+
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (portfoy item in Model)
+                                            {
+                                                <tr id="@item.Id">
+                                                    <td><img src="@(item.fotografs.Count>0? item.fotografs.OrderBy(x=>x.PhotoOrder).First().Path:"/Theme/images/fotoYok.jpg")" style="height:100px;min-width:200px;object-fit:cover" /> </td>
+                                                    <td> @item.Baslik</td>
+                                                    <td> @(item.Satilik == true ? "Satılık" : "Kiralık") @item.IlanTipi</td>
+                                                    <td> @item.neighborhood.district.town.city.CityName / @item.neighborhood.district.town.TownName / @item.neighborhood.NeighborhoodName</td>
+                                                    <td> @item.Fiyat.Value.ToString("c2").Replace("$", "").Replace(".00", "") ₺</td>
+                                                    <td> @item.M2</td>
+                                                    <td> @((item.Fiyat / item.M2).Value.ToString("c2").Replace("$", "").Replace(".00", "")) ₺ / m2</td>
+
+                                                    <td> @item.danisman.Ad</td>
+                                                  
+                                                    
+
+                                                    
+                                                </tr>
+
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Row -->
+
+    </div>
+

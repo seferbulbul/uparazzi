@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Anayasa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    @@media only screen and (max-width: 768px) {
+        #desktop {
+            display: none;
+        }
+    }
+    @@media only screen and (min-width: 768px) {
+        #mobile {
+            display: none;
+        }
+    }
+</style>
+
+<section class="introBanner" style="padding-top:250px" id="desktop">
+    <div class="container holder text-center textWhite">
+        <div class="align">
+
+        </div>
+    </div>
+    <!-- bannerImageSlideshow -->
+    <div class="bannerImageSlideshow bg-primary slickSlider">
+
+        <span class="bgCover elemenBlock" style="background-image: url(/Theme/images/MarkaYasa.jpg);"></span>
+    </div>
+</section>
+
+<section class="introBanner" id="mobile" style="background-color:#75706c">
+    <div class="container holder text-center textWhite">
+        <div class="align">
+
+        </div>
+    </div>
+    <!-- bannerImageSlideshow -->
+    <div class="bannerImageSlideshow bg-primary slickSlider" style="background-color:#75706c">
+
+        <img src="~/Theme/images/MarkaYasa.png" style="width:100%;object-fit:contain" />
+    </div>
+</section>

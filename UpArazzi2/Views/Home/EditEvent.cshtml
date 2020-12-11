@@ -1,0 +1,124 @@
+﻿@model ajanda
+@{
+    ViewBag.Title = "EditEvent";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@{danisman u = Session["User"] as danisman; }
+
+<div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">Etkinlik Düzenle </h5>
+        </div>
+        <!-- Breadcrumb -->
+        <!-- /Breadcrumb -->
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+                    <div class="pull-left">
+                        <h6 class="panel-title txt-dark">ETKİNLİK BİLGİLERİ</h6>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <form action="/Home/DeleteEvent/?EventId=@Model.Id" method="post">
+
+                    <button class="btn btn-danger btn-sm">Etkinlik Sil</button> Etkinliğin Silinmesini Onaylıyorum.    <input type="checkbox" required />
+                </form>
+           
+                <br />
+                <h6 style="color:red;font-weight:bold">@ViewBag.Mesaj</h6>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <form action="/Home/EditEvent" method="post">
+
+                            <div class="row">
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label> Etkinlik Tarihi</label>
+                                        @Html.TextBoxFor(x => x.Tarih, new { @class = "form-control", type = "date", required = "required", Value = Model.Tarih.Value.ToString("yyyy-MM-dd") })
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label> Etkinlik Saati </label>
+                                        <div class='input-group date' id='datetimepicker2'>
+                                            <input type='text' class="form-control" name="Saat" value="@Model.Saat" required/>
+                                            <span class="input-group-addon">
+                                                <span class="fa fa-clock-o"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label> Etkinlik Başlığı</label>
+                                        @Html.TextBoxFor(x => x.Title, new { @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label> Etkinlik Açıklaması</label>
+                                        @Html.TextAreaFor(x => x.Text, new { rows = "4", @class = "form-control", required = "required" })
+                                    </div>
+                                </div>
+
+                                @if (u.Admin == true)
+                                {
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label> Kimler İçin </label>
+                                            <br />
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <input type="checkbox" name=Kime value="Uzman" @(Model.toDanisman==true ? "checked":"" ) />     Uzmanlar
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="checkbox" name=Kime value="Broker" @(Model.toBroker==true ? "checked":"" )/>    <label> Brokerlar </label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="checkbox" name=Kime value="Mudur" @(Model.toMudur==true  ? "checked":"" ) />    <label> Ofis Müdürleri </label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="checkbox" name=Kime value="Asistan" @(Model.toAsistan==true  ? "checked":"" )/>    <label> Ofis Asistanları </label>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <input type="checkbox" name=Kime value="Yonetim" @(Model.toYonetim==true  ? "checked":"" )/>    <label> Yönetim </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                                @Html.HiddenFor(x => x.Id)
+
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <button class="btn btn-success btn-rounded btn-block btn-anim"><i class="fa fa-send"></i><span class="btn-text">Güncelle</span></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+
+<script src="/AdminTheme/doodle-demo/full-width-light/dist/js/form-picker-data.js"></script>
+

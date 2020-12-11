@@ -1,0 +1,295 @@
+﻿@model DanismanVM
+@{
+    ViewBag.Title = "Danisman";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+            var markers = @Html.Raw(ViewBag.Markers);
+            window.onload = function () {
+                var mapOptions = {
+                    center: new google.maps.LatLng(36.1470545,33.9848245),
+                    zoom: 6,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                var infoWindow = new google.maps.InfoWindow();
+                var map = new google.maps.Map(document.getElementById("map_div"), mapOptions);
+                for (i = 0; i < markers.length; i++) {
+                    var data = markers[i]
+                    var myLatlng = new google.maps.LatLng(data.lat, data.lng);
+                    var marker = new google.maps.Marker({
+                        position: myLatlng,
+                        map: map,
+                        title: data.title
+                    });
+                    (function (marker, data) {
+                        google.maps.event.addListener(marker, "click", function (e) {
+                            infoWindow.setContent(data.description);
+                            infoWindow.open(map, marker);
+                        });
+                    })(marker, data);
+                }
+            }
+</script>
+
+<main>
+    <!-- findFormBlock -->
+    <form action="/Home/Ilanlar" class="findFormBlock findFormBlock2 bgLightDark hasShadowTop offsetHeaderTop">
+        <div class="container">
+            <div class="row align-center d-flex">
+                <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+                    <div class="form-group">
+                        <select data-placeholder="İl Seçiniz" name="ilKey" class="form-control iller">
+                            <option value="">İl Seçiniz</option>
+                            @{ Html.RenderAction("Iller");}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3">
+                    <div class="form-group">
+                        <select data-placeholder="İlçe Seçiniz" name="ilceKey" class="form-control ilceler">
+                            @{ Html.RenderAction("Ilceler");}
+                        </select>
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-3 col-md-3">
+                    <div class="form-group">
+                        <select data-placeholder="Nitelik Seçiniz" name="ilanTipi" class="form-control">
+                            <option value="">Nitelik Seçiniz</option>
+                            <option value="Arazi">Arazi</option>
+                            <option value="Arsa">Arsa</option>
+                            <option value="Tarla">Tarla</option>
+                            <option value="Hobi Bahçesi">Hobi Bahçesi</option>
+                            <option value="Bungalow,Çiftlik Evi,Villa,Köy Evi">Bungalow / Çiftlik Evi / Villa / Köy Evi</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4 col-lg-3">
+                    <div class="btnsWrap">
+                        <!-- otherFeaturesOpener -->
+
+                        <button type="submit" class="btn btnDark buttonSmall text-uppercase fontNeuron">ARA</button>
+                    </div>
+                </div>
+            </div>
+            <!-- orderRow -->
+
+        </div>
+    </form>
+    <!-- content -->
+    <section id="content" class="container pabIndent">
+        <!-- contentFiltersHeadingWrap -->
+        <header class="contentFiltersHeadingWrap row">
+            <div class="col-xs-12 col-sm-10">
+                <!-- breadcrumb -->
+                <ol class="breadcrumb breadcrumb1">
+                    <li><a href="#">uparazzi</a></li>
+                    <li class="active">@Model.Danisman.Gorevi</li>
+                </ol>
+                <h1 class="fontNeuron">@Model.Danisman.Ad</h1>
+            </div>
+            <div class="col-xs-12 col-sm-2">
+                <!-- viewFilterLinks -->
+                <ul class="list-unstyled viewFilterLinks">
+                    <li><a href="#"><i class="fi flaticon-share"></i></a></li>
+                    <li><a href="#"><i class="fi flaticon-printer"></i></a></li>
+                </ul>
+            </div>
+        </header>
+        <!-- userProfile -->
+        <div class="userProfile">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-8">
+                    <!-- accountData -->
+                    <div class="accountData style2">
+                        <div class="accountHolder">
+                            <div class="imgProfile">
+                                <div class="imgThumbnail">
+                                    <img src="@Model.Danisman.PhotoPath" alt="image description" style="max-width:250px">
+                                </div>
+                            </div>
+                            <div class="accountContent">
+                                <strong class="title fontNeuron">uparazzi</strong>
+                                <span class="sub-title"><i class="fi flaticon-pin"></i> @Model.Danisman.Bolge</span>
+                                <p>@Model.Danisman.Ozgecmis</p>
+                                <div class="contactInfo">
+                                    <address class="adr">
+                                        <div class="item">
+                                            <i class="fi flaticon-24-hours"></i>
+                                            <span class="text"><a href="tel:908502272779"> 08502272779</a></span>
+                                        </div>
+                                        @{ string tel = (Model.Danisman.Telefon.Substring(0, 1) == "0" ? "+9" : "+90") + Model.Danisman.Telefon; }
+
+                                        <div class="item">
+                                            <a href="https://api.whatsapp.com/send?phone=@tel&text=Şirketinizden bilgi almak istiyorum. Benimle iletişime geçer misiniz?"><i class="fab fa-whatsapp"></i></a>
+                                            <span class="text"> <a href="tel:@Model.Danisman.Telefon">@Model.Danisman.Telefon</a></span>
+                                        </div>
+                                        <div class="item">
+                                            <i class="fi flaticon-mail"></i>
+                                            <span class="text"><a href="mailto:@Model.Danisman.Email">@Model.Danisman.Email</a></span>
+                                        </div>
+                                    </address>
+                                </div>
+                                @if (Model.Danisman.Broker == true || Model.Danisman.DanismanMi == true)
+                                {
+                                    <span class="btn btnSmall btn-success text-capitalize">Satılık : @Model.Ilanlar.Count(x=>x.Satilik==true)</span>
+                                    <span class="btn btnSmall btn-info text-capitalize">Kiralık : @Model.Ilanlar.Count(x=>x.Satilik==false)</span>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (Model.Danisman.Broker == true || Model.Danisman.DanismanMi == true)
+                    {
+
+                        <div class="tabSetholder bgWhite">
+                            <ul class="list-unstyled tabset">
+
+                                <li class="active">
+                                    <a href="#tab2-0">Portföy Haritası </a>
+                                </li>
+
+                            </ul>
+                            <div class="tab-content">
+
+                                <div id="tab2-0">
+                                    <div class="map-area" style="height:400px">
+                                        <div id="map-container">
+                                            <div id="map_div">&nbsp;</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <header class="row rowHead rowHead2">
+                            <div class="col-xs-12">
+                                <!-- postsFiltersList -->
+                                <ul class="list-unstyled postsFiltersList postsFiltersList2 text-capitalize text-center isoFiltersList pull-right">
+                                </ul>
+                            </div>
+                        </header>
+                        foreach (portfoy item in Model.Ilanlar)
+                        {
+                            <article class="postColumn__ListView hasOver bgWhite">
+                                <div class="alignleft noShrink">
+                                    <!-- postColumnImageSlider -->
+                                    <div class="slick-carousel slickSlider postColumnImageSlider">
+                                        <div>
+                                            <div class="imgHolder">
+                                                <a href="@Url.Action("Portfoy","Home",new { PortfoyAdi =Helper.FriendlyURLTitle(item.Baslik), id=item.Id })">
+                                                    <center>
+                                                        <img src="@(item.fotografs.Count>0? item.fotografs.OrderBy(x=>x.PhotoOrder).First().Path:"/Theme/images/fotoYok.jpg")" style="max-height:150px;width:auto" alt="image description">
+                                                    </center>
+                                                </a>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <!-- postHoverLinskList -->
+
+
+                                </div>
+                                <div class="descrWrap">
+                                    <h2 class="fontNeuron text-capitalize"><a href="@Url.Action("Portfoy","Home",new { PortfoyAdi =Helper.FriendlyURLTitle(item.Baslik), id=item.Id })">@item.Baslik</a></h2>
+
+                                    <address>
+                                        <span class="icn"><i class="fi flaticon-pin-1"></i></span>
+                                        <p>@item.neighborhood.district.town.city.CityName/ @item.neighborhood.district.town.TownName / @item.neighborhood.NeighborhoodName </p>
+                                    </address>
+                                    <div class="stampWrap">
+                                        <a href="@Url.Action("Portfoy","Home",new { PortfoyAdi =Helper.FriendlyURLTitle(item.Baslik), id=item.Id })"><span class="btn btnSmall btn-success text-capitalize">İlan Detayı</span></a>
+                                        @*<time datetime="2011-01-12" class="timing">@((DateTime.Now.Date - item.IlanTarihi.Value.Date).Days) Gün Önce</time>*@
+                                    </div>
+                                    <div class="priceWrap">
+                                        <h3 class="fontNeuron fwSemi"><span class="textSecondary">@item.Fiyat.Value.ToString("c2").Replace("$", "").Replace(".00", "") ₺</span> <span class="textUnit fwNormal"></span></h3>
+                                        <!-- linkDistributer -->
+
+                                    </div>
+                                    <!-- postColumnFoot -->
+                                    <footer class="postColumnFoot">
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <strong class="fwNormal elemenBlock text-primary">m2</strong>
+                                                <strong class="fwNormal elemenBlock">@item.M2 m2</strong>
+                                            </li>
+                                            <li>
+                                                <strong class="fwNormal elemenBlock text-primary">m2 Fiyat</strong>
+                                                <strong class="fwNormal elemenBlock">@item.M2Fiyat</strong>
+                                            </li>
+                                            <li>
+                                                <strong class="fwNormal elemenBlock text-primary">Nitelik</strong>
+                                                <strong class="fwNormal elemenBlock">@item.IlanTipi</strong>
+                                            </li>
+                                            <li>
+                                                <strong class="fwNormal elemenBlock text-primary">Tarih</strong>
+                                                <strong class="fwNormal elemenBlock">@item.IlanTarihi.Value.ToString("dd.MM.yyyy")</strong>
+                                            </li>
+                                        </ul>
+                                    </footer>
+                                </div>
+                            </article>
+                        }
+
+                    }
+
+
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-4">
+                    <!-- contactFormPage -->
+                    @if (Model.Danisman.Broker == true || Model.Danisman.DanismanMi == true)
+                    {
+                        <div class="contactFormPage mb-30">
+                            <h4 class="fontNeuron">Benimle İletişime Geçin</h4>
+                            <form action="/Home/Danisman/@Model.Danisman.Id" method="post">
+                                <div class="row">
+
+                                    <div class="col-xs-12">
+                                        <p style="color:red">@ViewBag.Mesaj</p>
+                                        <div class="form-group">
+                                            <input type="text" name="name" required placeholder="İsminiz" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <input type="tel" required name="phone" placeholder="Telefonunuz" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div class="form-group">
+                                            <input type="email" name="mail" required placeholder="E-Posta Adresiniz" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <textarea class="form-control" name="message" required placeholder="Sn. @Model.Danisman.Ad, sizden satılık ilanlarınız ile ilgili bilgi rica ediyorum"></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btnDark fontNeuron buttonXL">Gönder</button>
+                            </form>
+                        </div>
+                    }
+
+                    <div class="widget widgetPadding widgetCalc bgWhite">
+                        <h3 class="fontNeuron fwBold text-capitalize">Çalışma Saatleri</h3>
+                        <ul class="list-unstyled OpeningTimelist">
+                            <li><span class="day pull-left">Pazartesi</span><time class="pull-right" datetime="2018-03-02 20:00">  09:00  - 19:00 </time></li>
+                            <li><span class="day pull-left">Salı</span><time class="pull-right" datetime="2018-03-02 20:00">  09:00  - 19:00 </time></li>
+                            <li><span class="day pull-left">Çarşamba</span><time class="pull-right" datetime="2018-03-02 20:00">  09:00  - 19:00 </time></li>
+                            <li><span class="day pull-left">Perşembe</span><time class="pull-right" datetime="2018-03-02 20:00">  09:00  - 19:00 </time></li>
+                            <li><span class="day pull-left">Cuma</span><time class="pull-right" datetime="2018-03-02 20:00"> 09:00  - 19:00 </time></li>
+                            <li><span class="day pull-left">Cumartesi</span><time class="pull-right " datetime="2018-03-02 20:00">  09:00  - 16:00 </time></li>
+                            <li><span class="day pull-left">Pazar</span><time class="pull-right " datetime="2018-03-02 20:00">  Kapalı</time></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- signupFormAside -->
+</main>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUPAdoOOy1nVtzhjrBUxPDuWGajbHu7RM" defer="defer"></script>

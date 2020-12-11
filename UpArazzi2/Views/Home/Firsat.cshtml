@@ -1,0 +1,80 @@
+﻿@model List<portfoy>
+
+<section class="latestPostsBlock container">
+    <!-- rowHead -->
+    <header class="row rowHead">
+        <div class="col-xs-12 col-sm-5">
+            <h1 class="fontNeuron blockH text-uppercase"><span class="bdrBottom">Öne Çıkan İlanlar</span></h1>
+        </div>
+        <div class="col-xs-12 col-sm-7">
+
+        </div>
+    </header>
+    <!-- isoContentHolder -->
+    <div class="isoContentHolder">
+        <div class="row">
+            @foreach (portfoy item in Model)
+            {
+
+                <div class="col-xs-12 col-sm-6 col-md-4 col isoCol sale">
+                    <!-- postColumn -->
+                    <article class="postColumn hasOver bgWhite">
+                        <div class="aligncenter">
+                            <!-- postColumnImageSlider -->
+                            <div class="slick-carousel slickSlider postColumnImageSlider">
+
+                                <a title="Detay" href="@Url.Action("Portfoy","Home",new { PortfoyAdi =Helper.FriendlyURLTitle(item.Baslik), id=item.Id })">
+                                    <img src="@(item.fotografs.Count>0? item.fotografs.OrderBy(x=>x.PhotoOrder).First().Path:"/Theme/images/fotoYok.jpg")" style="height:260px;width:100%;object-fit:cover" alt="image description">
+                                </a>
+
+                            </div>
+                            <!-- postHoverLinskList -->
+                            <ul class="list-unstyled postHoverLinskList">
+                                <li class="hasOver">
+                                    <i class="fi flaticon-share"></i>
+                                    <!-- postColumnSocial -->
+                                    <ul class="list-unstyled socialNetworks postColumnSocial">
+                                        <li><a title="Detay" rel="nofollow" href="https://api.whatsapp.com/send?text=https://uparazzi.com.tr/@Helper.FriendlyURLTitle(item.Baslik)-@item.Id"><i class="fab fa-whatsapp"></i></a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <!-- linkToFavourite -->
+                            @{ string adres = "https://www.google.com/maps/place/" + item.Latitude + "," + item.Longtitude;}
+                            <a title="Google Harita" rel="nofollow" href="@adres" target="_blank" class="linkToFavourite roundedCircle bg-primary textWhite icnHeartBeatAnim"><i class="fi flaticon-pin-1"></i></a>
+                        </div>
+                        <h2 class="fontNeuron text-capitalize" style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden"><a title="Detay" href="@Url.Action("Portfoy","Home",new { PortfoyAdi =Helper.FriendlyURLTitle(item.Baslik), id=item.Id })">@item.Baslik</a></h2>
+                        <address>
+                            <span class="icn"><i class="fi flaticon-pin-1"></i></span>
+                            <p style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden">@item.neighborhood.district.town.city.CityName / @item.neighborhood.district.town.TownName / @item.neighborhood.NeighborhoodName </p>
+                        </address>
+                        <span class="btn btnSmall btn-success text-capitalize"> @(item.Satilik == true ? "Satılık" : "Kiralık")</span>
+                        <h3 class="fontNeuron fwSemi"><span class="textSecondary">@item.Fiyat.Value.ToString("C2").Replace("$", "").Replace(".00", "") ₺ </span>@*<span class="textUnit fwNormal"> / @item.IlanTipi</span>*@</h3>
+                        <!-- postColumnFoot -->
+                        <footer class="postColumnFoot">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <strong class="fwNormal elemenBlock text-primary">m2</strong>
+                                    <strong class="fwNormal elemenBlock">@item.M2</strong>
+                                </li>
+                                <li>
+                                    <strong class="fwNormal elemenBlock text-primary">m2 Fiyat</strong>
+                                    <strong class="fwNormal elemenBlock">@((item.Fiyat / item.M2).Value.ToString("c2").Replace("$", "").Replace(".00", "")) ₺ / m2</strong>
+                                </li>
+                                <li>
+                                    <strong class="fwNormal elemenBlock text-primary">Nitelik</strong>
+                                    <strong class="fwNormal elemenBlock">@item.IlanTipi</strong>
+                                </li>
+                            </ul>
+                        </footer>
+                    </article>
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+    <div class="row text-center btnHolder">
+        <a href="/Home/Ilanlar" class="btn btn-primary btnPrimaryOutline text-capitalize fontNeuron">Devamını Görmek İçin Tıklayın</a>
+        </div>
+</section>

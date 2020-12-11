@@ -1,0 +1,187 @@
+﻿@model  danisman
+@{
+    ViewBag.Title = "DanismanGuncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main style="padding-top:50px">
+
+    <!-- findFormBlock -->
+    <!-- content -->
+    <section id="content" class="container pabIndent">
+        <!-- contentFiltersHeadingWrap -->
+        <header class="contentFiltersHeadingWrap row">
+            <div class="col-xs-12 col-sm-10">
+                <!-- breadcrumb -->
+                <ol class="breadcrumb breadcrumb1">
+                </ol>
+                <h1 class="fontNeuron">Uzman Profili</h1>
+            </div>
+            <div class="col-xs-12 col-sm-2">
+                <!-- viewFilterLinks -->
+                <ul class="list-unstyled viewFilterLinks">
+                </ul>
+            </div>
+
+        </header>
+        <!-- userProfile -->
+        <div class="userProfile">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-lg-3">
+                    <!-- profileSidebar -->
+                    <aside class="profileSidebar">
+
+                        <header class="head">
+                            <div class="imgProfile">
+                                <img src="@Model.PhotoPath" alt="" width="74" height="74">
+                            </div>
+                            <div class="info">
+                                <span class="text">@Model.Ad</span>
+
+                            </div>
+                        </header>
+                        <ul class="navUser list-unstyled">
+                            <li>
+                                <a href="#">
+                                    <i class="far fa-user"></i>
+                                    <span>Hesap Ayarları</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Home/TumIlanlar">
+                                    <i class="fi flaticon-house"></i>
+                                    <span>Portföylerim</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="/Danisman/PortfoyEkle">
+                                    <i class="fa fa-plus"></i>
+                                    <span>İlan Gir</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/Home/LogOut">
+                                    <i class="fa fa-sign-out-alt"></i>
+                                    <span>Çıkış</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </aside>
+
+
+                </div>
+                <div class="col-xs-12 col-sm-8 col-lg-9">
+                    <!-- accountData -->
+                    <div class="accountData">
+                        <form action="/Danisman/DanismanGuncelle" method="post" enctype="multipart/form-data">
+                            <div class="head">
+                                <h4 class="fontNeuron">Hesap Ayarları</h4>
+                            </div>
+                            <p style="color:red">  @ViewBag.Mesaj</p>
+                            <br />
+                            <div class="accountHolder">
+
+                                <div class="imgProfile">
+                                    <div class="imgThumbnail">
+                                        <img src="@Model.PhotoPath" alt="" style="max-height:200px;width:auto">
+                                        <br /><br />
+                                        <div class="btnArea">
+
+                                            <input type="file" name="Resim" class="btn btn-info fa fa-upload" />
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="accountContent">
+                                    <div class="form-group">
+                                        <label for="itemN-1">İsim Soyisim</label>
+                                        @Html.TextBoxFor(x => x.Ad, new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="itemN-2">E-Posta</label>
+                                        @Html.TextBoxFor(x => x.Email, new { @class = "form-control", disabled = "disabled" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="itemN-3">Telefon</label>
+                                        @Html.TextBoxFor(x => x.Telefon, new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="itemN-3">Bölge</label>
+                                        @Html.TextBoxFor(x => x.Bolge, new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="itemN-3">Görevi</label>
+                                        @Html.TextBoxFor(x => x.Gorevi, new { @class = "form-control" })
+                                    </div>
+
+                                    @if (Model.Yeterlilik == null)
+                                    {
+                                        <div class="form-group">
+                                            <label for="itemN-16">Mesleki Yeterlilik Belgesi <br /> ( *Belgeyi Yüklemek İçin Son Tarih : @(Model.CreatedDate.Value.AddDays(90).ToString("dd-MM-yyyy")))</label>
+                                            <input type="file" class="form-control" name="Yeterlilik" />
+                                        </div>
+                                    }
+
+
+                                    <div class="form-group">
+                                        <label for="itemN-4">Özgeçmiş</label>
+                                        @Html.TextAreaFor(x => x.Ozgecmis, new { @class = "form-control" })
+                                    </div>
+                                    @Html.HiddenFor(x => x.Id)
+                                    <button type="submit" class="btn alighRight btnSecondary buttonL fontNeuron">Profili Güncelle</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- accountData -->
+                    <div class="accountData">
+                        <form action="/Danisman/DanismanGuncelle/?pwd=pwd" method="post">
+                            <div class="head">
+                                <h4 class="fontNeuron">Şifre Değiştir</h4>
+                            </div>
+                            <div class="accountHolder">
+                                <div class="accountContent">
+                                    <div class="row">
+
+                                        <div class="col-xs-12 col-md-6">
+                                            <p style="color:red">  @ViewBag.Mesaj</p>
+                                            <div class="form-group">
+                                                <label for="itemN-5">Şu anki Şireniz</label>
+                                                @Html.PasswordFor(x => x.Password, new { @class = "form-control", placeholder = "******", required = "required" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6">
+                                            <div class="form-group">
+                                                <label for="itemN-6">Yeni Şifreniz</label>
+                                                <input type="password" name="pw1" required class="form-control" placeholder="*******" id="itemN-6">
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6">
+                                            <div class="form-group">
+                                                <label for="itemN-7">Şifreyi Onayla</label>
+                                                <input type="password" name="pw2" required class="form-control" placeholder="*******" id="itemN-7">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @Html.HiddenFor(x => x.Id)
+                                    <button type="submit" class="btn alighRight btnSecondary buttonL fontNeuron">Parola GÜncelle</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- accountData -->
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+    <!-- signupFormAside -->
+
+</main>

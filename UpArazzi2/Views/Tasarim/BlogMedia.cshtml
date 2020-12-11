@@ -1,0 +1,150 @@
+﻿@model List<fotograf>
+@{
+    ViewBag.Title = "BlogMedia";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style type="text/css">
+    <!--
+    #loading {
+        width: 200px;
+        height: 100px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        margin-top: -50px;
+        margin-left: -100px;
+        text-align: center;
+    }
+    -->
+</style>
+<script type="text/javascript">
+    document.write('<div id="loading"><br><br>Sayfa Yükleniyor...</div>');
+    window.onload = function () {
+        document.getElementById("loading").style.display = "none";
+    }
+</script>
+<script>
+
+
+    $(document).on("click", ".Sirala", function () {
+        var id = $(this).attr("data-id");
+        var sira = $(this).val();
+        $.ajax({
+            type: "get",
+            url: "/Tasarim/Sirala",
+            data: { id: id, sira: sira },
+            success: function () {
+
+            }
+        })
+    })
+
+    $(document).on("click", ".DeletePhoto", function () {
+        var id = $(this).attr("id");
+        swal({
+            title: "",
+            text: "Resmi Silmek İstediğinizi Onaylıyor Musunuz !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e69a2a",
+            confirmButtonText: "Evet",
+            cancelButtonText: "Hayır",
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                type: "get",
+                url: "/Tasarim/FotoSil",
+                data: { id: id },
+                success: function () {
+                    $("#" + id).parent().parent().remove();
+                    swal("Silindi", "", "success");
+                }
+            })
+
+        });
+        return false;
+    })
+
+
+</script>
+
+<div class="container-fluid">
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">GALERİ</h5>
+        </div>
+
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <!-- /Row -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="panel panel-default card-view">
+                <div class="panel-heading">
+
+                    <div class="clearfix"></div>
+                </div>
+                <p style="color:red;font-weight:bold">@ViewBag.Mesaj</p>
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="gallery-wrap">
+
+                            <div class="portfolio-wrap project-gallery">
+
+                                <form action="/Tasarim/BlogMedia/@Model.First().BlogId" enctype="multipart/form-data" method="post">
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <input type="file" name="Resimler" class="form-control" multiple required />
+                                            </div>
+                                            <div class="col-md-4">
+                                                <button class="btn btn-info btn-rounded btn-block btn-anim"><i class="fa fa-send"></i><span class="btn-text">YENİ RESİMLER EKLE</span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <p> * Resimlerin üstündeki kutulara numara yazarak resimlerin sıralamasını değiştirebilirsiniz..</p>
+                                <ul id="portfolio_1" class="portf auto-construct  project-gallery" data-col="4">
+
+
+
+
+
+                                    @foreach (fotograf item in Model)
+                                    {
+
+                                        <li class="item small" data-src="@item.Path">
+                                            <center>
+                                                <input type="number" value="@item.PhotoOrder" class="form-control Sirala" data-id="@item.Id" style="width:50%" />
+                                            </center>
+                                            <a href="#" class="">
+                                                <center>
+                                                    <img src="@item.Path" alt="" style="height:250px" />
+                                                </center>
+                                                <span class="hover-cap DeletePhoto" id="@item.Id">FOTOĞRAFI SİL</span>
+                                            </a>
+                                        </li>
+
+                                    }
+
+
+
+                                </ul>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+</div>
+
+

@@ -1,0 +1,49 @@
+﻿@model List<blog>
+@{
+    ViewBag.Title = "Sss";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .panel-body p {
+        font-size:16px;
+    }
+</style>
+    <section id="content" class="container pabIndent" style="padding-top:50px">
+
+        <!-- contentFiltersHeadingWrap -->
+        <header class="contentFiltersHeadingWrap row">
+            <div class="col-xs-12 col-sm-10">
+                <!-- breadcrumb -->
+
+                <h1 class="fontNeuron">Sıkça Sorulan Sorular</h1>
+            </div>
+
+        </header>
+        <!-- faqsMain -->
+        <div class="faqsMain">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                @{ int i = 1;}
+                @foreach (blog item in Model)
+                {
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title fontNeuron">
+                                <a role="button" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne@(item.Id)" aria-expanded="true" aria-controls="collapseOne">
+                                    @item.Title <i class="fi flaticon-arrows"></i>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne@(item.Id)" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                @Html.Raw(item.Text)
+                            </div>
+                        </div>
+                    </div>
+                }
+               
+
+
+
+            </div>
+        </div>
+    </section>

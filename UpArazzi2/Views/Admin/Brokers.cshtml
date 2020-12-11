@@ -1,0 +1,122 @@
+﻿@model BrokersVM
+@{
+    ViewBag.Title = "Brokers";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<script>
+    
+
+    $(document).on("click", ".SifreGoster", function () {
+        var id = $(this).attr("id");
+        var psw = $(this).attr("data-psw");
+        $(this).parent().html(psw);
+    })
+
+    $(document).on("click", ".BayiSil", function () {
+        var id = $(this).attr("id");
+        swal({
+            title: "",
+            text: "İşlemi Onaylıyor Musunuz !",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e69a2a",
+            confirmButtonText: "Evet",
+            cancelButtonText: "Hayır",
+            closeOnConfirm: false
+        }, function () {
+            $.ajax({
+                type: "get",
+                url: "/Admin/BayiSil",
+                data: { id: id },
+                success: function () {
+                    $("#" + id).parent().parent().remove();
+                    swal("Tamamlandı", "", "success");
+                }
+            })
+
+        });
+        return false;
+    })
+
+    
+
+</script>
+<div class="container-fluid">
+
+    <!-- Title -->
+    <div class="row heading-bg">
+        <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
+            <h5 class="txt-dark">BROKER LİSTESİ</h5>
+        </div>
+
+    </div>
+    <!-- /Title -->
+    <!-- Row -->
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default card-view">
+                <div class="panel-wrapper collapse in">
+                    <div class="panel-body">
+                        <div class="table-wrap">
+                            <div class="">
+                                <table id="myTable1" class="table table-hover display  pb-30">
+                                    <thead>
+                                        <tr>
+                                            <th>Resim</th>
+                                            <th> Bayi Adı</th>
+                                            <th>  Email</th>
+                                            <th>  Parola</th>
+                                            <th> Uzmanlar</th>
+                                            <th> Portföyler</th>
+                                            <th> Satılık Portföyler</th>
+                                            <th> Kiralık Portföyler</th>
+                                            <th> Satılan Portföyler</th>
+                                            <th> Kiralanan Portföyler</th>
+                                            <th> Güncelle / Sil</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (danisman item in Model.Brokers)
+                                        {
+
+                                            <tr>
+                                                <td><img src="@(item.PhotoPath!=null ? item.PhotoPath : "/Theme/images/fotoYok.jpg")" style="height:100px;min-width:200px;object-fit:contain" /> </td>
+                                                <td>@item.Ad</td>
+                                                <td> @item.Email</td>
+                                                <td> ******  <i style="float:right" id="@item.Id" data-psw="@item.Password" class="fa fa-eye SifreGoster"></i></td>
+                                                <td>@item.danisman1.Count</td>
+                                                <td>@Model.Portfoys.Count(x => (x.danisman.BrokerId == item.Id || x.DanismanId == item.Id) && x.IsDeleted==false)</td>
+                                                <td>@Model.Portfoys.Count(x => (x.danisman.BrokerId == item.Id || x.DanismanId == item.Id) && x.Satilik == true && !x.islems.Any(y=>y.IsDeleted==false && y.YonetimOnay==true))</td>
+                                                <td>@Model.Portfoys.Count(x => (x.danisman.BrokerId == item.Id || x.DanismanId == item.Id) && x.Satilik == false && !x.islems.Any(y=>y.IsDeleted==false && y.YonetimOnay==true))</td>
+                                                <td>@Model.Portfoys.Count(x => (x.danisman.BrokerId == item.Id || x.DanismanId == item.Id) && x.Satilik == true &&x.islems.Any(y=>y.IsDeleted==false && y.YonetimOnay==true))</td>
+                                                <td>@Model.Portfoys.Count(x => (x.danisman.BrokerId == item.Id || x.DanismanId == item.Id) && x.Satilik == false && x.islems.Any(y=>y.IsDeleted==false && y.YonetimOnay==true))</td>
+
+
+                                                <td>
+                                                    <button onclick="location.href='/Admin/EditBroker/@item.Id'" title="Güncelle" class="btn btn-primary btn-icon-anim btn-circle" id="@item.Id"><i class="fa fa-edit"></i></button>
+                                                    @if (item.IsDeleted == true)
+                                                    {
+                                                        <button title="Aktif Et" class="btn btn-info btn-icon-anim btn-circle BayiSil" id="@item.Id"><i class="icon-refresh"></i></button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button title="Pasif Et" class="btn btn-info btn-icon-anim btn-circle BayiSil" id="@item.Id"><i class="icon-trash"></i></button>
+                                                    }
+
+                                                </td>
+                                            </tr>
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Row -->
+
+</div>
+
