@@ -28,6 +28,7 @@ namespace UpArazzi2.Controllers
                         LogEkle($"{CurrentUser.Ad}, sisteme giriş yapmıştır.", true);
                     }
                     return Session["User"] as danisman;
+
                 }
 
                 return null;
