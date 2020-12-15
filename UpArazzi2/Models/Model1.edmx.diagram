@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2aecc525874745f7985e91f58a15ae41" Name="Diagram1" ZoomLevel="84">
+      <Diagram DiagramId="2aecc525874745f7985e91f58a15ae41" Name="Diagram1" ZoomLevel="46">
         <EntityTypeShape EntityType="uparazzidbModel.ajanda" Width="1.5" PointX="3" PointY="37.875" />
         <EntityTypeShape EntityType="uparazzidbModel.blog" Width="1.5" PointX="9" PointY="13.125" />
         <EntityTypeShape EntityType="uparazzidbModel.city" Width="1.5" PointX="0.75" PointY="10.25" />
