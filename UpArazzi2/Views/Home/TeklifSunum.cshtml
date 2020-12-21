@@ -387,9 +387,11 @@
                         <tr>
                             <!-- ID:TXT TITLE -->
                             <td align="left" width="800">
-                                <a href="#" style="color:#333333; text-decoration:none;">
-                                    <img src="@Model.Resimler.First().Path" alt="800x350" width="100%"  style="margin:0; border:0; width:100%; max-width:100%; display:block; height:auto;" />
-                                </a>
+                                <center>
+                                    <a href="#" style="color:#333333; text-decoration:none;">
+                                        <img src="@Model.Resimler.First().Path" alt="" style=" max-width:80%" />
+                                    </a>
+                                </center>
                             </td>
                         </tr>
                     </table>
@@ -981,7 +983,7 @@
                                                                                                             <tr>
                                                                                                                 <!-- ID:TXT PRICE CONTENT -->
                                                                                                                 <td class="MsoNormal" style="color:#666666; font-family: Arial, Helvetica Neue, Helvetica, sans-serif;font-size:14px;line-height:24px;letter-spacing:1px;">
-                                                                                                                    @(Model.Portfoy.KatKarsiligi.Value ? "Evet" : "Hayır")
+                                                                                                                    @(Model.Portfoy.KatKarsiligi == true ? "Evet" : "Hayır")
                                                                                                                 </td>
                                                                                                             </tr>
                                                                                                         </table>
@@ -999,7 +1001,7 @@
                                                                                                             <tr>
                                                                                                                 <!-- ID:TXT PRICE CONTENT -->
                                                                                                                 <td class="MsoNormal" style="color:#666666; font-family: Arial, Helvetica Neue, Helvetica, sans-serif;font-size:14px;line-height:24px;letter-spacing:1px;">
-                                                                                                                    @(Model.Portfoy.TakasMi.Value ? "Evet" : "Hayır")
+                                                                                                                    @(Model.Portfoy.TakasMi == true? "Evet" : "Hayır")
                                                                                                                 </td>
                                                                                                             </tr>
                                                                                                         </table>
@@ -1017,7 +1019,7 @@
                                                                                                             <tr>
                                                                                                                 <!-- ID:TXT PRICE CONTENT -->
                                                                                                                 <td class="MsoNormal" style="color:#666666; font-family: Arial, Helvetica Neue, Helvetica, sans-serif;font-size:14px;line-height:24px;letter-spacing:1px;">
-                                                                                                                    @(Model.Portfoy.KadastralYol.Value ? "Evet" : "Hayır")
+                                                                                                                    @(Model.Portfoy.KadastralYol == true ? "Evet" : "Hayır")
                                                                                                                 </td>
                                                                                                             </tr>
                                                                                                         </table>
@@ -1143,7 +1145,7 @@
                                                         <!-- ID:TXT VIDEO TITLE -->
                                                         <td align="center" style="color:#333333;">
                                                             <a href="#" style="color:#333333; text-decoration:none;">
-                                                                <img src="@item.Path" alt="600x400" width="600" height="400" style="margin:0; border:0; padding:0; display:block; width:100%; height:auto;" />
+                                                                <img src="@item.Path" alt="" style="margin:0; border:0; padding:0; display:block; width:100%" />
                                                             </a>
                                                         </td>
                                                     </tr>

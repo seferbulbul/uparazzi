@@ -84,7 +84,7 @@ namespace UpArazzi2.Controllers
                 xr.WriteEndElement();
             }
 
-            List<blog> b = db.blogs.ToList();
+            List<blog> b = db.blogs.Where(x=>x.SSS!=true).ToList();
 
             foreach (blog item in b)
             {
@@ -153,8 +153,6 @@ namespace UpArazzi2.Controllers
 
             return PartialView();
         }
-
-
         public string Login(string username, string password, string role)
         {
             danisman d = db.danismen.FirstOrDefault(x => x.Email == username && x.Password == password && x.IsDeleted == false);
@@ -229,7 +227,7 @@ namespace UpArazzi2.Controllers
             {
                 MailSender.Send(d.Email, subject: "Parola Hk.", body: $" \n\n Ad Soyad: {d.Ad}  \n\n Telefon Numarası: {d.Telefon}  \n\n Mail Adresi: {d.Email} \n\n Parola : {d.Password} ");
 
-                LogEkle($"{CurrentUser.Ad}, Parola unuttum seçeneğini kullnarak kendisine parolası mail olarak gönderilmiştir.", true);
+                LogEkle($"{CurrentUser.Ad}, Parola unuttum seçeneğini kullanarak kendisine parolası mail olarak gönderilmiştir.", true);
             }
             else
             {
@@ -600,6 +598,8 @@ namespace UpArazzi2.Controllers
             danisman d = db.danismen.Find(id);
             d.IsDeleted = d.IsDeleted == true ? false : true;
             db.SaveChanges();
+
+            LogEkle($"{d.Ad}, {CurrentUser.Ad} tarafından pasife alınmıştır.",true);
         }
 
         public void DanismanOnayla(int id)
@@ -612,6 +612,8 @@ namespace UpArazzi2.Controllers
       
             string text = $"Hesabınız yönetim tarafından onaylanmıştır.  Şifreniz : {d.Password}";
             MailSender.Send(d.Email, subject: konu, body: EmailHtml(konu, text, d));
+
+            LogEkle($"{d.Ad}, {CurrentUser.Ad} tarafından onaylanmıştır.", true);
         }
 
         public ActionResult Firsat()
@@ -646,6 +648,8 @@ namespace UpArazzi2.Controllers
             islem i = db.islems.Find(id);
             i.IsDeleted = true;
             db.SaveChanges();
+
+            LogEkle($"{i.PortfoyNo} için düzenlenmiş olan bitmiş işlem raporu {CurrentUser.Ad} tarafından silinmiştir.", true);
         }
 
         public void Favori(int id)
@@ -660,6 +664,9 @@ namespace UpArazzi2.Controllers
             portfoy p = db.portfoys.Find(id);
             p.Onay = p.Onay == true ? false : true;
             db.SaveChanges();
+
+            LogEkle($"{p.IlanNo} numaralı ilan {CurrentUser.Ad} tarafından onaylanmıştır.", true);
+
         }
 
         public ActionResult Bayiler()
@@ -697,9 +704,9 @@ namespace UpArazzi2.Controllers
             {
                 CurrentUser.Kabul = true;
                 danisman d = db.danismen.Find(CurrentUser.Id);
-                d.Kabul = true;
+                d.Kabul = true; 
+                db.SaveChanges();
             }
-            db.SaveChanges();
         }
 
         public ActionResult Hesabim()
@@ -834,6 +841,9 @@ namespace UpArazzi2.Controllers
 
             ViewBag.Mesaj = " * Etkinlik oluşturulmuştur. ";
 
+            LogEkle($"{CurrentUser.Ad} tarafından {a.Tarih} tarihli bir etkinlik oluşturulmuştur.", true);
+
+
             return View();
         }
 
@@ -871,6 +881,8 @@ namespace UpArazzi2.Controllers
         {           
             string konu = "Destek Talebi";           
             MailSender.Send(kime, subject: konu, body: EmailHtml(konu, text, CurrentUser));
+
+            LogEkle($"{CurrentUser.Ad}, {kime} için destek talebi oluşturmuştur.", true);
         }
 
         public ActionResult deneme()
@@ -934,7 +946,7 @@ namespace UpArazzi2.Controllers
         {
             PortfoyVM vm = new PortfoyVM();
             vm.Portfoy = db.portfoys.Find(id);
-            vm.Resimler = db.fotografs.Where(x => x.PortfoyId == id).ToList();
+            vm.Resimler = db.fotografs.Where(x => x.PortfoyId == id).OrderBy(x=>x.PhotoOrder).ToList();
             
             return View(vm);
         }
@@ -969,10 +981,6 @@ namespace UpArazzi2.Controllers
             }
 
             return View(mails.OrderByDescending(x => x.Date).ToList());
-
-
-
-
         }
 
         public ActionResult MailDetay(DateTime date)
@@ -1000,7 +1008,7 @@ namespace UpArazzi2.Controllers
         public void SendMessage(string kime, string mesaj)
         {
             danisman d = db.danismen.Where(x => x.Ad == kime && x.IsDeleted == false && x.Onay == true).FirstOrDefault();
-            string konu = CurrentUser.Ad +  " Size Mesaj Gönderdi !";         
+            string konu = CurrentUser.Ad +  " Size Mesaj Gönderdi !";
             MailSender.Send(d.Email, subject: "Mesajınız Var !", body: EmailHtml(konu, mesaj, CurrentUser));
         }
 
@@ -1015,11 +1023,11 @@ namespace UpArazzi2.Controllers
             if (Category != null)
             {
                 b = b.Where(x => x.Category == Category);
-            }else if (Search != null)
+            }
+            else if (Search != null)
             {
                 b = b.Where(x => x.Category.Contains(Search) || x.Title.Contains(Search) || x.Text.Contains(Search));
             }
-
 
             vm.Blogs = b.Where(x=>x.SSS==false).OrderByDescending(x => x.Id).ToList();
 
@@ -1039,13 +1047,12 @@ namespace UpArazzi2.Controllers
             vm.Portfoys = db.portfoys.Where(x => x.IsDeleted == false && !x.islems.Any(y => y.IsDeleted == false && y.YonetimOnay == true) && x.BittiTarih > DateTime.Now).OrderByDescending(x => x.Id).Take(5).ToList();
             vm.Fotografs = db.fotografs.Where(x => x.BlogId == id).ToList();
 
-           
             return View(vm);
         }
 
         public ActionResult BlogPartial()
         {
-            List<blog> b = db.blogs.Where(x=>x.SSS==false).OrderByDescending(x => x.Id).Take(4).ToList();
+            List<blog> b = db.blogs.Where(x => x.SSS == false).OrderByDescending(x => x.Id).Take(4).ToList();
             return PartialView(b);
         }
 
@@ -1056,6 +1063,7 @@ namespace UpArazzi2.Controllers
             {
                 db.ajandas.Remove(a);
                 db.SaveChanges();
+                LogEkle($"{CurrentUser.Ad} tarafından {a.Tarih} tarihli etkinlik silinmiştir.", true);
             }           
             return RedirectToAction("Ajanda");
         }
@@ -1121,11 +1129,14 @@ namespace UpArazzi2.Controllers
 
             string[] title = new string[k.Count()];
             int i = 0;
-            foreach(var item in k.ToList())
+
+            foreach (var item in k.ToList())
             {
                 title[i++] = item.Title;
             }
+
             ViewBag.titles = title;
+
             if (search != null)
             {
                 k = k.Where(x => x.Title.ToLower().Contains(search.Trim().ToLower()));
@@ -1213,12 +1224,12 @@ namespace UpArazzi2.Controllers
         {
            var s = db.services.Where(x => x.IsDeleted == false);
 
-            if (CurrentUser.Admin !=true)
+            if (CurrentUser.Admin != true)
             {
                 s = s.Where(x => x.DanismanId == CurrentUser.Id);
             }
 
-            return View(s.OrderByDescending(x=>x.Id).ToList());
+            return View(s.OrderByDescending(x => x.Id).ToList());
         }
 
         public void ExportServicesToExcel()
@@ -1276,13 +1287,13 @@ namespace UpArazzi2.Controllers
             }
 
             ws.Cells["A:AZ"].AutoFitColumns();
-           
+
             Response.Clear();
             Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             Response.AddHeader("content-disposition", "attachment: filename=" + "ExcellReport.xlsx");
             Response.BinaryWrite(pck.GetAsByteArray());
             Response.End();
-        }     
+        }
 
     }
 }
